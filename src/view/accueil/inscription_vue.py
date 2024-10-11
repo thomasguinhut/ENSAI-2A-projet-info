@@ -1,10 +1,4 @@
-import regex
-
 from InquirerPy import inquirer
-from InquirerPy.validator import PasswordValidator, EmptyInputValidator
-
-from prompt_toolkit.validation import ValidationError, Validator
-
 
 from view.vue_abstraite import VueAbstraite
 from service.utilisateur_service import UtilisateurService
@@ -39,14 +33,10 @@ class InscriptionVue(VueAbstraite):
             ),
         ).execute()
 
-    def verifier_2mdp(mdp, mdp2):
+        # Appel du service pour créer l'utilisateur
         if mdp != mdp2:
             return InscriptionVue(f"Les deux mots de passe ne sont pas identiques.")
         else:
-            return True
-
-        # Appel du service pour créer l'utilisateur
-        if verifier_2mdp:
             utilisateur = UtilisateurService().creer(id_utilisateur, mdp)
 
         # Si l'utilisateur a été créé

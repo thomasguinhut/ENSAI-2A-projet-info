@@ -1,9 +1,9 @@
 from InquirerPy import inquirer
-
 from view.vue_abstraite import VueAbstraite
 
+
 class InviteVue(VueAbstraite):
-    "Vue du mode invité."
+    """Vue du mode invité."""
 
     def choisir_menu(self):
         """Choix du menu suivant
@@ -29,6 +29,6 @@ class InviteVue(VueAbstraite):
                 pass
 
             case "Afficher la liste des recettes":
-                from view.accueil.invite_vue import InviteVue
+                from view.invite.liste_recettes_vue import ListeRecettesVue
 
-                return ???
+                return ListeRecettesVue("Affichage de la liste des recettes")
