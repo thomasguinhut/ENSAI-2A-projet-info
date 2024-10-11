@@ -11,19 +11,13 @@ class UtilisateurService:
     """Classe contenant les méthodes de service des Utilisateurs"""
 
     @log
-    def creer(self, id_utilisateur, mdp1, mdp2, favoris) -> Utilisateur:
+    def creer(self, id_utilisateur, mdp) -> Utilisateur:
         """Création d'un utilisateur à partir de ses attributs"""
-        if trouver_par_id(self, id_utilisateur) is not None:
-            print("Le pseudo existe déjà.")
-        elif mdp1 != mdp2:
-            print("Les deux mots de passe ne correspondent pas.")
-        else:
-            nouveau_utilisateur = Utilisateur(
-                id_utilisateur=id_utilisateur,
-                mdp=hash_password(mdp1, id_utilisateur),
-                favoris=favoris,
-            )
-            return nouveau_utilisateur if UtilisateurDao().creer(nouveau_utilisateur) else None
+        nouveau_utilisateur = Utilisateur(
+            id_utilisateur=id_utilisateur,
+            mdp=hash_password(mdp, id_utilisateur),
+        )
+        return nouveau_utilisateur if UtilisateurDao().creer(nouveau_utilisateur) else None
 
     @log
     def trouver_par_id(self, id_utilisateur) -> Utilisateur:
