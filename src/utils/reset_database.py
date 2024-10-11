@@ -36,16 +36,16 @@ class ResetDatabase(metaclass=Singleton):
         init_db_as_string = init_db.read()
         init_db.close()
 
-        pop_db = open(pop_data_path, encoding="utf-8")
-        pop_db_as_string = pop_db.read()
-        pop_db.close()
+        # pop_db = open(pop_data_path, encoding="utf-8")
+        # pop_db_as_string = pop_db.read()
+        # pop_db.close()
 
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(create_schema)
                     cursor.execute(init_db_as_string)
-                    cursor.execute(pop_db_as_string)
+                    # cursor.execute(pop_db_as_string)
         except Exception as e:
             logging.info(e)
             raise
@@ -60,4 +60,3 @@ class ResetDatabase(metaclass=Singleton):
 
 if __name__ == "__main__":
     ResetDatabase().lancer()
-    ResetDatabase().lancer(True)
