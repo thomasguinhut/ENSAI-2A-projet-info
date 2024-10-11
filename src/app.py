@@ -5,44 +5,44 @@ from pydantic import BaseModel
 
 from utils.log_init import initialiser_logs
 
-from service.joueur_service import JoueurService
+from service.utilisateur_service import UtilisateurService
 
 app = FastAPI(title="Mon webservice")
 
 
 initialiser_logs("Webservice")
 
-joueur_service = JoueurService()
+utilisateur_service = UtilisateurService()
 
 
-@app.get("/joueur/", tags=["Joueurs"])
-async def lister_tous_joueurs():
-    """Lister tous les joueurs
-    GET http://localhost/joueur
+@app.get("/utilisateur/", tags=["Utilisateurs"])
+async def lister_tous_utilisateurs():
+    """Lister tous les utilisateurs
+    GET http://localhost/utilisateur
     """
-    logging.info("Lister tous les joueurs")
-    liste_joueurs = joueur_service.lister_tous()
+    logging.info("Lister tous les utilisateurs")
+    liste_utilisateurs = utilisateur_service.lister_tous()
 
     liste_model = []
-    for joueur in liste_joueurs:
-        liste_model.append(joueur)
+    for utilisateur in liste_utilisateurs:
+        liste_model.append(utilisateur)
 
     return liste_model
 
 
-@app.get("/joueur/{id_joueur}", tags=["Joueurs"])
-async def joueur_par_id(id_joueur: int):
-    """Trouver un joueur à partir de son id
-    GET http://localhost/joueur/3
+@app.get("/utilisateur/{id_utilisateur}", tags=["utilisateurs"])
+async def utilisateur_par_id(id_utilisateur: int):
+    """Trouver un utilisateur à partir de son id
+    GET http://localhost/utilisateur/3
     """
-    logging.info("Trouver un joueur à partir de son id")
-    return joueur_service.trouver_par_id(id_joueur)
+    logging.info("Trouver un utilisateur à partir de son id")
+    return utilisateur_service.trouver_par_id(id_utilisateur)
 
 
-class JoueurModel(BaseModel):
-    """Définir un modèle Pydantic pour les Joueurs"""
+class UtilisateurModel(BaseModel):
+    """Définir un modèle Pydantic pour les Utilisateurs"""
 
-    id_joueur: int | None = None  # Champ optionnel
+    id_utilisateur: int | None = None  # Champ optionnel
     pseudo: str
     mdp: str
     age: int
@@ -50,50 +50,47 @@ class JoueurModel(BaseModel):
     fan_pokemon: bool
 
 
-@app.post("/joueur/", tags=["Joueurs"])
-async def creer_joueur(j: JoueurModel):
-    """Créer un joueur"""
-    logging.info("Créer un joueur")
-    if joueur_service.pseudo_deja_utilise(j.pseudo):
+@app.post("/utilisateur/", tags=["Utilisateurs"])
+async def creer_utilisateur(j: UtilisateurModel):
+    """Créer un utilisateur"""
+    logging.info("Créer un utilisateur")
+    if utilisateur_service.identifiant_deja_utilise(u.id_utilisateur):
         raise HTTPException(status_code=404, detail="Pseudo déjà utilisé")
 
-    joueur = joueur_service.creer(j.pseudo, j.mdp, j.age, j.mail, j.fan_pokemon)
-    if not joueur:
-        raise HTTPException(status_code=404, detail="Erreur lors de la création du joueur")
+    utilisateur = utilisateur_service.creer(u.pseudo, u.mdp)
+    if not utilisateur:
+        raise HTTPException(status_code=404, detail="Erreur lors de la création du utilisateur")
 
-    return joueur
-
-
-@app.put("/joueur/{id_joueur}", tags=["Joueurs"])
-def modifier_joueur(id_joueur: int, j: JoueurModel):
-    """Modifier un joueur"""
-    logging.info("Modifier un joueur")
-    joueur = joueur_service.trouver_par_id(id_joueur)
-    if not joueur:
-        raise HTTPException(status_code=404, detail="Joueur non trouvé")
-
-    joueur.pseudo = j.pseudo
-    joueur.mdp = j.mdp
-    joueur.age = j.age
-    joueur.mail = j.mail
-    joueur.fan_pokemon = j.fan_pokemon
-    joueur = joueur_service.modifier(joueur)
-    if not joueur:
-        raise HTTPException(status_code=404, detail="Erreur lors de la modification du joueur")
-
-    return f"Joueur {j.pseudo} modifié"
+    return utilisateur
 
 
-@app.delete("/joueur/{id_joueur}", tags=["Joueurs"])
-def supprimer_joueur(id_joueur: int):
-    """Supprimer un joueur"""
-    logging.info("Supprimer un joueur")
-    joueur = joueur_service.trouver_par_id(id_joueur)
-    if not joueur:
-        raise HTTPException(status_code=404, detail="Joueur non trouvé")
+@app.put("/utilisateur/{id_utilisateur}", tags=["Utilisateurs"])
+def modifier_utilisateur(id_utilisateur: int, u: UtilisateurModel):
+    """Modifier un utilisateur"""
+    logging.info("Modifier un utilisateur")
+    utilisateur = utilisateur_service.trouver_par_id(id_utilisateur)
+    if not utilisateur:
+        raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
 
-    joueur_service.supprimer(joueur)
-    return f"Joueur {joueur.pseudo} supprimé"
+    utilisateur.pseudo = u.id_utilisateur
+    utilisateur.mdp = j.mdp
+    utilisateur = utilisateur_service.modifier(utilisateur)
+    if not utilisateur:
+        raise HTTPException(status_code=404, detail="Erreur lors de la modification du utilisateur")
+
+    return f"Utilisateur {u.identifiant} modifié"
+
+
+@app.delete("/utilisateur/{id_utilisateur}", tags=["Utilisateurs"])
+def supprimer_utilisateur(id_utilisateur: int):
+    """Supprimer un utilisateur"""
+    logging.info("Supprimer un utilisateur")
+    utilisateur = utilisateur_service.trouver_par_id(id_utilisateur)
+    if not utilisateur:
+        raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
+
+    utilisateur_service.supprimer(utilisateur)
+    return f"Utilisateur {utilisateur.pseudo} supprimé"
 
 
 @app.get("/hello/{name}")

@@ -83,13 +83,13 @@ class JoueurService:
         return str_joueurs
 
     @log
-    def se_connecter(self, pseudo, mdp) -> Joueur:
+    def se_connecter(self, id_utilisateur, mdp) -> Utilisateur:
         """Se connecter à partir de pseudo et mdp"""
-        return JoueurDao().se_connecter(pseudo, hash_password(mdp, pseudo))
+        return UtilisateurDao().se_connecter(, hash_password(mdp, pseudo))
 
     @log
-    def pseudo_deja_utilise(self, pseudo) -> bool:
+    def identifiant_deja_utilise(self, id_utilisateur) -> bool:
         """Vérifie si le pseudo est déjà utilisé
         Retourne True si le pseudo existe déjà en BDD"""
-        joueurs = JoueurDao().lister_tous()
-        return pseudo in [j.pseudo for j in joueurs]
+        utilisateurs = UtilisateurDao().lister_tous()
+        return id in [u.id_utilisateur for u in utilisateurs]
