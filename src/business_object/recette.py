@@ -10,9 +10,9 @@ class Recette:
         self,
         id_recette: str,
         nom_recette: str,
-        liste_ingredient: dict[Ingredient, str],
+        liste_ingredient: dict[Ingredient, str]=None,
         instructions: str,
-        avis: dict[str, Avis],
+        avis: dict[str, Avis]=None,
         liste_categorie: list[Categorie],
         origine_recette: Origine,
     ):
