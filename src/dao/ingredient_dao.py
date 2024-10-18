@@ -5,19 +5,19 @@ from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
 
-# from business_object.origine import Origine
+# from business_object.ingredient import Ingredient
 
 
 class OrigineDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour accéder aux Origines de la base de données"""
+    """Classe contenant les méthodes pour accéder aux Ingrédients de la base de données"""
 
     @log
-    def creer(self, origine) -> bool:
-        """Creation d'une origine dans la base de données
+    def creer(self, ingredient) -> bool:
+        """Creation d'un ingredient dans la base de données
 
          Parameters
          ----------
-        origine : Origine
+        ingredient : Ingredient
 
          Returns
          -------
@@ -32,12 +32,12 @@ class OrigineDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO origine(id_origine, nom) VALUES        "
-                        "(%(id_origine)s, %(nom)s)             "
-                        "  RETURNING id_origine;                                ",
+                        "INSERT INTO ingredient(id_ingredient, nom) VALUES        "
+                        "(%(id_ingredient)s, %(nom)s)             "
+                        "  RETURNING id_ingredient;                                ",
                         {
-                            "id_origine": origine.id_origine,
-                            "nom": origine.nom,
+                            "id_origine": ingredient.id_ingredient,
+                            "nom": ingredient.nom,
                         },
                     )
                     res = cursor.fetchone()
@@ -46,7 +46,7 @@ class OrigineDao(metaclass=Singleton):
 
         created = False
         if res:
-            origine.id_origine = res["id_origine"]
+            ingredient.id_ingredient = res["id_ingredient"]
             created = True
 
         return created
