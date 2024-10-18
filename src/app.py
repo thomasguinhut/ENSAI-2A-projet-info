@@ -54,7 +54,7 @@ class UtilisateurModel(BaseModel):
 async def creer_utilisateur(j: UtilisateurModel):
     """Créer un utilisateur"""
     logging.info("Créer un utilisateur")
-    if utilisateur_service.identifiant_deja_utilise(u.id_utilisateur):
+    if utilisateur_service.id_utilisateur_deja_utilise(u.id_utilisateur):
         raise HTTPException(status_code=404, detail="Pseudo déjà utilisé")
 
     utilisateur = utilisateur_service.creer(u.pseudo, u.mdp)
@@ -78,7 +78,7 @@ def modifier_utilisateur(id_utilisateur: int, u: UtilisateurModel):
     if not utilisateur:
         raise HTTPException(status_code=404, detail="Erreur lors de la modification du utilisateur")
 
-    return f"Utilisateur {u.identifiant} modifié"
+    return f"Utilisateur {u.id_utilisateur} modifié"
 
 
 @app.delete("/utilisateur/{id_utilisateur}", tags=["Utilisateurs"])

@@ -41,6 +41,6 @@ class AccueilVue(VueAbstraite):
                 return InscriptionVue("Création du compte utilisateur")
 
             case "Mode invité":
-                from view.accueil.invite_vue import InviteVue
+                from view.invite.invite_vue import InviteVue
 
                 return InviteVue("Mode invité")

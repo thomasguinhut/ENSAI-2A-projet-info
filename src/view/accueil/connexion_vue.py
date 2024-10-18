@@ -13,12 +13,12 @@ class ConnexionVue(VueAbstraite):
 
         # Appel du service pour trouver l'utilisateur
         try:
-            utilisateur = UtilisateurService().se_connecter(pseudo, mdp)
+            utilisateur = UtilisateurService().se_connecter(id_utilisateur, mdp)
 
-            # Si l'utilisateur a été trouvé à partir de ses identifiants de connexion
+            # Si l'utilisateur a été trouvé à partir de ses identifiants de 
+            # connexion
             if utilisateur:
                 message = f"Vous êtes connecté sous le pseudo {utilisateur.id_utilisateur}"
-                Session().connexion(utilisateur)
 
                 from view.menu_utilisateur_vue import MenuUtilisateurVue
 
