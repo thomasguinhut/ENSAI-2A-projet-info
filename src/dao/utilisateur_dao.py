@@ -88,6 +88,35 @@ class UtilisateurDao(metaclass=Singleton):
         return utilisateur
 
     @log
+    def existence_id(self, id_utilisateur) -> bool:
+        """Renvoie vrai si l'id existe déjà
+
+        Parameters
+        ----------
+        id_utilisateur : int
+            numéro id dont on souhaite vérifier l'exisqtence
+
+        Returns
+        -------
+        exist : booléen
+        """
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT id_utilisateur                           "
+                        "  FROM utilisateur                      "
+                        " WHERE id_utilisateur = %(id_utilisateur)s;  ",
+                        {"id_utilisateur": id_utilisateur},
+                    )
+                    res = cursor.fetchone()
+        except Exception as e:
+            logging.info(e)
+            raise
+
+        return len(res) != 0
+
+    @log
     def se_connecter(self, id_utilisateur, mdp) -> Utilisateur:
         """se connecter grâce à son id et son mot de passe
 
