@@ -15,7 +15,6 @@ class RecetteClient:
         # Appel du Web service
         liste_recette = []
         for letter in range(ord("a"), ord("z") + 1):
-            print(chr(letter))
             req = requests.get(
                 f"https://www.themealdb.com/api/json/v1/1/search.php?f={chr(letter)}"
             )
@@ -35,5 +34,11 @@ class RecetteClient:
                             recette["instructions"] = t.get("strInstructions", "")
                             recette["origine"] = t.get("strArea", "")
                             recette["categorie"] = t.get("strCategory", "")
+                            L_ingredients = []
+                            for i in range(1, 20):
+                                ingredient_api = t.get("strIngredient" + str(i), "")
+                                if ingredient_api is not None and ingredient_api != "":
+                                    L_ingredients.append(ingredient_api)
+                            recette["ingredients"] = L_ingredients
                             liste_recette.append(recette)
         return liste_recette

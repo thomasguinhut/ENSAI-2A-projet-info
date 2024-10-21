@@ -10,11 +10,11 @@ class Recette:
         self,
         id_recette: str,
         nom_recette: str,
-        liste_ingredient: dict[Ingredient, str]=None,
         instructions: str,
-        avis: dict[str, Avis]=None,
-        liste_categorie: list[Categorie],
+        liste_categorie: str,
         origine_recette: Origine,
+        liste_ingredient: dict[Ingredient, str],
+        avis: dict[str, Avis] = None,
     ):
         self.id_recette = id_recette
         self.nom_recette = nom_recette
