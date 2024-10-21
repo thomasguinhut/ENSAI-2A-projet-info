@@ -7,6 +7,8 @@ from unittest import mock
 from utils.log_decorator import log
 from utils.singleton import Singleton
 from dao.db_connection import DBConnection
+from client.ingredient_client import IngredientClient
+from service.ingredient_service import IngredientService
 
 from service.joueur_service import JoueurService
 
@@ -36,6 +38,9 @@ class ResetDatabase(metaclass=Singleton):
         init_db_as_string = init_db.read()
         init_db.close()
 
+        liste_ingredients = IngredientClient().get_ingredient()
+        for nom_ingredient in liste_ingredients:
+            IngredientService().creer(nom_ingredient)
         # pop_db = open(pop_data_path, encoding="utf-8")
         # pop_db_as_string = pop_db.read()
         # pop_db.close()

@@ -8,7 +8,7 @@ class ConnexionVue(VueAbstraite):
 
     def choisir_menu(self):
         # Demande à l'utilisateur de saisir pseudo et mot de passe
-        pseudo = inquirer.text(message="Entrez votre pseudo : ").execute()
+        id_utilisateur = inquirer.text(message="Entrez votre pseudo : ").execute()
         mdp = inquirer.secret(message="Entrez votre mot de passe :").execute()
 
         # Appel du service pour trouver l'utilisateur
@@ -20,9 +20,9 @@ class ConnexionVue(VueAbstraite):
             if utilisateur:
                 message = f"Vous êtes connecté sous le pseudo {utilisateur.id_utilisateur}"
 
-                from view.menu_utilisateur_vue import MenuUtilisateurVue
+                from view.utilisateur_vue import UtilisateurVue
 
-                return MenuUtilisateurVue(message)
+                return UtilisateurVue(message)
 
             message = "Erreur de connexion (pseudo ou mot de passe invalide)"
 
