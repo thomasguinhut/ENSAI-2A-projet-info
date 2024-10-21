@@ -4,5 +4,5 @@ from src.client.origine_client import OrigineClient
 from src.client.recette_client import RecetteClient
 
 
-test = RecetteClient()
-print(test.get_recette())
+test = OrigineClient()
+print(test.get_origine())

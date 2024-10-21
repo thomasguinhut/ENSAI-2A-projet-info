@@ -14,12 +14,9 @@ class OrigineClient:
 
         # Appel du Web service
         req = requests.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
-        origine = {}
+        origine = []
         if req.status_code == 200:
             raw_types = req.json()["meals"]
-            i = 1
             for t in raw_types:
-                origine[i] = t["strArea"]
-                i += 1
-
+                origine.append(t["strArea"])
         return origine

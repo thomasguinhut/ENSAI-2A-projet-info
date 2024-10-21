@@ -13,10 +13,13 @@ class CategorieClient:
 
         # Appel du Web service
         req = requests.get("https://www.themealdb.com/api/json/v1/1/categories.php?")
-        categories = {}
+        liste_categories = []
         if req.status_code == 200:
             raw_types = req.json()["categories"]
             for t in raw_types:
-                categories[t["idCategory"]] = t["strCategory"]
+                categorie = {}
+                categorie["id"] = t["idCategory"]
+                categorie["nom"] = t["strCategory"]
+                liste_categories.append(categorie)
 
-        return categories
+        return liste_categories

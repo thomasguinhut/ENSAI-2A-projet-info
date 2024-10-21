@@ -13,8 +13,7 @@ CREATE TABLE utilisateur(
 -----------------------------------------------------
 DROP TABLE IF EXISTS origine CASCADE ;
 CREATE TABLE origine(
-    id_origine   VARCHAR PRIMARY KEY,
-    nom          VARCHAR
+    nom          VARCHAR PRIMARY KEY
 );
 
 -----------------------------------------------------

@@ -1,3 +1,4 @@
 class Ingredient:
-    def __init__(self, nom: str):
+    def __init__(self, id: str, nom: str):
+        self.id = id
         self.nom = nom

@@ -13,11 +13,14 @@ class IngredientClient:
     def get_ingredient(self) -> List[str]:
 
         # Appel du Web service
-        req = requests.get("www.themealdb.com/api/json/v1/1/list.php?i=list")
-        ingredients = {}
+        req = requests.get("https://www.themealdb.com/api/json/v1/1/list.php?i=list")
+        liste_ingredients = []
         if req.status_code == 200:
             raw_types = req.json()["meals"]
             for t in raw_types:
-                ingredients[t["idIngredient"]] = t["strIngredient"]
+                ingredients = {}
+                ingredients["id"] = t["idIngredient"]
+                ingredients["nom"] = t["strIngredient"]
+                liste_ingredients.append(ingredients)
 
-        return ingredients
+        return liste_ingredients
