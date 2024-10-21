@@ -17,7 +17,7 @@ class RecetteService:
             nom_recette=recette["nom"],
             liste_ingredient=recette["ingredients"],
             instructions=recette["instructions"],
-            liste_categorie=recette["categorie"],
+            categorie=recette["categorie"],
             origine_recette=["origine"],
         )
         return nouvelle_recette if RecetteDao().creer(nouvelle_recette) else None

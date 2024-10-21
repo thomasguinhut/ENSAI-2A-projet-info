@@ -66,6 +66,11 @@ class UtilisateurService:
         return str_utilisateurs
 
     @log
+    def existence_id(self, id_utilisateur) -> bool:
+        """Se connecter à partir de id_utilisateur et mdp"""
+        return UtilisateurDao().existence_id(id_utilisateur)
+
+    @log
     def se_connecter(self, id_utilisateur, mdp) -> Utilisateur:
         """Se connecter à partir de id_utilisateur et mdp"""
         return UtilisateurDao().se_connecter(id_utilisateur, hash_password(mdp, id_utilisateur))
