@@ -13,7 +13,7 @@ class Recette:
         instructions: str,
         liste_categorie: str,
         origine_recette: Origine,
-        liste_ingredient: dict[Ingredient, str],
+        liste_ingredient: list[Ingredient],
         avis: dict[str, Avis] = None,
     ):
         self.id_recette = id_recette

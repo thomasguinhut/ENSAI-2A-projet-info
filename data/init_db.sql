@@ -13,8 +13,7 @@ CREATE TABLE utilisateur(
 -----------------------------------------------------
 DROP TABLE IF EXISTS origine CASCADE ;
 CREATE TABLE origine(
-    id_origine   VARCHAR PRIMARY KEY,
-    nom          VARCHAR
+    nom_origine   VARCHAR PRIMARY KEY
 );
 
 -----------------------------------------------------
@@ -23,7 +22,7 @@ CREATE TABLE origine(
 DROP TABLE IF EXISTS categorie CASCADE ;
 CREATE TABLE categorie(
     id_categorie    VARCHAR PRIMARY KEY,
-    nom             VARCHAR
+    nom_categorie             VARCHAR
 );
 
 
@@ -35,8 +34,8 @@ CREATE TABLE recette(
     id_recette   VARCHAR PRIMARY KEY,
     nom          VARCHAR,
     instructions VARCHAR,
-    id_origine   VARCHAR,
-    FOREIGN KEY(id_origine) REFERENCES origine(id_origine),
+    nom_origine   VARCHAR,
+    FOREIGN KEY(nom_origine) REFERENCES origine(nom_origine),
     id_categorie VARCHAR,
     FOREIGN KEY(id_categorie) REFERENCES categorie(id_categorie)
 

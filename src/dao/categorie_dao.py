@@ -5,7 +5,7 @@ from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
 
-from business_object.categorie import Categorie
+# from business_object.categorie import Categorie
 
 
 class CategorieDao(metaclass=Singleton):
@@ -32,12 +32,12 @@ class CategorieDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO categorie(id_categorie, nom) VALUES        "
-                        "(%(id_categorie)s, %(nom)s)             "
+                        "INSERT INTO categorie(id_categorie, nom_categorie) VALUES        "
+                        "(%(id_categorie)s, %(nom_categorie)s)             "
                         "  RETURNING id_categorie;                                                ",
                         {
                             "id_categorie": categorie.id_categorie,
-                            "nom": categorie.nom,
+                            "nom_categorie": categorie.nom,
                         },
                     )
                     res = cursor.fetchone()
