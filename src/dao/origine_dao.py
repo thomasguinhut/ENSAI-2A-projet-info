@@ -32,11 +32,10 @@ class OrigineDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO origine(id_origine, nom) VALUES        "
-                        "(%(id_origine)s, %(nom)s)             "
-                        "  RETURNING id_origine;                                ",
+                        "INSERT INTO origine(nom) VALUES        "
+                        "(%(nom)s)             "
+                        "  RETURNING nom;                                ",
                         {
-                            "id_origine": origine.id_origine,
                             "nom": origine.nom,
                         },
                     )
@@ -46,7 +45,7 @@ class OrigineDao(metaclass=Singleton):
 
         created = False
         if res:
-            origine.id_origine = res["id_origine"]
+            origine.nom = res["nom"]
             created = True
 
         return created

@@ -6,8 +6,8 @@ from utils.log_decorator import log
 from dao.db_connection import DBConnection
 
 
-class RecetteDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour accéder aux Recettes de la base de données"""
+class Recette_Ingredient_Dao(metaclass=Singleton):
+    """Classe contenant les méthodes pour accéder aux ingrédient d'une rectte de la base de données"""
 
     @log
     def creer(self, recette) -> bool:

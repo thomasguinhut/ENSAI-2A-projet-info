@@ -36,7 +36,7 @@ class IngredientDao(metaclass=Singleton):
                         "(%(id_ingredient)s, %(nom)s)             "
                         "  RETURNING id_ingredient;                                ",
                         {
-                            "id_origine": ingredient.id_ingredient,
+                            "id_ingredient": ingredient.id_ingredient,
                             "nom": ingredient.nom,
                         },
                     )
