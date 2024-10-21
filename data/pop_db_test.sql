@@ -1,4 +1,4 @@
-INSERT INTO joueur(id_utilisateur, mdp, favoris) VALUES
-('touss21', 'touss21', null),
-('benjamin21', '1234', null),
-('fani', 'microeconomie', null);
+INSERT INTO utilisateur(id_utilisateur, mdp) VALUES
+('touss21', 'touss21'),
+('benjamin21', '1234'),
+('fani', 'microeconomie');

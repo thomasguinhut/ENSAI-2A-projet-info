@@ -5,10 +5,10 @@ from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
 
-# from business_object.categorie import Categorie
+from business_object.categorie import Categorie
 
 
-class JoueurDao(metaclass=Singleton):
+class CategorieDao(metaclass=Singleton):
     """Classe contenant les méthodes pour accéder aux Categories de la base de données"""
 
     @log
