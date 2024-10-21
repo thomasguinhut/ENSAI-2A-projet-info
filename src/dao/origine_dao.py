@@ -25,27 +25,21 @@ class OrigineDao(metaclass=Singleton):
              True si la création est un succès
              False sinon
         """
-
         res = None
-
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO origine(nom) VALUES        "
-                        "(%(nom)s)             "
-                        "  RETURNING nom;                                ",
-                        {
-                            "nom": origine.nom,
-                        },
+                        "INSERT INTO origine(id_origine, nom_origine) VALUES        "
+                        "(%(id_origine)s, %(nom_origine)s)             "
+                        "  RETURNING id_origine;                                ",
+                        {"id_origine": origine.id_origine, "nom_origine": origine.nom_origine},
                     )
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
-
         created = False
         if res:
-            origine.nom = res["nom"]
+            origine.id_origine = res["id_origine"]
             created = True
-
         return created

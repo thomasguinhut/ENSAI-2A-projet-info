@@ -25,9 +25,7 @@ class CategorieDao(metaclass=Singleton):
             True si la création est un succès
             False sinon
         """
-
         res = None
-
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -37,16 +35,14 @@ class CategorieDao(metaclass=Singleton):
                         "  RETURNING id_categorie;                                                ",
                         {
                             "id_categorie": categorie.id_categorie,
-                            "nom_categorie": categorie.nom,
+                            "nom_categorie": categorie.nom_categorie,
                         },
                     )
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
-
         created = False
         if res:
             categorie.id_categorie = res["id_categorie"]
             created = True
-
         return created

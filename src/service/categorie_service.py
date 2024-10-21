@@ -1,5 +1,3 @@
-from tabulate import tabulate
-
 from utils.log_decorator import log
 
 from src.business_object.categorie import Categorie
@@ -10,7 +8,9 @@ class CategorieService:
     """Classe contenant les méthodes de service des Catégories"""
 
     @log
-    def creer(self, categorie) -> Categorie:
+    def creer(self, categorie: dict) -> Categorie:
         """Création d'une catégorie à partir de son nom"""
-        nouvelle_categorie = Categorie(nom=categorie)
+        nouvelle_categorie = Categorie(
+            id_categorie=categorie["id_categorie"], nom_categorie=categorie["nom_categorie"]
+        )
         return nouvelle_categorie if CategorieDao().creer(nouvelle_categorie) else None

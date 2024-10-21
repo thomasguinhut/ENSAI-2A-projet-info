@@ -25,20 +25,24 @@ class IngredientDao(metaclass=Singleton):
              True si la création est un succès
              False sinon
         """
-
-        created = False  # Initialiser la variable created ici
-        res = 1
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "INSERT INTO ingredient(nom_ingredient) "
-                    "VALUES (%(nom_ingredient)s) "
-                    "RETURNING nom_ingredient;",
-                    {
-                        "nom_ingredient": ingredient.nom,
-                    },
-                )
-                res = cursor.fetchone()
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO ingredient(id_ingredient, nom_ingredient) "
+                        "VALUES (%(id_ingredient)s, %(nom_ingredient)s) "
+                        "RETURNING id_ingredient;",
+                        {
+                            "id_ingredient": ingredient.id_ingredient,
+                            "nom_ingredient": ingredient.nom_ingredient,
+                        },
+                    )
+                    res = cursor.fetchone()
+        except Exception as e:
+            logging.info(e)
+        created = False
         if res:
+            ingredient.id_ingredient = res["id_ingredient"]
             created = True
         return created

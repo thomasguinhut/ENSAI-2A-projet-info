@@ -13,7 +13,8 @@ CREATE TABLE utilisateur(
 -----------------------------------------------------
 DROP TABLE IF EXISTS origine CASCADE ;
 CREATE TABLE origine(
-    nom_origine   VARCHAR PRIMARY KEY
+    id_origine   VARCHAR PRIMARY KEY,
+    nom_origine   VARCHAR 
 );
 
 -----------------------------------------------------
@@ -22,7 +23,7 @@ CREATE TABLE origine(
 DROP TABLE IF EXISTS categorie CASCADE ;
 CREATE TABLE categorie(
     id_categorie    VARCHAR PRIMARY KEY,
-    nom_categorie             VARCHAR
+    nom_categorie   VARCHAR
 );
 
 
@@ -32,10 +33,10 @@ CREATE TABLE categorie(
 DROP TABLE IF EXISTS recette CASCADE ;
 CREATE TABLE recette(
     id_recette   VARCHAR PRIMARY KEY,
-    nom          VARCHAR,
-    instructions VARCHAR,
-    nom_origine   VARCHAR,
-    FOREIGN KEY(nom_origine) REFERENCES origine(nom_origine),
+    nom_recette          VARCHAR,
+    instructions_recette VARCHAR,
+    id_origine   VARCHAR,
+    FOREIGN KEY(id_origine) REFERENCES origine(id_origine),
     id_categorie VARCHAR,
     FOREIGN KEY(id_categorie) REFERENCES categorie(id_categorie)
 
@@ -62,8 +63,8 @@ CREATE TABLE avis(
 -----------------------------------------------------
 DROP TABLE IF EXISTS ingredient CASCADE ;
 CREATE TABLE ingredient(
-    nom_ingredient    VARCHAR PRIMARY KEY,
-    id_ingredient  VARCHAR
+    id_ingredient    VARCHAR PRIMARY KEY,
+    nom_ingredient    VARCHAR
 );
 
 
@@ -74,8 +75,8 @@ DROP TABLE IF EXISTS ingredient_recette CASCADE ;
 CREATE TABLE ingredient_recette(
     id_recette        VARCHAR,
     FOREIGN KEY(id_recette) REFERENCES recette(id_recette),
-    nom_ingredient     VARCHAR,
-    FOREIGN KEY(nom_ingredient) REFERENCES ingredient(nom_ingredient)
+    id_ingredient     VARCHAR,
+    FOREIGN KEY(id_ingredient) REFERENCES ingredient(id_ingredient)
 );
 
 
@@ -98,6 +99,6 @@ DROP TABLE IF EXISTS liste_course CASCADE ;
 CREATE TABLE liste_course(
     id_utilisateur    VARCHAR,
     FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur),
-    nom_ingredient     VARCHAR,
-    FOREIGN KEY(nom_ingredient) REFERENCES ingredient(nom_ingredient)
+    id_ingredient     VARCHAR,
+    FOREIGN KEY(id_ingredient) REFERENCES ingredient(id_ingredient)
 );
