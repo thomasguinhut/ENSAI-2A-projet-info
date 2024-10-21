@@ -18,9 +18,5 @@ class IngredientClient:
         if req.status_code == 200:
             raw_types = req.json()["meals"]
             for t in raw_types:
-                ingredients = {}
-                ingredients["id"] = t["idIngredient"]
-                ingredients["nom"] = t["strIngredient"]
-                liste_ingredients.append(ingredients)
-
+                liste_ingredients.append(t["strIngredient"])
         return liste_ingredients

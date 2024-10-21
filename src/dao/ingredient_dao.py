@@ -32,12 +32,11 @@ class IngredientDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO ingredient(id_ingredient, nom) VALUES        "
-                        "(%(id_ingredient)s, %(nom)s)             "
-                        "  RETURNING id_ingredient;                                ",
+                        "INSERT INTO ingredient(nom_ingredient) VALUES        "
+                        "(%(nom_ingredient)s)             "
+                        "  RETURNING nom_ingredient;                                ",
                         {
-                            "id_ingredient": ingredient.id_ingredient,
-                            "nom": ingredient.nom,
+                            "nom_ingredient": ingredient.nom,
                         },
                     )
                     res = cursor.fetchone()
@@ -46,7 +45,7 @@ class IngredientDao(metaclass=Singleton):
 
         created = False
         if res:
-            ingredient.id_ingredient = res["id_ingredient"]
+            ingredient.nom = res["nom_ingredient"]
             created = True
 
         return created
