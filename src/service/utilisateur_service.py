@@ -8,7 +8,15 @@ from dao.utilisateur_dao import UtilisateurDao
 
 
 class UtilisateurService:
-    """Classe contenant les méthodes de service des Utilisateurs"""
+
+    """
+
+
+    Cette classe, qui ne contient que des méthodes, transforme toute
+    donnée de l'pplication en objet de classes métiers. Cela facilite
+    ensuite la manipulation des informations.
+
+    """
 
     @log
     def creer(self, id_utilisateur, mdp) -> Utilisateur:
@@ -28,7 +36,8 @@ class UtilisateurService:
     def modifier(self, utilisateur) -> Utilisateur:
         """Modification d'un utilisateur"""
 
-        utilisateur.mdp = hash_password(utilisateur.mdp, utilisateur.id_utilisateur)
+        utilisateur.mdp = hash_password(
+            utilisateur.mdp, utilisateur.id_utilisateur)
         return utilisateur if UtilisateurDao().modifier(Utilisateur) else None
 
     @log

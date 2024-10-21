@@ -5,6 +5,40 @@ from src.business_object.origine import Origine
 
 class Recette:
 
+    """
+
+    Création de classe Recette.
+
+    La classe Recette est la plus importante, puisqu'elle permet d'implémenter
+    les objets les plus couramment utilisés dans l'application.
+
+    Parameters
+    ----------
+    id_recette : str
+    nom_recette : str
+    instructions_recette : str
+    categorie_recette : Categorie
+    origine_recette : Origine
+    ingredients_recette : list[Ingredient]
+
+    Raises
+    ------
+    TypeError
+        id_recette doit être un str
+    TypeError
+        nom_recette doit être un str
+    TypeError
+        instructions_recette doit être un str
+    TypeError
+        categorie_recette doit être une Catégorie
+    TypeError
+        origine_recette doit être une Origine
+    TypeError
+        ingredients_recette doit être une liste
+    TypeError
+        tout élément de la liste d'ingrédients doit être un Ingrédient
+    """
+
     def __init__(
         self,
         id_recette: str,
@@ -14,6 +48,11 @@ class Recette:
         origine_recette: Origine,
         ingredients_recette: list[Ingredient],
     ):
+        """
+
+        Constructeur de la classe.
+
+        """
 
         if not isinstance(id_recette, str):
             raise TypeError("id_recette doit être un str")
