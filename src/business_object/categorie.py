@@ -1,4 +1,4 @@
 class Categorie:
-    def __init__(self, id: str, nom: str):
+    def __init__(self, nom: str, id=None):
         self.id = id
         self.nom = nom

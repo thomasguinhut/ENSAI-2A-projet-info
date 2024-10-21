@@ -26,26 +26,19 @@ class IngredientDao(metaclass=Singleton):
              False sinon
         """
 
-        res = None
-
-        try:
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
-                    cursor.execute(
-                        "INSERT INTO ingredient(nom_ingredient) VALUES        "
-                        "(%(nom_ingredient)s)             "
-                        "  RETURNING nom_ingredient;                                ",
-                        {
-                            "nom_ingredient": ingredient.nom,
-                        },
-                    )
-                    res = cursor.fetchone()
-        except Exception as e:
-            logging.info(e)
-
-        created = False
+        created = False  # Initialiser la variable created ici
+        res = 1
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "INSERT INTO ingredient(nom_ingredient) "
+                    "VALUES (%(nom_ingredient)s) "
+                    "RETURNING nom_ingredient;",
+                    {
+                        "nom_ingredient": ingredient.nom,
+                    },
+                )
+                res = cursor.fetchone()
         if res:
-            ingredient.nom = res["nom_ingredient"]
             created = True
-
         return created

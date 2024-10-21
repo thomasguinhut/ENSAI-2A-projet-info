@@ -62,7 +62,8 @@ CREATE TABLE avis(
 -----------------------------------------------------
 DROP TABLE IF EXISTS ingredient CASCADE ;
 CREATE TABLE ingredient(
-    nom_ingredient    VARCHAR PRIMARY KEY
+    nom_ingredient    VARCHAR PRIMARY KEY,
+    id_ingredient  VARCHAR
 );
 
 
@@ -97,6 +98,6 @@ DROP TABLE IF EXISTS liste_course CASCADE ;
 CREATE TABLE liste_course(
     id_utilisateur    VARCHAR,
     FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur),
-    id_ingredient     VARCHAR,
-    FOREIGN KEY(id_ingredient) REFERENCES ingredient(id_ingredient)
+    nom_ingredient     VARCHAR,
+    FOREIGN KEY(nom_ingredient) REFERENCES ingredient(nom_ingredient)
 );

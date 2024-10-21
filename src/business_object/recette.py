@@ -11,7 +11,7 @@ class Recette:
         id_recette: str,
         nom_recette: str,
         instructions: str,
-        liste_categorie: str,
+        categorie: str,
         origine_recette: Origine,
         liste_ingredient: list[Ingredient],
         avis: dict[str, Avis] = None,
