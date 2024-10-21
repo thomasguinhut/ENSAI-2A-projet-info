@@ -9,7 +9,7 @@ class RecetteClient:
     def __init__(self) -> None:
         pass
 
-    def get_recette(self) -> List[dict]:
+    def get_recette() -> List[dict]:
         liste_recette = []
         for letter in range(ord("a"), ord("z") + 1):
             req = requests.get(

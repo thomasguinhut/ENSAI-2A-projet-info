@@ -41,6 +41,7 @@ class IngredientDao(metaclass=Singleton):
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
+            raise
         created = False
         if res:
             ingredient.id_ingredient = res["id_ingredient"]

@@ -41,6 +41,7 @@ class CategorieDao(metaclass=Singleton):
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
+            raise
         created = False
         if res:
             categorie.id_categorie = res["id_categorie"]

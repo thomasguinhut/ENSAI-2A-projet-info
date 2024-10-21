@@ -29,7 +29,7 @@ class RecetteDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "INSERT INTO recette(id_recette, nom_recette,"
-                        "instructions_recette, id_origine, id_categorie) VALUES"
+                        "instructions_recette, id_origine, id_categorie) VALUES  "
                         "(%(id_recette)s, %(nom_recette)s, %(instructions_recette)s, "
                         "%(id_origine)s, %(id_categorie)s)             "
                         "  RETURNING id_recette;                                ",
@@ -44,6 +44,7 @@ class RecetteDao(metaclass=Singleton):
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
+            raise
         created = False
         if res:
             recette.id_recette = res["id_recette"]

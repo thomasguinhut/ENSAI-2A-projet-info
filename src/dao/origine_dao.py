@@ -38,6 +38,7 @@ class OrigineDao(metaclass=Singleton):
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
+            raise
         created = False
         if res:
             origine.id_origine = res["id_origine"]
