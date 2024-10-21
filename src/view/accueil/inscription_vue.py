@@ -39,7 +39,7 @@ class InscriptionVue(VueAbstraite):
 
         # Appel du service pour créer l'utilisateur
         if mdp != mdp2:
-            return InscriptionVue(f"Les deux mots de passe ne sont pas identiques.")
+            return InscriptionVue("Les deux mots de passe ne sont pas identiques.")
         else:
             utilisateur = UtilisateurService().creer(id_utilisateur, mdp)
 

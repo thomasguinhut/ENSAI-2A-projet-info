@@ -29,6 +29,6 @@ class InviteVue(VueAbstraite):
                 pass
 
             case "Afficher la liste des recettes":
-                from view.invite.liste_recettes_vue import ListeRecettesVue
+                from view.invite.liste_recettes_invite_vue import ListeRecettesInviteVue
 
-                return ListeRecettesVue("Affichage de la liste des recettes")
+                return ListeRecettesInviteVue("Affichage de la liste des recettes")
