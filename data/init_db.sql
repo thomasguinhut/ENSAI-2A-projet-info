@@ -77,7 +77,7 @@ CREATE TABLE ingredient_recette (
     id_ingredient VARCHAR,
     PRIMARY KEY (id_recette, id_ingredient),
     FOREIGN KEY (id_recette) REFERENCES recette(id_recette),
-    FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient),
+    FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient)
 );
 
 
@@ -103,6 +103,6 @@ CREATE TABLE liste_course(
     id_ingredient     VARCHAR,
     PRIMARY KEY (id_utilisateur, id_ingredient),
     FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur),
-    FOREIGN KEY(id_ingredient) REFERENCES ingredient(id_ingredient),
+    FOREIGN KEY(id_ingredient) REFERENCES ingredient(id_ingredient)
 
 );

@@ -17,8 +17,11 @@ from service.ingredient_recette_service import IngredientRecetteService
 
 
 class ResetDatabase(metaclass=Singleton):
+
     """
-    Initialisation de la base de données
+
+    Initialisation de la vraie base de données.
+
     """
 
     @log
@@ -37,7 +40,8 @@ class ResetDatabase(metaclass=Singleton):
         if verif:
             dotenv.load_dotenv()
             schema = os.environ["POSTGRES_SCHEMA"]
-            create_schema = f"DROP SCHEMA IF EXISTS {schema} CASCADE; CREATE SCHEMA {schema};"
+            create_schema = (f"DROP SCHEMA IF EXISTS {schema} CASCADE;"
+                             f"CREATE SCHEMA {schema};")
             with open("data/init_db.sql", encoding="utf-8") as init_db:
                 init_db_as_string = init_db.read()
             try:
@@ -74,32 +78,38 @@ class ResetDatabase(metaclass=Singleton):
             liste_ingredients = IngredientClient().get_ingredient()
             for dict_ingredient in liste_ingredients:
                 IngredientService().creer(dict_ingredient)
+            print("La table 'ingredient' a bien été créée.")
 
         if origines:
             liste_origines = OrigineClient().get_origine()
             for dict_origine in liste_origines:
                 OrigineService().creer(dict_origine)
+            print("La table 'origine' a bien été créée.")
 
         if categories:
             liste_categories = CategorieClient().get_categorie()
             for dict_categorie in liste_categories:
                 CategorieService().creer(dict_categorie)
+            print("La table 'categorie' a bien été créée.")
 
         if recettes:
             liste_recettes = RecetteClient().get_recette()
             i = 1
             for dict_recette in liste_recettes:
                 RecetteService().creer(dict_recette)
-                print(f"Recette {i} ajoutée")
+                print(f"Avancée de la table 'recette' : {i*100//275} %")
                 i += 1
+            print("La table 'recette' a bien été créée.")
 
         if ingredients_recettes:
             liste_recettes = RecetteClient().get_recette()
             i = 1
             for dict_recette in liste_recettes:
                 IngredientRecetteService().creer(dict_recette)
-                print(f"Recette/ingredient {i} ajoutée")
+                print(f"Avancée de la table 'ingredient_recette' : "
+                      f"{i*100//2856} %")
                 i += 1
+            print("La table 'ingredient_recette' a bien été créée.")
 
     def verif(self):
         res = None
@@ -123,6 +133,6 @@ class ResetDatabase(metaclass=Singleton):
 
 
 if __name__ == "__main__":
-    ResetDatabase().lancer(False)
-    ResetDatabase().remplir(False, False, False, False, False)
+    ResetDatabase().lancer(True)
+    ResetDatabase().remplir(True, True, True, True, False)
     print(ResetDatabase().verif())

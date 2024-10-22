@@ -4,24 +4,24 @@ from utils.singleton import Singleton
 from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
-from business_object.recette import Recette
 
 
 class RecetteDao(metaclass=Singleton):
+
     """
 
-    Créationd e la classe RecetteDao.
+    Création de la classe RecetteDao.
 
-    Cette classe fait le lien entre les objets des classes métiers,
-    disponibles avec les classes Service, et la base de données.
+    Cette classe fait le lien entre les objets de la classe Recette,
+    disponibles avec la classe Recette Service, et la base de données.
 
     """
 
     @log
     def creer(self, recette) -> bool:
         """
-        
-        Creation d'une recette dans la base de données
+
+        Creation d'une recette dans la base de données.
 
         Parameters
         ----------
@@ -30,8 +30,7 @@ class RecetteDao(metaclass=Singleton):
         Returns
         -------
         created : bool
-            True si la création est un succès
-            False sinon
+            True si la création est un succès, False sinon.
 
         """
         res = None
@@ -40,16 +39,20 @@ class RecetteDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "INSERT INTO recette(id_recette, nom_recette,"
-                        "instructions_recette, id_origine, id_categorie) VALUES  "
-                        "(%(id_recette)s, %(nom_recette)s, %(instructions_recette)s, "
-                        "%(id_origine)s, %(id_categorie)s)             "
-                        "  RETURNING id_recette;                                ",
+                        "                    instructions_recette, id_origine,"
+                        "                    id_categorie) VALUES"
+                        "(%(id_recette)s, %(nom_recette)s,"
+                        "%(instructions_recette)s, %(id_origine)s,"
+                        "%(id_categorie)s)"
+                        "RETURNING id_recette;",
                         {
                             "id_recette": recette.id_recette,
                             "nom_recette": recette.nom_recette,
-                            "instructions_recette": recette.instructions_recette,
+                            "instructions_recette": (
+                                recette.instructions_recette),
                             "id_origine": recette.origine_recette.id_origine,
-                            "id_categorie": recette.categorie_recette.id_categorie,
+                            "id_categorie": (
+                                recette.categorie_recette.id_categorie),
                         },
                     )
                     res = cursor.fetchone()
@@ -62,91 +65,96 @@ class RecetteDao(metaclass=Singleton):
             created = True
         return created
 
-        @log
-        def lister_toutes_recettes(self) -> list[Recette]:
-            """lister toutes les recettes
+    @log
+    def lister_toutes_recettes(self) -> list[dict[
+            "id": str, str, str, str, str, str]]:
+        """
 
-            Parameters
-            ----------
-            None
+        Liste toutes les recettes de la base de donénes.
 
-            Returns
-            -------
-            liste_recettes : list[Recette]
-                renvoie la liste de toutes les recettes dans la base de données
-            """
+        Parameters
+        ----------
+        None
 
-            try:
-                with DBConnection().connection as connection:
-                    with connection.cursor() as cursor:
-                        cursor.execute(
-                            "SELECT *                              "
-                            "  FROM recette;                        "
-                        )
-                        res = cursor.fetchall()
-            except Exception as e:
-                logging.info(e)
-                raise
-            return res
+        Returns
+        -------
+        liste_recettes : list[dict[
+            str, str, str, Origine, Categorie, list[Ingredient]]
+            Renvoie la liste de toutes les recettes sous forme de dictionnaires
 
-        @log
-        def lister_recettes_par_categorie(self, categorie) -> list[dict]:
-            """lister toutes les recettes par catégorie
+        """
 
-            Parameters
-            ----------
-            categorie : Categorie
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT *"
+                        "   FROM recette;"
+                    )
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        return res
 
-            Returns
-            -------
-            res : list[dict]
-                renvoie une liste de dictionnaire des recettes
-            """
+    @log
+    def lister_recettes_par_categorie(self, categorie) -> list[dict]:
+        """lister toutes les recettes par catégorie
 
-            try:
-                with DBConnection().connection as connection:
-                    with connection.cursor() as cursor:
-                        cursor.execute(
-                            "SELECT *                              "
-                            "  FROM recette; "
-                            "  JOIN categorie USING(id_categorie)"
-                            "  WHERE id_categorie=%(id_categorie)s;                     ",
-                            {"id_categorie": categorie.id_categorie},
-                        )
+        Parameters
+        ----------
+        categorie : Categorie
 
-                        res = cursor.fetchall()
-            except Exception as e:
-                logging.info(e)
-                raise
-            return res
+        Returns
+        -------
+        res : list[dict]
+            renvoie une liste de dictionnaire des recettes
+        """
 
-        @log
-        def lister_recettes_par_origine(self, origine) -> list[dict]:
-            """lister toutes les recettes par origine
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT *                              "
+                        "  FROM recette; "
+                        "  JOIN categorie USING(id_categorie)"
+                        "  WHERE id_categorie=%(id_categorie)s;                     ",
+                        {"id_categorie": categorie.id_categorie},
+                    )
 
-            Parameters
-            ----------
-            origine : Origine
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        return res
 
-            Returns
-            -------
-            res : list[dict]
-                renvoie une liste de dictionnaire des recettes
-            """
+    @log
+    def lister_recettes_par_origine(self, origine) -> list[dict]:
+        """lister toutes les recettes par origine
 
-            try:
-                with DBConnection().connection as connection:
-                    with connection.cursor() as cursor:
-                        cursor.execute(
-                            "SELECT *                              "
-                            "  FROM recette; "
-                            "  JOIN origine USING(id_origine)"
-                            "  WHERE id_origine=%(id_origine)s;                     ",
-                            {"id_origine": origine.id_origine},
-                        )
+        Parameters
+        ----------
+        origine : Origine
 
-                        res = cursor.fetchall()
-            except Exception as e:
-                logging.info(e)
-                raise
-            return res
+        Returns
+        -------
+        res : list[dict]
+            renvoie une liste de dictionnaire des recettes
+        """
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT *                              "
+                        "  FROM recette; "
+                        "  JOIN origine USING(id_origine)"
+                        "  WHERE id_origine=%(id_origine)s;                     ",
+                        {"id_origine": origine.id_origine},
+                    )
+
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        return res
