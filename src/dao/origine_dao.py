@@ -13,17 +13,20 @@ class OrigineDao(metaclass=Singleton):
 
     @log
     def creer(self, origine) -> bool:
-        """Creation d'une origine dans la base de données
+        """
+        
+        Creation d'une origine dans la base de données
 
-         Parameters
-         ----------
+        Parameters
+        ----------
         origine : Origine
 
-         Returns
-         -------
-         created : bool
-             True si la création est un succès
-             False sinon
+        Returns
+        -------
+        created : bool
+            True si la création est un succès
+            False sinon
+            
         """
         res = None
         try:

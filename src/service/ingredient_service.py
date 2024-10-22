@@ -11,8 +11,9 @@ class IngredientService:
     Création de classe IngredientService.
 
     Cette classe, qui ne contient que des méthodes, transforme toute
-    donnée de l'application en objet de classes métiers. Cela facilite
-    ensuite la manipulation des informations.
+    donnée de l'application en rapport avec les ingrédients des recettes
+    en objet de la classe Ingrédient. Cela facilite ensuite la
+    manipulation des informations.
 
     """
 

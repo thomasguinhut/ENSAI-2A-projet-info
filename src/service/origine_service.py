@@ -11,8 +11,9 @@ class OrigineService:
     Création de classe OrigineService.
 
     Cette classe, qui ne contient que des méthodes, transforme toute
-    donnée de l'pplication en objet de classes métiers. Cela facilite
-    ensuite la manipulation des informations.
+    donnée de l'application en rapport avec l'origine des recette
+    en objet de la classe Origine. Cela facilite ensuite la
+    manipulation des informations.
 
     """
 

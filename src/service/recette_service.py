@@ -18,8 +18,8 @@ class RecetteService:
     Création de classe RecetteService.
 
     Cette classe, qui ne contient que des méthodes, transforme toute
-    donnée de l'pplication en objet de classes métiers. Cela facilite
-    ensuite la manipulation des informations.
+    les recettes en objet de la classe Recette . Cela facilite ensuite
+    la manipulation des informations.
 
     """
 
@@ -55,8 +55,8 @@ class RecetteService:
                 return None
 
     @log
-    def lister_recettes_par_ingredient(self, ingredient) -> list[Recette]:
-        res = RecetteDao().lister_recettes_par_ingredient(self, ingredient)
+    def lister_toutes_recettes(self):
+        res = RecetteDao().lister_toutes_recettes()
         liste_recettes = []
         if res:
             for row in res:

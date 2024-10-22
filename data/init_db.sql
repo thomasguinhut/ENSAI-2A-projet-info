@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS recette CASCADE ;
 CREATE TABLE recette(
     id_recette   VARCHAR PRIMARY KEY,
     nom_recette          VARCHAR,
-    instructions_recette VARCHAR,
+    instructions_recette TEXT,
     id_origine   VARCHAR,
     FOREIGN KEY(id_origine) REFERENCES origine(id_origine),
     id_categorie VARCHAR,
@@ -71,12 +71,15 @@ CREATE TABLE ingredient(
 -----------------------------------------------------
 -- Ingrédient recette
 -----------------------------------------------------
-DROP TABLE IF EXISTS ingredient_recette CASCADE ;
-CREATE TABLE ingredient_recette(
-    id_recette        VARCHAR,
-    FOREIGN KEY(id_recette) REFERENCES recette(id_recette),
-    id_ingredient     VARCHAR,
-    FOREIGN KEY(id_ingredient) REFERENCES ingredient(id_ingredient)
+DROP TABLE IF EXISTS ingredient_recette CASCADE;
+CREATE TABLE ingredient_recette (
+    id_recette    VARCHAR,
+    id_ingredient VARCHAR,
+    -- Définition des clés étrangères
+    FOREIGN KEY (id_recette) REFERENCES recette(id_recette),
+    FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient),
+    -- Contrainte d'unicité pour garantir l'unicité des paires
+    UNIQUE (id_recette, id_ingredient)
 );
 
 

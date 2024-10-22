@@ -13,17 +13,19 @@ class IngredientDao(metaclass=Singleton):
 
     @log
     def creer(self, ingredient) -> bool:
-        """Creation d'un ingredient dans la base de données
+        """
+        
+        Creation d'un ingrédient dans la base de données
 
-         Parameters
-         ----------
+        Parameters
+        ----------
         ingredient : Ingredient
 
-         Returns
-         -------
-         created : bool
-             True si la création est un succès
-             False sinon
+        Returns
+        -------
+        created : bool
+            True si la création est un succès
+            False sinon
         """
         res = None
         try:

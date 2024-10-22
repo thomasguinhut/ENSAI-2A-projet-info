@@ -8,21 +8,31 @@ from business_object.recette import Recette
 
 
 class RecetteDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour accéder aux Recettes de la base de données"""
+    """
+
+    Créationd e la classe RecetteDao.
+
+    Cette classe fait le lien entre les objets des classes métiers,
+    disponibles avec les classes Service, et la base de données.
+
+    """
 
     @log
     def creer(self, recette) -> bool:
-        """Creation d'une recette dans la base de données
+        """
+        
+        Creation d'une recette dans la base de données
 
-         Parameters
-         ----------
+        Parameters
+        ----------
         recette : Recette
 
-         Returns
-         -------
-         created : bool
-             True si la création est un succès
-             False sinon
+        Returns
+        -------
+        created : bool
+            True si la création est un succès
+            False sinon
+
         """
         res = None
         try:
@@ -73,53 +83,6 @@ class RecetteDao(metaclass=Singleton):
                             "SELECT *                              "
                             "  FROM recette;                        "
                         )
-                        res = cursor.fetchall()
-            except Exception as e:
-                logging.info(e)
-                raise
-
-            liste_recettes = []
-
-            if res:
-                for row in res:
-                    recette = Recette(
-                        id_recette=row["id_recette"],
-                        nom_recette=row["nom_recette"],
-                        instructions_recette=row["instructions_recettes"],
-                        id_origine=row["id_origine"],
-                        id_categorie=row["id_categorie"],
-                    )
-
-                    liste_recettes.append(recette)
-
-            return liste_recettes
-
-        @log
-        def lister_recettes_par_ingredient(self, ingredient) -> list[dict]:
-            """lister toutes les recettes par ingrédient
-
-            Parameters
-            ----------
-            ingredient : Ingredient
-
-            Returns
-            -------
-            res : list[dict]
-                renvoie une liste de dictionnaire des recettes
-            """
-
-            try:
-                with DBConnection().connection as connection:
-                    with connection.cursor() as cursor:
-                        cursor.execute(
-                            "SELECT *                              "
-                            "  FROM recette; "
-                            "  JOIN recette_ingredient USING(id_recette)"
-                            "  JOIN ingredient USING(id_ingredient)"
-                            "  WHERE id_ingredient=%(id_ingredient)s;                     ",
-                            {"id_ingredient": ingredient.id_ingredient},
-                        )
-
                         res = cursor.fetchall()
             except Exception as e:
                 logging.info(e)

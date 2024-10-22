@@ -16,11 +16,12 @@ class IngredientRecetteService:
 
     """
 
-    Création de classe IngredientRecetteService.
+    Création de classe RecetteService.
 
     Cette classe, qui ne contient que des méthodes, transforme toute
-    donnée de l'pplication en objet de classes métiers. Cela facilite
-    ensuite la manipulation des informations.
+    les recettes en objet de la classe Recette unique pour être ensuite
+    utilisé en lien avec la table ingrédients_recettes. Cela facilite
+    la manipulation des informations.
 
     """
 
@@ -57,7 +58,7 @@ class IngredientRecetteService:
 
     @log
     def lister_recettes_par_ingredient(self, ingredient) -> list[Recette]:
-        res = RecetteDao().lister_recettes_par_ingredient(self, ingredient)
+        res = IngredientRecetteDao().lister_recettes_par_ingredient(self, ingredient)
         liste_recettes = []
         if res:
             for row in res:

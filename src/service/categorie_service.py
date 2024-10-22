@@ -11,8 +11,9 @@ class CategorieService:
     Création de classe CategorieService.
 
     Cette classe, qui ne contient que des méthodes, transforme toute
-    donnée de l'application en objet de classes métiers. Cela facilite
-    ensuite la manipulation des informations.
+    donnée de l'application en rapport avec la catégorie des recette
+    en objet de la classe Catégorie. Cela facilite ensuite la
+    manipulation des informations.
 
     """
 

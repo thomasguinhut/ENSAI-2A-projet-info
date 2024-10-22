@@ -10,6 +10,8 @@ from service.recette_service import RecetteService
 from service.ingredient_recette_service import IngredientRecetteService
 
 
-recette = RecetteClient().get_recette()
-test = recette[0]
+recettes = RecetteClient().get_recette()
+for i in recettes:
+    if i["id_recette"] == "52826":
+        test = i
 print(IngredientRecetteService().creer(test))
