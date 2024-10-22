@@ -23,7 +23,6 @@ class ResetDatabase(metaclass=Singleton):
 
     @log
     def lancer(self, verif):
-
         """
 
         Crée le schéma et les tables SQL.
@@ -52,7 +51,6 @@ class ResetDatabase(metaclass=Singleton):
 
     @log
     def remplir(self, ingredients, origines, categories, recettes, ingredients_recettes):
-
         """
 
         Remplit les tables SQL.
@@ -71,7 +69,7 @@ class ResetDatabase(metaclass=Singleton):
             Est-ce qu'on remplit la table ingredients_recettes ?
 
         """
-        
+
         if ingredients:
             liste_ingredients = IngredientClient().get_ingredient()
             for dict_ingredient in liste_ingredients:
@@ -103,7 +101,28 @@ class ResetDatabase(metaclass=Singleton):
                 print(f"Recette/ingredient {i} ajoutée")
                 i += 1
 
+    def verif(self):
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT r.id_recette "
+                        "FROM recette r "
+                        "LEFT JOIN ( "
+                        "     SELECT DISTINCT id_recette "
+                        "     FROM ingredient_recette "
+                        ") ir ON r.id_recette = ir.id_recette "
+                        "WHERE ir.id_recette IS NULL; "
+                    )
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+        if res:
+            return res
+
 
 if __name__ == "__main__":
-    ResetDatabase().lancer(True)
-    ResetDatabase().remplir(True, True, True, True, True)
+    ResetDatabase().lancer(False)
+    ResetDatabase().remplir(False, False, False, False, False)
+    print(ResetDatabase().verif())
