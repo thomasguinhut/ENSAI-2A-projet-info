@@ -5,14 +5,14 @@ from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
 
-from business_object.avis import Avis
+# from business_object.avis import Avis
 
 
 class AvisDao(metaclass=Singleton):
     """Classe contenant les méthodes pour accéder aux avis de la base de données"""
 
     @log
-    def supprimer(self, utilisateur, recette) -> bool:
+    def supprimer_avis(self, utilisateur, recette) -> bool:
         """Suppression d'un avis associé à un utilisateur et une recette dans la base de données
 
         Parameters
@@ -95,8 +95,9 @@ class AvisDao(metaclass=Singleton):
                                 "id_recette": recette.id_recette,
                             }
                         )
-            return True  # L'avis a bien été ajouté
 
         except Exception as e:
             logging.info(e)
-            return False  # En cas d'erreur
+            raise
+
+        return True  # L'avis a bien été ajouté
