@@ -125,7 +125,7 @@ class RecetteDao(metaclass=Singleton):
                 logging.info(e)
                 raise
             return res
- 
+
         @log
         def lister_recettes_par_categorie(self, categorie) -> list[dict]:
             """lister toutes les recettes par catégorie
