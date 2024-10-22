@@ -55,3 +55,51 @@ class RecetteService:
             return nouvelle_recette
         else:
             return None
+
+    @log
+    def lister_recettes_par_ingredient(self, ingredient) -> list[Recette]:
+        res = RecetteDao().lister_recettes_par_ingredient(self, ingredient)
+        liste_recettes = []
+        if res:
+            for row in res:
+                recette = Recette(
+                    id_recette=row["id_recette"],
+                    nom_recette=row["nom_recette"],
+                    instructions_recette=row["instructions_recettes"],
+                    id_origine=row["id_origine"],
+                    id_categorie=row["id_categorie"],
+                )
+                liste_recettes.append(recette)
+        return liste_recettes
+
+    @log
+    def lister_recettes_par_categorie(self, categorie) -> list[Recette]:
+        res = RecetteDao().lister_recettes_par_categorie(self, categorie)
+        liste_recettes = []
+        if res:
+            for row in res:
+                recette = Recette(
+                    id_recette=row["id_recette"],
+                    nom_recette=row["nom_recette"],
+                    instructions_recette=row["instructions_recettes"],
+                    id_origine=row["id_origine"],
+                    id_categorie=row["id_categorie"],
+                )
+                liste_recettes.append(recette)
+        return liste_recettes
+
+    @log
+    def lister_recettes_par_origine(self, origine) -> list[Recette]:
+        res = RecetteDao().lister_recettes_par_origine(self, origine)
+        liste_recettes = []
+        if res:
+            for row in res:
+                recette = Recette(
+                    id_recette=row["id_recette"],
+                    nom_recette=row["nom_recette"],
+                    instructions_recette=row["instructions_recettes"],
+                    id_origine=row["id_origine"],
+                    id_categorie=row["id_categorie"],
+                )
+                liste_recettes.append(recette)
+        return liste_recettes
