@@ -9,8 +9,8 @@ class Origine:
 
     Parameters
     ----------
-    id_ingredient : str
-    nom_ingredient : str
+    id_origine : str
+    nom_origine : str
 
     Raises
     ------

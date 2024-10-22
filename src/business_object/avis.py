@@ -4,7 +4,7 @@ class Avis:
 
     Création de la classe Avis.
 
-    L'avis est une classe d'association entte Recette et Ingrédient,
+    L'avis est une classe d'association entte Recette et Utilisateur,
     c'est-à-dire qu'elle apporte des infos supplémentaires à la relation
     entre ces deux classes.
 
