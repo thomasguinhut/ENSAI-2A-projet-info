@@ -18,6 +18,8 @@ class RecetteService:
     Création de classe RecetteService.
 
     Cette classe, qui ne contient que des méthodes, transforme toute
+    donnée de l'application en objet de classes métiers. Cela facilite
+    ensuite la manipulation des informations.
     les recettes en objet de la classe Recette . Cela facilite ensuite
     la manipulation des informations.
 
