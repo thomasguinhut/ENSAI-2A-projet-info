@@ -34,7 +34,7 @@ class IngredientRecetteDao(metaclass=Singleton):
                         cursor.execute(
                             "INSERT INTO ingredient_recette(id_recette, id_ingredient) VALUES"
                             "(%(id_recette)s, %(nom_ingredient)s)             "
-                            "  RETURNING id_recette, id_ingredient;                                ",
+                            "  RETURNING id_recette, id_ingredient;                            ",
                             {
                                 "id_recette": recette.id_recette,
                                 "id_ingredient": ingredient.id_ingredient,
