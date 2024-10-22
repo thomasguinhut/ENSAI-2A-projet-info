@@ -1,6 +1,6 @@
 from utils.log_decorator import log
 
-from src.business_object.origine import Origine
+from business_object.origine import Origine
 from dao.origine_dao import OrigineDao
 
 

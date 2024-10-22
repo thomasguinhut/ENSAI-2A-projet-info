@@ -1,6 +1,6 @@
 from utils.log_decorator import log
 
-from src.business_object.categorie import Categorie
+from business_object.categorie import Categorie
 from dao.categorie_dao import CategorieDao
 
 

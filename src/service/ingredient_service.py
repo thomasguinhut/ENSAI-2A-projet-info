@@ -38,7 +38,8 @@ class IngredientService:
             id_ingredient=ingredient["id_ingredient"],
             nom_ingredient=ingredient["nom_ingredient"]
         )
-
+        print(nouvel_ingredient.id_ingredient)
+        print(nouvel_ingredient.nom_ingredient)
         if IngredientDao().creer(ingredient=nouvel_ingredient):
             return nouvel_ingredient
         else:

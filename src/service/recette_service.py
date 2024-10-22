@@ -1,12 +1,12 @@
 from utils.log_decorator import log
 
-from src.business_object.recette import Recette
-from src.business_object.origine import Origine
-from src.business_object.categorie import Categorie
-from src.business_object.ingredient import Ingredient
-from src.client.ingredient_client import IngredientClient
-from src.client.categorie_client import CategorieClient
-from src.client.origine_client import OrigineClient
+from business_object.recette import Recette
+from business_object.origine import Origine
+from business_object.categorie import Categorie
+from business_object.ingredient import Ingredient
+from client.ingredient_client import IngredientClient
+from client.categorie_client import CategorieClient
+from client.origine_client import OrigineClient
 
 from dao.recette_dao import RecetteDao
 

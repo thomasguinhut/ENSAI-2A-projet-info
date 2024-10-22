@@ -19,7 +19,7 @@ class IngredientClient:
     def __init__(self) -> None:
         pass
 
-    def get_ingredient() -> List[dict[str, str]]:
+    def get_ingredient(self) -> List[dict[str, str]]:
         """
 
         Récupère toutes les ingrédients enregstrées dans l'API.

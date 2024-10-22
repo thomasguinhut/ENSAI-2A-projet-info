@@ -19,7 +19,7 @@ class OrigineClient:
     def __init__(self) -> None:
         pass
 
-    def get_origine() -> List[dict[str, str]]:
+    def get_origine(self) -> List[dict[str, str]]:
         """
 
         Récupère toutes les origines enregstrées dans l'API.

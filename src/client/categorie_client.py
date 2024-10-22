@@ -19,7 +19,7 @@ class CategorieClient:
     def __init__(self) -> None:
         pass
 
-    def get_categorie() -> List[dict[str, str]]:
+    def get_categorie(self) -> List[dict[str, str]]:
         """
 
         Récupère toutes les catégories enregstrées dans l'API.

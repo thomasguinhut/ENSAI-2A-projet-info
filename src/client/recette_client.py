@@ -2,9 +2,9 @@ import requests
 
 from typing import List
 
-from src.business_object.categorie import Categorie
-from src.business_object.origine import Origine
-from src.business_object.ingredient import Ingredient
+from business_object.categorie import Categorie
+from business_object.origine import Origine
+from business_object.ingredient import Ingredient
 
 
 class RecetteClient:
@@ -23,7 +23,7 @@ class RecetteClient:
     def __init__(self) -> None:
         pass
 
-    def get_recette() -> List[dict[
+    def get_recette(self) -> List[dict[
             str, str, str, Origine, Categorie, List[Ingredient]]]:
         """
 
@@ -46,8 +46,7 @@ class RecetteClient:
         liste_recette = []
         for letter in range(ord("a"), ord("z") + 1):
             req = requests.get(
-                f"https://www.themealdb.com/api/json/v1/1/search.php?f={
-                    chr(letter)}"
+                f"https://www.themealdb.com/api/json/v1/1/search.php?f={chr(letter)}"
             )
             recette = {}
             if req.status_code == 200:

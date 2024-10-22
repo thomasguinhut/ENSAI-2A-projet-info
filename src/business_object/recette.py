@@ -1,6 +1,6 @@
-from src.business_object.ingredient import Ingredient
-from src.business_object.categorie import Categorie
-from src.business_object.origine import Origine
+from business_object.ingredient import Ingredient
+from business_object.categorie import Categorie
+from business_object.origine import Origine
 
 
 class Recette:
