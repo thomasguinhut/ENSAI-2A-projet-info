@@ -4,6 +4,7 @@ from utils.singleton import Singleton
 from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
+from business_object.ingredient import Ingredient
 
 
 class ListeCourseDao(metaclass=Singleton):
@@ -129,3 +130,44 @@ class ListeCourseDao(metaclass=Singleton):
         except Exception as e:
             logging.info(e)
             return False  # En cas d'erreur
+
+    @log
+    def lister_ingredients_liste_course(self, utilisateur) -> list[Ingredient]:
+        """lister tous les ingrédients de la liste de course de l'utilisateur
+
+        Parameters
+        ----------
+        utilisateur : Utilisateur
+
+        Returns
+        -------
+        liste_ingredients : list[Ingredient]
+            renvoie la liste de tous les ingrédients de la liste de course de l'utilisateur
+        """
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "  SELECT *                              "
+                        "  FROM ingredient  "
+                        "  JOIN liste_course USING (id_ingredient)             "
+                        "  WHERE id_utilisateur = %(id_utilisateur)s;           "
+                    )
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+
+        liste_ingredients = []
+
+        if res:
+            for row in res:
+                ingredient = Ingredient(
+                    id_ingredient=row["id_ingredient"],
+                    nom_ingredient=row["nom_ingredient"],
+                )
+
+                liste_ingredients.append(ingredient)
+
+        return liste_ingredients
