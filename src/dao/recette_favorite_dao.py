@@ -106,19 +106,5 @@ class RecettesFavoritesDao(metaclass=Singleton):
         except Exception as e:
             logging.info(e)
             raise
-        return res
-
-        liste_recettes = []
-
         if res:
-            for row in res:
-                recette = Recette(
-                    id_recette=row["id_recette"],
-                    nom_recette=row["nom_recette"],
-                    instructions_recette=row["instructions_recettes"],
-                    id_origine=row["id_origine"],
-                    id_categorie=row["id_categorie"],
-                )
-
-                liste_recettes.append(recette)
-        return liste_recettes
+            return res
