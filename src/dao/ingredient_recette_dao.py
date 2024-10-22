@@ -25,28 +25,26 @@ class IngredientRecetteDao(metaclass=Singleton):
              False sinon
         """
 
-        for ingredient in recette.liste_ingredient:
+        for ingredient in recette.ingredients_recette:
 
             res = None
             try:
                 with DBConnection().connection as connection:
                     with connection.cursor() as cursor:
                         cursor.execute(
-                            "INSERT INTO ingredient_recette(id_recette, nom_ingredient) VALUES"
+                            "INSERT INTO ingredient_recette(id_recette, id_ingredient) VALUES"
                             "(%(id_recette)s, %(nom_ingredient)s)             "
-                            "  RETURNING id_recette, nom_ingredient;                                ",
+                            "  RETURNING id_recette, id_ingredient;                                ",
                             {
                                 "id_recette": recette.id_recette,
-                                "nom_ingredient": ingredient.nom,
+                                "id_ingredient": ingredient.id_ingredient,
                             },
                         )
                         res = cursor.fetchone()
             except Exception as e:
                 logging.info(e)
-
             created = False
             if res:
                 recette.id_recette = res["id_recette"]
                 created = True
-
             return created
