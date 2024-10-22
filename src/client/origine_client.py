@@ -48,7 +48,7 @@ class OrigineClient:
                     i += 1
         return liste_origine
 
-    def get_id_origine_by_name(nom_origine: str) -> str:
+    def get_id_origine_by_name(self, nom_origine: str) -> str:
         """
 
         Donne l'id de l'origine à partir de son nom.
@@ -75,7 +75,7 @@ class OrigineClient:
         if not isinstance(nom_origine, str):
             raise TypeError("nom_origine doit être un str")
 
-        raw_types = OrigineClient.get_origine()
+        raw_types = OrigineClient().get_origine()
         for t in raw_types:
             if t["nom_origine"].lower() == nom_origine.lower():
                 return t["id_origine"]

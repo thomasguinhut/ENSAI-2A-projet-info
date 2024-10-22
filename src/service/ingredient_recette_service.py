@@ -9,13 +9,14 @@ from client.categorie_client import CategorieClient
 from client.origine_client import OrigineClient
 
 from dao.recette_dao import RecetteDao
+from dao.ingredient_recette_dao import IngredientRecetteDao
 
 
-class RecetteService:
+class IngredientRecetteService:
 
     """
 
-    Création de classe RecetteService.
+    Création de classe IngredientRecetteService.
 
     Cette classe, qui ne contient que des méthodes, transforme toute
     donnée de l'pplication en objet de classes métiers. Cela facilite
@@ -49,7 +50,7 @@ class RecetteService:
                 categorie_recette=categorie,
                 origine_recette=origine,
             )
-            if RecetteDao().creer(nouvelle_recette):
+            if IngredientRecetteDao().creer(nouvelle_recette):
                 return nouvelle_recette
             else:
                 return None
@@ -57,38 +58,6 @@ class RecetteService:
     @log
     def lister_recettes_par_ingredient(self, ingredient) -> list[Recette]:
         res = RecetteDao().lister_recettes_par_ingredient(self, ingredient)
-        liste_recettes = []
-        if res:
-            for row in res:
-                recette = Recette(
-                    id_recette=row["id_recette"],
-                    nom_recette=row["nom_recette"],
-                    instructions_recette=row["instructions_recettes"],
-                    id_origine=row["id_origine"],
-                    id_categorie=row["id_categorie"],
-                )
-                liste_recettes.append(recette)
-        return liste_recettes
-
-    @log
-    def lister_recettes_par_categorie(self, categorie) -> list[Recette]:
-        res = RecetteDao().lister_recettes_par_categorie(self, categorie)
-        liste_recettes = []
-        if res:
-            for row in res:
-                recette = Recette(
-                    id_recette=row["id_recette"],
-                    nom_recette=row["nom_recette"],
-                    instructions_recette=row["instructions_recettes"],
-                    id_origine=row["id_origine"],
-                    id_categorie=row["id_categorie"],
-                )
-                liste_recettes.append(recette)
-        return liste_recettes
-
-    @log
-    def lister_recettes_par_origine(self, origine) -> list[Recette]:
-        res = RecetteDao().lister_recettes_par_origine(self, origine)
         liste_recettes = []
         if res:
             for row in res:

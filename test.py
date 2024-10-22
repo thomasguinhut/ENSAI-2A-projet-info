@@ -1,9 +1,15 @@
-from src.client.ingredient_client import IngredientClient
-from src.client.categorie_client import CategorieClient
-from src.client.origine_client import OrigineClient
-from src.client.recette_client import RecetteClient
+from client.ingredient_client import IngredientClient
+from client.categorie_client import CategorieClient
+from client.origine_client import OrigineClient
+from client.recette_client import RecetteClient
 
-from src.service.origine_service import OrigineService
-from src.service.ingredient_service import IngredientService
-from src.service.categorie_service import CategorieService
-from src.service.recette_service import RecetteService
+from service.origine_service import OrigineService
+from service.ingredient_service import IngredientService
+from service.categorie_service import CategorieService
+from service.recette_service import RecetteService
+from service.ingredient_recette_service import IngredientRecetteService
+
+
+recette = RecetteClient().get_recette()
+test = recette[0]
+print(IngredientRecetteService().creer(test))

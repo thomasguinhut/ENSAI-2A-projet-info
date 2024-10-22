@@ -13,6 +13,7 @@ from service.ingredient_service import IngredientService
 from service.origine_service import OrigineService
 from service.categorie_service import CategorieService
 from service.recette_service import RecetteService
+from service.ingredient_recette_service import IngredientRecetteService
 
 
 class ResetDatabase(metaclass=Singleton):
@@ -22,6 +23,7 @@ class ResetDatabase(metaclass=Singleton):
 
     @log
     def lancer(self):
+
         dotenv.load_dotenv()
         schema = os.environ["POSTGRES_SCHEMA"]
         create_schema = f"DROP SCHEMA IF EXISTS {schema} CASCADE; CREATE SCHEMA {schema};"
@@ -42,24 +44,29 @@ class ResetDatabase(metaclass=Singleton):
 
         liste_ingredients = IngredientClient().get_ingredient()
         for dict_ingredient in liste_ingredients:
-            print(dict_ingredient)
             IngredientService().creer(dict_ingredient)
-        
+    
         liste_origines = OrigineClient().get_origine()
         for dict_origine in liste_origines:
-            print(dict_origine)
             OrigineService().creer(dict_origine)
 
         liste_categories = CategorieClient().get_categorie()
         for dict_categorie in liste_categories:
-            print(dict_categorie)
             CategorieService().creer(dict_categorie)
+    
+        liste_recettes = RecetteClient().get_recette()
+        i = 1
+        for dict_recette in liste_recettes:
+            RecetteService().creer(dict_recette)
+            print(f"Recette {i} ajoutée")
+            i += 1
         
         liste_recettes = RecetteClient().get_recette()
         for dict_recette in liste_recettes:
-            print(dict_recette)
-            RecetteService().creer(dict_recette)
-
+            IngredientRecetteService().creer(dict_recette)
+            print(f"Recette/ingredient {i} ajoutée")
+            i += 1
+        
 
 if __name__ == "__main__":
     ResetDatabase().lancer()
