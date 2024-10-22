@@ -19,7 +19,7 @@ class Session(metaclass=Singleton):
 
     def deconnexion(self):
         """Suppression des données de la session"""
-        self.joueur = None
+        self.utilisateur = None
         self.debut_connexion = None
 
     def afficher(self) -> str:

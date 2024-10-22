@@ -31,7 +31,7 @@ class UtilisateurVue(VueAbstraite):
         print("\n" + "-" * 50 + "\nMenu Joueur\n" + "-" * 50 + "\n")
 
         choix = inquirer.select(
-            message="Faites votre choix : ",
+            message="Que souhaitez-vous faire : ",
             choices=[
                 "Quitter",
                 "Afficher la liste des recettes",
@@ -50,3 +50,7 @@ class UtilisateurVue(VueAbstraite):
                 return ListeRecettesUtilisateurVue()
 
             case "Gérer les listes":
+                from view.utilisateur.gestion_listes_vue import GestionListesVue
+
+                return GestionListesVue()
+
