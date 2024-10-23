@@ -5,7 +5,7 @@ from utils.securite import hash_password
 
 from business_object.utilisateur import Utilisateur
 from dao.utilisateur_dao import UtilisateurDao
-from service.recette_favorite_service import RecettesFavoritesService
+from service.recette_favorite_service import RecetteFavoriteService
 from service.liste_course_service import ListeCourseService
 
 
@@ -100,7 +100,7 @@ class UtilisateurService:
             utilisateur = Utilisateur(
                 id_utilisateur=res["id_utilisateur"],
                 mdp_utilisateur=res["mdp_utilisateur"],
-                favoris=RecettesFavoritesService().lister_recettes_favorites(res["id_utilisateur"]),
+                favoris=RecetteFavoriteService().lister_recettes_favorites(res["id_utilisateur"]),
                 courses=ListeCourseService().lister_ingredients_liste_course(res["id_utilisateur"])
             )
         return utilisateur
