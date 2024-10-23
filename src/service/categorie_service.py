@@ -11,7 +11,7 @@ class CategorieService:
     Création de classe CategorieService.
 
     Cette classe, qui ne contient que des méthodes, transforme toute
-    donnée de l'application en rapport avec la catégorie des recette
+    donnée de l'application en rapport avec la catégorie des recettes
     en objet de la classe Catégorie. Cela facilite ensuite la
     manipulation des informations.
 
@@ -46,7 +46,17 @@ class CategorieService:
             return None
 
     @log
-    def trouver_liste_categories(self):
+    def trouver_liste_categories(self) -> list[Categorie]:
+        """
+
+        Affiche toutes les catégories de la base de données.
+
+        Returns
+        -------
+        list[Categorie]
+
+        """
+
         res = CategorieDao().trouver_liste_categories()
         liste_categories = []
         if res:

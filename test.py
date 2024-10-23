@@ -13,4 +13,4 @@ from dao.ingredient_recette_dao import IngredientRecetteDao
 from dao.categorie_dao import CategorieDao
 
 
-print(CategorieService().trouver_liste_categories())
+print(IngredientService().trouver_liste_ingredients())
