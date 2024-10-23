@@ -8,13 +8,35 @@ from dao.recette_dao import RecetteDao
 from business_object.categorie import Categorie
 from business_object.origine import Origine
 from business_object.ingredient import Ingredient
+from business_object.recette import Recette
 
 
-# liste_recettes = [
-#     recette(pseudo="jp", age="10", mail="jp@mail.fr", mdp="1234"),
-#     recette(pseudo="lea", age="10", mail="lea@mail.fr", mdp="0000"),
-#     recette(pseudo="gg", age="10", mail="gg@mail.fr", mdp="abcd"),
-# ]
+liste_recettes = [
+    Recette(
+        id_recette="0",
+        nom_recette="Recette0",
+        instructions_recette="Mélanger",
+        categorie_recette=Categorie("2","Dessert"),
+        origine_recette=Origine("2","French"),
+        ingredients_recette=[Ingredient("41","Butter"), Ingredient("104","Cumin")]
+        ),
+    Recette(
+        id_recette="1",
+        nom_recette="Recette1",
+        instructions_recette="Verser",
+        categorie_recette=Categorie("2","Dessert"),
+        origine_recette=Origine("2","French"),
+        ingredients_recette=[Ingredient("95","Coriander"), Ingredient("154","Ginger")]
+        ),
+    Recette(
+        id_recette="2",
+        nom_recette="Recette2",
+        instructions_recette="Cuire",
+        categorie_recette=Categorie("2","Dessert"),
+        origine_recette=Origine("2","French"),
+        ingredients_recette=[Ingredient("305","Sugar"), Ingredient("333","CuWatermin")]
+        ),
+]
 
 
 def test_creer_ok():
@@ -65,6 +87,12 @@ def test_trouver_liste_recettes():
 
     # GIVEN
     RecetteDao().trouver_liste_recettes = MagicMock(return_value=liste_recettes)
+
+    # WHEN
+    res = RecetteService().trouver_liste_recettes()
+
+    # THEN
+    assert len(res) == 3
 
 # def test_lister_tous_inclure_mdp_true():
 #     """Lister les recettes en incluant les mots de passe"""

@@ -1,5 +1,5 @@
 import logging
-
+import random
 from utils.singleton import Singleton
 from utils.log_decorator import log
 
@@ -67,7 +67,7 @@ class AvisDao(metaclass=Singleton):
         return res > 0
 
     @log
-    def ajouter_avis(self, avis: Avis, utilisateur: Utilisateur,
+    def ajouter_avis(self, note: int, commentaire: str, utilisateur: Utilisateur,
                      recette: Recette) -> bool:
         """
 
@@ -75,7 +75,8 @@ class AvisDao(metaclass=Singleton):
 
         Parameters
         ----------
-        avis: Avis
+        note: int
+        commentaires : str
         utilisateur : Utilisateur
         recette : Recette
 
@@ -84,7 +85,8 @@ class AvisDao(metaclass=Singleton):
         created : bool
             True si l'ajout est un succès, False sinon
         """
-
+        id_avis = str(random.sample(range(1, 100), 1))
+        avis = Avis(id_avis, commentaire, note)
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
