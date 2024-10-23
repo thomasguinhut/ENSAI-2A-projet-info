@@ -46,72 +46,29 @@ def test_trouver_par_id():
     """ Recherche de l'Utilisateur par son id """
 
     # GIVEN
-    id_utilisateur, mdp = "Ben", "1234"
-    UtilisateurDao().creer = MagicMock(return_value=False)
+    id_utilisateur, mdp = "1", "thomas"
+    utilisateur_attendu = Utilisateur(id_utilisateur="1", mdp="thomas")
+    UtilisateurDao().trouver_par_id = MagicMock(return_value=utilisateur_attendu)
 
     # WHEN
-    utilisateur = UtilisateurService().creer(id_utilisateur, mdp)
+    utilisateur_trouve = UtilisateurService().trouver_par_id(id_utilisateur)
 
     # THEN
-    assert utilisateur is None
+    assert utilisateur_trouve == utilisateur_attendu
 
+def test_existence_id():
+    """ Vérifie si un id existe dans la base de données """
 
-# def test_lister_tous_inclure_mdp_true():
-#     """Lister les Joueurs en incluant les mots de passe"""
+    # GIVEN
+    id_utilisateur, mdp = "1", "thomas"
+    utilisateur_attendu = Utilisateur(id_utilisateur="1", mdp="thomas")
+    UtilisateurDao().trouver_par_id = MagicMock(return_value=utilisateur_attendu)
 
-#     # GIVEN
-#     JoueurDao().lister_tous = MagicMock(return_value=liste_joueurs)
+    # WHEN
+    utilisateur_trouve = UtilisateurService().trouver_par_id(id_utilisateur)
 
-#     # WHEN
-#     res = JoueurService().lister_tous(inclure_mdp=True)
-
-#     # THEN
-#     assert len(res) == 3
-#     for joueur in res:
-#         assert joueur.mdp is not None
-
-
-# def test_lister_tous_inclure_mdp_false():
-#     """Lister les Joueurs en excluant les mots de passe"""
-
-#     # GIVEN
-#     JoueurDao().lister_tous = MagicMock(return_value=liste_joueurs)
-
-#     # WHEN
-#     res = JoueurService().lister_tous()
-
-#     # THEN
-#     assert len(res) == 3
-#     for joueur in res:
-#         assert not joueur.mdp
-
-
-# def test_pseudo_deja_utilise_oui():
-#     """Le pseudo est déjà utilisé dans liste_joueurs"""
-
-#     # GIVEN
-#     pseudo = "lea"
-
-#     # WHEN
-#     JoueurDao().lister_tous = MagicMock(return_value=liste_joueurs)
-#     res = JoueurService().pseudo_deja_utilise(pseudo)
-
-#     # THEN
-#     assert res
-
-
-# def test_pseudo_deja_utilise_non():
-#     """Le pseudo n'est pas utilisé dans liste_joueurs"""
-
-#     # GIVEN
-#     pseudo = "chaton"
-
-#     # WHEN
-#     JoueurDao().lister_tous = MagicMock(return_value=liste_joueurs)
-#     res = JoueurService().pseudo_deja_utilise(pseudo)
-
-#     # THEN
-#     assert not res
+    # THEN
+    assert utilisateur_trouve == utilisateur_attendu
 
 
 if __name__ == "__main__":
