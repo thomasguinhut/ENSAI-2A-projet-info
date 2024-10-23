@@ -4,14 +4,7 @@ from service.categorie_service import CategorieService
 
 from dao.categorie_dao import CategorieDao
 
-from business_object.categorie import Categorie
-
-
-liste_categories = [
-    Categorie(id_categorie="0", nom_categorie="Francais"),
-    Categorie(id_categorie="1", nom_categorie="Anglais"),
-    Categorie(id_categorie="2", nom_categorie="Américain"),
-]
+# from business_object.categorie import Categorie
 
 
 def test_creer_ok():
