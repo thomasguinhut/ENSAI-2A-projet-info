@@ -1,6 +1,5 @@
 from InquirerPy import inquirer
 from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
-from service.recette_service import RecetteService
 
 """def recuperer_choix_recettes(self):
         recettes_pages = self.liste_recettes[((self.page_actuelle-1)*self.recettes_par_page):(self.page_actuelle*self.recettes_par_page)]

@@ -61,7 +61,7 @@ class RecetteService:
 
     @log
     def trouver_liste_recettes(self):
-        res = RecetteDao().lister_toutes_recettes()
+        res = RecetteDao().trouver_liste_recettes()
         liste_recettes = []
         if res:
             for row in res:

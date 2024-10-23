@@ -7,16 +7,26 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
     """Classe abstraite pour les listes de recettes avec des fonctionnalités communes."""
 
     def __init__(self, recettes_par_page=5):
-        self.liste_recettes = RecetteService.trouver_liste_recettes()
+        self.liste_recettes = RecetteService().trouver_liste_recettes()
+        self.filtres_ingredient = Session().choix_filtres_ingredient
+        self.filtres_origine = Session().choix_filtres_origine
+        self.filtres_categorie = Session().choix_filtres_categorie
         self.recettes_par_page = recettes_par_page
         self.page_actuelle = 0
-        self.filtres = Session().choix_filtres
+
+    def filtrer_recettes(self):
+        """Filtre la liste des recettes en fonction des filtres choisis."""
+        if self.filtres == []:
+            return self.liste_recettes
+        else:
+            return RecetteService().filtrer_recettes(self.liste_recettes, self.filtres_ingredient, self.filtres_origine, self.filtres_categorie)
 
     def diviser_en_pages(self):
-        """Divise la liste des recettes en pages."""
+        """Divise la liste des recettes filtrées en pages."""
+        recettes_filtrees = self.filtrer_recettes()
         return [
-            self.liste_recettes[i:i + self.recettes_par_page]
-            for i in range(0, len(self.liste_recettes), self.recettes_par_page)
+            recettes_filtrees[i:i + self.recettes_par_page]
+            for i in range(0, len(recettes_filtrees), self.recettes_par_page)
         ]
 
     def creer_options_menu(self, pages):

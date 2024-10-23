@@ -10,7 +10,7 @@ from InquirerPy import inquirer
 class RecetteUtilisateurVue(VueAbstraite):
     def __init__(self, nom_recette):
         self.nom_recette = nom_recette
-        self.recette = trouver_recette(nom_recette)
+        self.recette = RecetteService().trouver_recette(nom_recette)
 
     def afficher_recette_utilisateur(self):
         """Affiche les détails de la recette sélectionnée et propose des
