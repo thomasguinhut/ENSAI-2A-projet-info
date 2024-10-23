@@ -8,9 +8,7 @@ class FiltreIngredientVue(FiltreAbstraitVue):
     """Classe pour gérer les filtres par ingrédient dans l'interface utilisateur."""
 
     def __init__(self):
-        """
-        Initialise la vue des filtres par ingrédient.
-        """
+        """Initialise la vue des filtres par ingrédient."""
         super().__init__()
         self.liste_criteres = IngredientService.trouver_liste_ingredients()
 
