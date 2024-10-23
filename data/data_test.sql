@@ -1,7 +1,7 @@
 -- Insertion des utilisateurs
 INSERT INTO utilisateur (id_utilisateur, mdp) VALUES
 ('1', 'thomas'),
-('2', 'benjmain'),
+('2', 'benjamin'),
 ('3', 'akmal'),
 ('4', 'fany'),
 ('5', 'toussaint');

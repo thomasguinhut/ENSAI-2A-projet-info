@@ -65,7 +65,7 @@ class RecetteService:
                 recette = Recette(
                     id_recette=row["id_recette"],
                     nom_recette=row["nom_recette"],
-                    instructions_recette=row["instructions_recettes"],
+                    instructions_recette=row["instructions_recette"],
                     id_origine=row["id_origine"],
                     id_categorie=row["id_categorie"],
                 )

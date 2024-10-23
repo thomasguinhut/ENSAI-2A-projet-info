@@ -10,4 +10,4 @@ from service.recette_service import RecetteService
 from service.ingredient_recette_service import IngredientRecetteService
 
 
-print(3 // 9)
+print(RecetteService().lister_toutes_recettes())
