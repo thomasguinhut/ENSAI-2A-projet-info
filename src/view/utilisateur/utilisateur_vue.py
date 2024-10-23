@@ -43,14 +43,12 @@ class UtilisateurVue(VueAbstraite):
             case "Quitter":
                 pass
 
-                return AccueilVue()
-
             case "Afficher la liste des recettes":
-                from view.utilisateur.liste_recettes_utilisateur_vue import ListeRecettesUtilisateurVue()
-                return ListeRecettesUtilisateurVue()
+                from view.menu_liste_recettes_vue import MenuListeRecettes
+
+                return MenuListeRecettes()
 
             case "Gérer les listes":
                 from view.utilisateur.gestion_listes_vue import GestionListesVue
 
                 return GestionListesVue()
-

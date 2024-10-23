@@ -5,6 +5,8 @@ from service.utilisateur_service import UtilisateurService
 
 class ConnexionVue(VueAbstraite):
     """Vue de Connexion (saisie de pseudo et mot de passe)"""
+    def __init__(self, message=""):
+        super().__init__(message)
 
     def choisir_menu(self):
         # Demande à l'utilisateur de saisir pseudo et mot de passe

@@ -9,6 +9,9 @@ from service.utilisateur_service import UtilisateurService
 
 
 class InscriptionVue(VueAbstraite):
+    def __init__(self, message=""):
+        super().__init__(message)
+
     def choisir_menu(self):
         # Demande à l'utilisateur de saisir pseudo, mot de passe...
         id_utilisateur = inquirer.text(message="Entrez votre pseudo : ").execute()

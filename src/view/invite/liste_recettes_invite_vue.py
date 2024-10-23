@@ -10,6 +10,9 @@ from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
 
 class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
 
+    def __init__(self, message=""):
+        super().__init__(message)
+
     def choisir_menu(self):
         pages = self.diviser_en_pages()
         if not pages:
@@ -19,7 +22,7 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
         while True:
             choix = inquirer.select(
                 message="Choisissez une recette ou une option :",
-                choices=ListeRecettesAbstraiteVue.creer_options_menu(pages)
+                choices=ListeRecettesAbstraiteVue().creer_options_menu(pages)
             ).execute()
 
             if choix == "Retourner au menu principal":
@@ -36,4 +39,4 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
             else:
                 from view.invite.recette_invite_vue import RecetteInviteVue
 
-                return RecetteInviteVue()
+                return RecetteInviteVue(choix, f"Affichage de la recette{choix}")

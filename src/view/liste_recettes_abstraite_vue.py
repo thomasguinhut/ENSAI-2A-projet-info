@@ -6,20 +6,22 @@ from view.session import Session
 class ListeRecettesAbstraiteVue(VueAbstraite):
     """Classe abstraite pour les listes de recettes avec des fonctionnalités communes."""
 
-    def __init__(self, recettes_par_page=5):
+    def __init__(self, recettes_par_page=5, message=""):
+        super().__init__(message=message)
         self.liste_recettes = RecetteService().trouver_liste_recettes()
-        self.filtres_ingredient = Session().choix_filtres_ingredient
-        self.filtres_origine = Session().choix_filtres_origine
-        self.filtres_categorie = Session().choix_filtres_categorie
         self.recettes_par_page = recettes_par_page
         self.page_actuelle = 0
 
     def filtrer_recettes(self):
         """Filtre la liste des recettes en fonction des filtres choisis."""
-        if self.filtres == []:
+        if self.filtres_ingredient == [] and self.filtres_origine == [] and self.filtres_categorie == []:
             return self.liste_recettes
         else:
-            return RecetteService().filtrer_recettes(self.liste_recettes, self.filtres_ingredient, self.filtres_origine, self.filtres_categorie)
+            return RecetteService().filtrer_recettes(
+                Session().choix_filtres_ingredient,
+                Session().choix_filtres_origine,
+                Session().choix_filtres_categorie
+            )
 
     def diviser_en_pages(self):
         """Divise la liste des recettes filtrées en pages."""

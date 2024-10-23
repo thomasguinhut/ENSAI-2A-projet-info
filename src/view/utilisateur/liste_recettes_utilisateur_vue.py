@@ -9,6 +9,8 @@ from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
 
 
 class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
+    def __init__(self, message=""):
+        super().__init__(message)
 
     def choisir_menu(self):
         pages = self.diviser_en_pages()
@@ -39,4 +41,4 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
             else:
                 from view.utilisateur.recette_utilisateur_vue import RecetteUtilisateurVue
 
-                return RecetteUtilisateurVue(choix)
+                return RecetteUtilisateurVue(choix, f"Affichage de la recette{choix}")
