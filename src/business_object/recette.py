@@ -1,6 +1,7 @@
 from business_object.ingredient import Ingredient
 from business_object.categorie import Categorie
 from business_object.origine import Origine
+from business_object.avis import Avis
 
 
 class Recette:
@@ -47,6 +48,7 @@ class Recette:
         categorie_recette: Categorie,
         origine_recette: Origine,
         ingredients_recette: list[Ingredient],
+        avis_recette: Avis = None
     ):
         """
 

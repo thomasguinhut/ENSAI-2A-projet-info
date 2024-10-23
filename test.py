@@ -24,6 +24,4 @@ from dao.recette_dao import RecetteDao
 ingredient = ["Chicken Thighs"]
 origine = ["Japon"]
 categorie = ["Dessert"]
-print(RecetteService().filtrer_recettes(filtres_ingredients=ingredient,
-                                        filtres_origines=origine,
-                                        filtres_categories=categorie))
+print(RecetteService().trouver_liste_recettes())
