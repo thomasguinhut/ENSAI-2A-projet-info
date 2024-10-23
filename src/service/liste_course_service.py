@@ -12,6 +12,7 @@ class ListeCourseService:
     Création de classe ListeCourseservice.
 
     """
+
     @log
     def lister_ingredient_liste_course(self, id_utilisateur) -> list[Ingredient]:
         res = ListeCourseDao().lister_ingredients_liste_course(id_utilisateur)

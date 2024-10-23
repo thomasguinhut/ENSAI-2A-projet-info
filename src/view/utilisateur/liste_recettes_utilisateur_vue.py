@@ -1,24 +1,26 @@
 from InquirerPy import inquirer
 from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
 
-"""def recuperer_choix_recettes(self):
-        recettes_pages = self.liste_recettes[((self.page_actuelle-1)*self.recettes_par_page):(self.page_actuelle*self.recettes_par_page)]
-        liste_options = []
-        for recette in recettes_pages:
-            liste_options.append(recette.nom)"""
-
 
 class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
+    """Classe pour gérer la vue des recettes d'un utilisateur."""
+
     def __init__(self, message=""):
+        """
+        Initialise la vue de la liste des recettes pour un utilisateur.
+
+        Args:
+            message (str): Message à afficher (par défaut: "").
+        """
         super().__init__(message)
 
     def choisir_menu(self):
+        """Affiche le menu de sélection des recettes et gère les choix de l'utilisateur."""
         pages = self.diviser_en_pages()
+
         if not pages:
             print("Aucune recette disponible.")
-
             from view.utilisateur.utilisateur_vue import UtilisateurVue
-
             return UtilisateurVue('Retour au menu principal')
 
         while True:
@@ -40,5 +42,4 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
                 self.choisir_menu()
             else:
                 from view.utilisateur.recette_utilisateur_vue import RecetteUtilisateurVue
-
-                return RecetteUtilisateurVue(choix, f"Affichage de la recette{choix}")
+                return RecetteUtilisateurVue(choix, f"Affichage de la recette {choix}")

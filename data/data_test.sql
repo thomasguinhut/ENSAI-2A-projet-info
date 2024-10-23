@@ -8,13 +8,13 @@ INSERT INTO utilisateur (id_utilisateur, mdp) VALUES
 
 -- Insertion des catégories
 INSERT INTO categorie (id_categorie, nom_categorie) VALUES
-('2', 'Dessert'),
-('3', 'Plat Principal');
+('3', 'Lamb'),
+('2', 'Dessert');
 
 -- Insertion des origines
 INSERT INTO origine (id_origine, nom_origine) VALUES
-('2', 'France'),
-('17', 'Japon');
+('2', 'Canadian'),
+('17', 'Mexican');
 
 -- Insertion des ingrédients
 INSERT INTO ingredient (id_ingredient, nom_ingredient) VALUES

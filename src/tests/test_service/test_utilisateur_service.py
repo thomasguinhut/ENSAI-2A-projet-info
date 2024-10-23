@@ -46,14 +46,15 @@ def test_trouver_par_id():
     """ Recherche de l'Utilisateur par son id """
 
     # GIVEN
-    id_utilisateur, mdp = "Ben", "1234"
-    UtilisateurDao().creer = MagicMock(return_value=False)
+    id_utilisateur, mdp = "1", "thomas"
+    utilisateur_attendu = Utilisateur(id_utilisateur="1", mdp="thomas")
+    UtilisateurDao().trouver_par_id = MagicMock(return_value=utilisateur_attendu)
 
     # WHEN
-    utilisateur = UtilisateurService().creer(id_utilisateur, mdp)
+    utilisateur_trouve = UtilisateurService().trouver_par_id(id_utilisateur)
 
     # THEN
-    assert utilisateur is None
+    assert utilisateur_trouve == utilisateur_attendu
 
 
 # def test_lister_tous_inclure_mdp_true():
