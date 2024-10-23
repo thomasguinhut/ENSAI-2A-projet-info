@@ -1,5 +1,6 @@
 from view.vue_abstraite import VueAbstraite
 from service.recette_service import RecetteService
+from view.session import Session
 
 
 class ListeRecettesAbstraiteVue(VueAbstraite):
@@ -9,6 +10,7 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
         self.liste_recettes = RecetteService.trouver_liste_recettes()
         self.recettes_par_page = recettes_par_page
         self.page_actuelle = 0
+        self.filtres = Session().choix_filtres
 
     def diviser_en_pages(self):
         """Divise la liste des recettes en pages."""
