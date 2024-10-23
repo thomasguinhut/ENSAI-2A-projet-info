@@ -88,8 +88,8 @@ class ListeCourseDao(metaclass=Singleton):
         return res is not None
 
     @log
-    def ajouter_recette_a_liste(self, utilisateur: Utilisateur,
-                                recette: Recette) -> bool:
+    def ajouter_ingredients_courses(self, utilisateur: Utilisateur,
+                                    recette: Recette) -> bool:
         """
 
         Ajout de tous les ingrédients d'une recette à la liste de courses
