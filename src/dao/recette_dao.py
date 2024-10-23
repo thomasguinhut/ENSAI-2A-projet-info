@@ -104,122 +104,124 @@ class RecetteDao(metaclass=Singleton):
 
     def liste_recettes_par_filtres(
         self,
-            filtres_ingredients: list[Ingredient] = None,
-            filtres_origines: list[Origine] = None,
-            filtres_categories: list[Categorie] = None
+            filtres_ingredients: list[Ingredient],
+            filtres_origines: list[Origine],
+            filtres_categories: list[Categorie]
     ):
-        id_recette = []
-        for ingredient in filtres_ingredients:
-            id_ingredient = ingredient.id_ingredient
-            try:
-                with DBConnection().connection as connection:
-                    with connection.cursor() as cursor:
-                        req = ("SELECT * FROM recette"
-                               "JOIN ingredient_recette ir"
-                               "ON r.id_recette = ir.id_recette"
-                               "JOIN ingredient i"
-                               "ON ir.id_ingredient = i.id_ingredient"
-                               "WHERE")
-                        req += "ir.id_ingredient = {id_ingredient}".format(
-                            id_ingredient=id_ingredient)
-                        res = cursor.fetchall()
-            except Exception as e:
-                logging.info(e)
-                raise
-            print(res)
-        for origine in filtres_origines:
-            id_origine = origine.id_origine
-            try:
-                with DBConnection().connection as connection:
-                    with connection.cursor() as cursor:
-                        req = ("SELECT * FROM recette"
-                               "JOIN origine o"
-                               "ON r.id_origine = o.id_origine"
-                               "WHERE")
-                        req += "ir.id_ingredient = {id_origine}".format(
-                            id_origine=id_origine)
-                        res = cursor.fetchall()
-            except Exception as e:
-                logging.info(e)
-                raise
-        for categorie in filtres_categories:
-            id_categorie = categorie.id_categorie
-            try:
-                with DBConnection().connection as connection:
-                    with connection.cursor() as cursor:
-                        req = ("SELECT * FROM recette"
-                               "JOIN categorie c"
-                               "ON r.id_categorie = c.id_categorie"
-                               "WHERE")
-                        req += "ir.id_ingredient = {id_categorie}".format(
-                            id_categorie=id_categorie)
-                        res = cursor.fetchall()
-            except Exception as e:
-                logging.info(e)
-                raise
-            return res
+        liste_recettes = []
+        if filtres_ingredients:
+            recettes_ingredients = []
+            id_recettes_ingredients = []
+            for ingredient in filtres_ingredients:
+                id_ingredient = ingredient.id_ingredient
+                try:
+                    with DBConnection().connection as connection:
+                        with connection.cursor() as cursor:
+                            req = ("SELECT * FROM recette r "
+                                   "JOIN ingredient_recette ir "
+                                   "ON r.id_recette = ir.id_recette "
+                                   "JOIN ingredient i "
+                                   "ON ir.id_ingredient = i.id_ingredient "
+                                   "WHERE ")
+                            req += ("ir.id_ingredient = CAST({id_ingredient} "
+                                    "AS VARCHAR)".format(
+                                        id_ingredient=id_ingredient))
+                            cursor.execute(req)
+                            res = cursor.fetchall()
+                except Exception as e:
+                    logging.info(e)
+                    raise
+                recettes_ingredients.append(res)
+                id_recettes_ingredients.append(res[0]["id_recette"])
+        if filtres_origines:
+            recettes_origines = []
+            id_recettes_origines = []
+            for origine in filtres_origines:
+                id_origine = origine.id_origine
+                try:
+                    with DBConnection().connection as connection:
+                        with connection.cursor() as cursor:
+                            req = ("SELECT * FROM recette r "
+                                   "JOIN origine o "
+                                   "ON r.id_origine = o.id_origine "
+                                   "WHERE ")
+                            req += ("o.id_origine = CAST({id_origine} "
+                                    "AS VARCHAR)".format(
+                                        id_origine=id_origine))
+                            cursor.execute(req)
+                            res = cursor.fetchall()
+                except Exception as e:
+                    logging.info(e)
+                    raise
+                recettes_origines.append(res)
+                id_recettes_origines.append(res[0]["id_recette"])
+        if filtres_categories:
+            recettes_categories = []
+            id_recettes_categories = []
+            for categorie in filtres_categories:
+                id_categorie = categorie.id_categorie
+                try:
+                    with DBConnection().connection as connection:
+                        with connection.cursor() as cursor:
+                            req = ("SELECT * FROM recette r "
+                                   "JOIN categorie c "
+                                   "ON r.id_categorie = c.id_categorie "
+                                   "WHERE ")
+                            req += ("c.id_categorie = CAST({id_categorie} "
+                                    "AS VARCHAR)".format(
+                                        id_categorie=id_categorie))
+                            cursor.execute(req)
+                            res = cursor.fetchall()
+                except Exception as e:
+                    logging.info(e)
+                    raise
+                recettes_categories.append(res)
+                id_recettes_categories.append(res[0]["id_recette"])
+        id_liste_recettes = []
+        if filtres_ingredients and filtres_origines and filtres_categories:
+            recettes = (
+                recettes_ingredients + recettes_origines + recettes_categories)
+            id_liste_recettes = list(
+                set(id_recettes_categories) &
+                set(id_recettes_origines) &
+                set(id_recettes_categories)
+            )
+        elif filtres_ingredients and filtres_origines:
+            recettes = (
+                recettes_ingredients + recettes_origines)
+            id_liste_recettes = list(set(id_recettes_categories)
+                                     & set(id_recettes_origines))
+        elif filtres_ingredients and filtres_categories:
+            recettes = (
+                recettes_ingredients + recettes_categories)
+            id_liste_recettes = list(set(id_recettes_categories)
+                                     & set(id_recettes_categories))
+        elif filtres_origines and filtres_categories:
+            recettes = (
+                recettes_origines + recettes_categories)
+            id_liste_recettes = list(set(id_recettes_origines)
+                                     & set(id_recettes_categories))
+        elif filtres_ingredients:
+            recettes = recettes_ingredients
+            id_liste_recettes = id_recettes_categories
+        elif filtres_origines:
+            recettes = recettes_origines
+            id_liste_recettes = id_recettes_origines
+        elif filtres_categories:
+            recettes = recettes_categories
+            id_liste_recettes = id_recettes_categories
+        else:
+            id_liste_recettes = []
 
-    @ log
-    def lister_recettes_par_categorie(self, categorie) -> list[dict]:
-        """lister toutes les recettes par catégorie
+        ids_vus = set()
+        recettes_filtrees = []
+        for recette in recettes[0]:
+            id_recette = recette["id_recette"]
+            if id_recette in id_liste_recettes and id_recette not in ids_vus:
+                recettes_filtrees.append(recette)
+                ids_vus.add(id_recette)
 
-        Parameters
-        ----------
-        categorie : Categorie
-
-        Returns
-        -------
-        res : list[dict]
-            renvoie une liste de dictionnaire des recettes
-        """
-
-        try:
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
-                    cursor.execute(
-                        "SELECT *                              "
-                        "  FROM recette; "
-                        "  JOIN categorie USING(id_categorie)"
-                        "  WHERE id_categorie=%(id_categorie)s;                     ",
-                        {"id_categorie": categorie.id_categorie},
-                    )
-
-                    res = cursor.fetchall()
-        except Exception as e:
-            logging.info(e)
-            raise
-        return res
-
-    @ log
-    def lister_recettes_par_origine(self, origine) -> list[dict]:
-        """lister toutes les recettes par origine
-
-        Parameters
-        ----------
-        origine : Origine
-
-        Returns
-        -------
-        res : list[dict]
-            renvoie une liste de dictionnaire des recettes
-        """
-
-        try:
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
-                    cursor.execute(
-                        "SELECT *                              "
-                        "  FROM recette; "
-                        "  JOIN origine USING(id_origine)"
-                        "  WHERE id_origine=%(id_origine)s;                     ",
-                        {"id_origine": origine.id_origine},
-                    )
-
-                    res = cursor.fetchall()
-        except Exception as e:
-            logging.info(e)
-            raise
-        return res
+        return recettes_filtrees
 
     @ log
     def trouver_recette(self, nom_recette) -> dict[
