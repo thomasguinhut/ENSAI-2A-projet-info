@@ -5,6 +5,10 @@ from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
 
+from business_object.ingredient import Ingredient
+from business_object.origine import Origine
+from business_object.categorie import Categorie
+
 
 class RecetteDao(metaclass=Singleton):
 
@@ -98,45 +102,64 @@ class RecetteDao(metaclass=Singleton):
             raise
         return res
 
-    def liste_recettes_par_filtres(self, filtres_ingredients: list[Ingredient],
-                                   filtres_origines: list[Origine],
-                                   filtres_categories: list[Categorie]
-                                   ):
+    def liste_recettes_par_filtres(
+        self,
+            filtres_ingredients: list[Ingredient] = None,
+            filtres_origines: list[Origine] = None,
+            filtres_categories: list[Categorie] = None
+    ):
+        id_recette = []
         for ingredient in filtres_ingredients:
             id_ingredient = ingredient.id_ingredient
             try:
                 with DBConnection().connection as connection:
                     with connection.cursor() as cursor:
-                        req = "SELECT mmmmmmm FROm truc WHERE"
-                        for filtre in filtres_ingredients:
-                            req += "ir.id_ingredient = {id_ingredient}".format(
-                                id_ingredient=filtre)
-                        cursor.execute(
-                            """
-                            SELECT DISTINCT (r.id_recette, r.nom_recette,
-                                            r.instructions_recette)
-                            FROM recette r
-                            JOIN ingredient_recette ir
-                            ON r.id_recette = ir.id_recette
-                            JOIN ingredient i
-                            ON ir.id_ingredient = i.id_ingredient
-                            JOIN origine o
-                            ON r.id_origine = o.id_origine
-                            JOIN categorie c
-                            ON r.id_categorie = c.id_categorie
-                            WHERE r.id_origine = 'id_origine_1')
-                            AND r.id_categorie = 'id_categorie_1')
-                            AND i.id_ingredient = 'id_ingredient_1');
-                            """,
-                            {"id_categorie": categorie.id_categorie},
-                        )
+                        req = ("SELECT * FROM recette"
+                               "JOIN ingredient_recette ir"
+                               "ON r.id_recette = ir.id_recette"
+                               "JOIN ingredient i"
+                               "ON ir.id_ingredient = i.id_ingredient"
+                               "WHERE")
+                        req += "ir.id_ingredient = {id_ingredient}".format(
+                            id_ingredient=id_ingredient)
                         res = cursor.fetchall()
-        except Exception as e:
-            logging.info(e)
-            raise
-        return res
+            except Exception as e:
+                logging.info(e)
+                raise
+            print(res)
+        for origine in filtres_origines:
+            id_origine = origine.id_origine
+            try:
+                with DBConnection().connection as connection:
+                    with connection.cursor() as cursor:
+                        req = ("SELECT * FROM recette"
+                               "JOIN origine o"
+                               "ON r.id_origine = o.id_origine"
+                               "WHERE")
+                        req += "ir.id_ingredient = {id_origine}".format(
+                            id_origine=id_origine)
+                        res = cursor.fetchall()
+            except Exception as e:
+                logging.info(e)
+                raise
+        for categorie in filtres_categories:
+            id_categorie = categorie.id_categorie
+            try:
+                with DBConnection().connection as connection:
+                    with connection.cursor() as cursor:
+                        req = ("SELECT * FROM recette"
+                               "JOIN categorie c"
+                               "ON r.id_categorie = c.id_categorie"
+                               "WHERE")
+                        req += "ir.id_ingredient = {id_categorie}".format(
+                            id_categorie=id_categorie)
+                        res = cursor.fetchall()
+            except Exception as e:
+                logging.info(e)
+                raise
+            return res
 
-    @log
+    @ log
     def lister_recettes_par_categorie(self, categorie) -> list[dict]:
         """lister toutes les recettes par catégorie
 
@@ -167,7 +190,7 @@ class RecetteDao(metaclass=Singleton):
             raise
         return res
 
-    @log
+    @ log
     def lister_recettes_par_origine(self, origine) -> list[dict]:
         """lister toutes les recettes par origine
 
@@ -198,7 +221,7 @@ class RecetteDao(metaclass=Singleton):
             raise
         return res
 
-    @log
+    @ log
     def trouver_recette(self, nom_recette) -> dict[
             "id": str, str, str, str, str, str]:
         """
