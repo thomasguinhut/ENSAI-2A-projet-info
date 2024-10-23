@@ -107,7 +107,7 @@ class RecetteFavoriteDao(metaclass=Singleton):
                         "  FROM recette_favorite  "
                         "  WHERE id_utilisateur = %(id_utilisateur)s;           ",
                         {
-                            "id_utilisateur": utilisateur.id_utilisateur,
+                            "id_utilisateur": id_utilisateur,
                         },
                     )
                     res = cursor.fetchall()
