@@ -19,4 +19,4 @@ from dao.recette_favorite_dao import RecetteFavoriteDao
 from dao.recette_dao import RecetteDao
 
 
-print(UtilisateurService().trouver_par_id("1"))
+UtilisateurService().trouver_par_id("1")
