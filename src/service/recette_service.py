@@ -111,3 +111,22 @@ class RecetteService:
                 )
                 liste_recettes.append(recette)
         return liste_recettes
+
+    @log
+    def trouver_recette(self,nom_recette):
+        res = RecetteDao().trouver_recette(nom_recette)
+        if res:
+            for row in res:
+                origine = Origine(id_origine=row["id_origine"],
+                                  nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
+                categorie = Categorie(id_categorie=row["id_categorie"],
+                                  nom_categorie=CategorieClient().get_nom_categorie_by_id(row["id_categorie"]))
+                recette = Recette(
+                    id_recette=row["id_recette"],
+                    nom_recette=row["nom_recette"],
+                    instructions_recette=row["instructions_recette"],
+                    origine_recette=origine,
+                    categorie_recette=categorie,
+                    ingredients_recette=IngredientRecetteService().lister_ingredients_by_recette(row["id_recette"])
+                )
+        return recette

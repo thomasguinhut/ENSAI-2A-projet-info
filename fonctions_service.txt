@@ -1,4 +1,4 @@
-trouver_recette(nom_recette)
+trouver_recette(nom_recette)  FAIT
 RecetteService.trouver_liste_recettes()
 
 ajouter_favori(id_utilisateur, self.recette)

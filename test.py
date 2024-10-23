@@ -12,4 +12,4 @@ from dao.origine_dao import OrigineDao
 from dao.ingredient_recette_dao import IngredientRecetteDao
 
 
-print(RecetteService().lister_toutes_recettes())
+print(RecetteService().trouver_recette("Apple Frangipan Tart"))
