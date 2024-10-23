@@ -8,6 +8,7 @@ from service.ingredient_service import IngredientService
 from service.categorie_service import CategorieService
 from service.recette_service import RecetteService
 from service.ingredient_recette_service import IngredientRecetteService
+from dao.origine_dao import OrigineDao
 
 
 print(RecetteService().lister_toutes_recettes())
