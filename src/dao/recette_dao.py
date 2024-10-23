@@ -100,6 +100,8 @@ class RecetteDao(metaclass=Singleton):
         except Exception as e:
             logging.info(e)
             raise
+        print(res)
+
         return res
 
     def liste_recettes_par_filtres(
