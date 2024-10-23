@@ -9,12 +9,21 @@ from dao.db_connection import DBConnection
 
 
 class IngredientDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour accéder aux Ingrédients de la base de données"""
+
+    """
+
+    Création de la classe IngredientDao.
+
+    Cette classe fait le lien entre les objets de la classe Ingredient,
+    disponibles avec la classe IngredientService, et la table ingredient de la
+    base de données.
+
+    """
 
     @log
     def creer(self, ingredient) -> bool:
         """
-        
+
         Creation d'un ingrédient dans la base de données
 
         Parameters
@@ -49,3 +58,35 @@ class IngredientDao(metaclass=Singleton):
             ingredient.id_ingredient = res["id_ingredient"]
             created = True
         return created
+
+    @log
+    def trouver_liste_ingredients(self) -> list[dict[str, str]]:
+        """
+
+        Liste tous les ingrédients de la base de donénes.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        liste_categories : list[dict[
+            "id_ingredient": str, "nom_ingredient": str]]
+            Renvoie la liste de tous les ingrédients sous forme de
+            dictionnaires
+
+        """
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT *"
+                        "   FROM ingredient;"
+                    )
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        return res

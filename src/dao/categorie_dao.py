@@ -9,7 +9,16 @@ from dao.db_connection import DBConnection
 
 
 class CategorieDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour accéder aux Categories de la base de données"""
+
+    """
+
+    Création de la classe CategorieDao.
+
+    Cette classe fait le lien entre les objets de la classe Categorie,
+    disponibles avec la classe CategorieService, et la table categorie de la
+    base de données.
+
+    """
 
     @log
     def creer(self, categorie) -> bool:
@@ -63,7 +72,7 @@ class CategorieDao(metaclass=Singleton):
         liste_categories : list[dict[
             "id_categorie": str, "nom_categorie": str]]
             Renvoie la liste de toutes les catégories sous forme de
-            dictionnaires
+            dictionnaires.
 
         """
 

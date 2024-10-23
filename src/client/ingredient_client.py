@@ -11,7 +11,7 @@ class IngredientClient:
 
     Cette classe, qui ne contient que des méthodes, fait le lien entre
     l'API et l'application. Elle récupère les infos disponibles sous format
-    JSON pour les transformer en objet Python, ici une liste de dictionnaire
+    JSON pour les transformer en objet Python, ici une liste de dictionnaires
     avec un dictionnaire par ingrédient.
 
     """

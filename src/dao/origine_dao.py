@@ -9,7 +9,16 @@ from dao.db_connection import DBConnection
 
 
 class OrigineDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour accéder aux Origines de la base de données"""
+
+    """
+
+    Création de la classe OrigineDao.
+
+    Cette classe fait le lien entre les objets de la classe Origine,
+    disponibles avec la classe OrigineService, et la table origine de la
+    base de données.
+
+    """
 
     @log
     def creer(self, origine) -> bool:
@@ -93,3 +102,35 @@ class OrigineDao(metaclass=Singleton):
             return res['nom_origine']
         else:
             return None
+
+    @log
+    def trouver_liste_origines(self) -> list[dict[str, str]]:
+        """
+
+        Liste toutes les origines de la base de donénes.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        liste_origines : list[dict[
+            "id_origine": str, "nom_origine": str]]
+            Renvoie la liste de toutes les origines sous forme de
+            dictionnaires
+
+        """
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT *"
+                        "   FROM origine;"
+                    )
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        return res

@@ -8,7 +8,6 @@ from client.ingredient_client import IngredientClient
 from client.categorie_client import CategorieClient
 from client.origine_client import OrigineClient
 
-from dao.recette_dao import RecetteDao
 from dao.ingredient_recette_dao import IngredientRecetteDao
 
 
@@ -19,7 +18,7 @@ class IngredientRecetteService:
     Création de classe RecetteService.
 
     Cette classe, qui ne contient que des méthodes, transforme toute
-    les recettes en objet de la classe Recette unique pour être ensuite
+    les recettes en objet de la classe Recette, uniquement pour être ensuite
     utilisé en lien avec la table ingrédients_recettes. Cela facilite
     la manipulation des informations.
 
@@ -27,6 +26,26 @@ class IngredientRecetteService:
 
     @log
     def creer(self, recette: dict) -> Recette:
+        """
+
+        Crée une Recette.
+
+        Parameters
+        ----------
+        recette : dict[id_recette: str, nom_recette: str,
+                       instructions_recette: str,
+                       categorie_recette: Categorie,
+                       origine_recette: Origine,
+                       ingredients_recette : list[Ingredient]]
+            On utilise l'output de la méthode get_recette() présente dans
+            la classe RecetteClient.
+
+        Returns
+        -------
+        Recette
+
+        """
+
         liste_ingredients = []
         for nom_ingredient in recette["ingredients_recette"]:
             id_ingredient = IngredientClient.get_id_ingredient_by_name(

@@ -15,7 +15,7 @@ class RecetteClient:
 
     Cette classe, qui ne contient que des méthodes, fait le lien entre
     l'API et l'application. Elle récupère les infos disponibles sous format
-    JSON pour les transformer en objet Python, ici une liste de dictionnaire
+    JSON pour les transformer en objet Python, ici une liste de dictionnaires
     avec un dictionnaire par recette.
 
     """
@@ -46,7 +46,8 @@ class RecetteClient:
         liste_recette = []
         for letter in range(ord("a"), ord("z") + 1):
             req = requests.get(
-                f"https://www.themealdb.com/api/json/v1/1/search.php?f={chr(letter)}"
+                "https://www.themealdb.com/api/json/v1/1/search.php?f="
+                f"{chr(letter)}"
             )
             recette = {}
             if req.status_code == 200:

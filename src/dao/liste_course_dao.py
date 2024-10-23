@@ -5,14 +5,27 @@ from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
 from business_object.ingredient import Ingredient
+from business_object.utilisateur import Utilisateur
+from business_object.recette import Recette
 
 
 class ListeCourseDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour gérer la liste de course"""
+
+    """
+
+    Création de la classe ListeCourseDao.
+
+    Cette classe fait le lien entre les objets des classes métiers
+    et la table liste_course de la base de données.
+
+    """
 
     @log
-    def supprimer(self, ingredient) -> bool:
-        """Suppression d'un ingrédient de la liste de courses dans la base de données
+    def supprimer(self, ingredient: Ingredient) -> bool:
+        """
+
+        Suppression un ingrédient donné de la liste de courses
+        dans la base de données
 
         Parameters
         ----------
@@ -41,9 +54,12 @@ class ListeCourseDao(metaclass=Singleton):
         return res > 0
 
     @log
-    def trouver_par_id(self, utilisateur, ingredient) -> bool:
-        """Déterminer si un couplage (utilisateur, ingrédient)
-            donné existe dans la liste de courses
+    def trouver_par_id(self, utilisateur: Utilisateur,
+                       ingredient: Ingredient) -> bool:
+        """
+
+        Determiner si un couplage (utilisateur, ingrédient) donné existe dans
+        la liste de courses.
 
         Parameters
         ----------
@@ -62,7 +78,7 @@ class ListeCourseDao(metaclass=Singleton):
                         "  FROM liste_course                      "
                         " WHERE id_utilisateur = %(id_utilisateur)s "
                         " AND id_ingredient = %(id_ingredient)s;  "
-                        )
+                    )
 
                     res = cursor.fetchone()
         except Exception as e:
@@ -72,8 +88,12 @@ class ListeCourseDao(metaclass=Singleton):
         return res is not None
 
     @log
-    def ajouter_recette_a_liste(self, utilisateur, recette) -> bool:
-        """Ajout de tous les ingrédients d'une recette à la liste de courses d'un utilisateur donné
+    def ajouter_recette_a_liste(self, utilisateur: Utilisateur,
+                                recette: Recette) -> bool:
+        """
+
+        Ajout de tous les ingrédients d'une recette à la liste de courses
+        d'un utilisateur donné.
 
         Parameters
         ----------
@@ -94,7 +114,8 @@ class ListeCourseDao(metaclass=Singleton):
                         """
                         SELECT i.id_ingredient
                         FROM ingredient i
-                        JOIN recette_ingredient ri ON i.id_ingredient = ri.id_ingredient
+                        JOIN recette_ingredient ri
+                            ON i.id_ingredient = ri.id_ingredient
                         WHERE ri.id_recette = %(id_recette)s
                         """,
                         {
@@ -106,9 +127,11 @@ class ListeCourseDao(metaclass=Singleton):
                     # Ajout des ingrédients à la liste de courses
                     for ingredient in ingredients:
                         id_ingredient = ingredient["id_ingredient"]
-                        # Vérification si l'ingrédient est déjà dans la liste de courses
+                        # Vérification si l'ingrédient est déjà dans la liste
+                        # de courses
                         cursor.execute(
-                            "SELECT 1 FROM liste_course WHERE id_utilisateur = %(id_utilisateur)s "
+                            "SELECT 1 FROM liste_course"
+                            "WHERE id_utilisateur=% (id_utilisateur)s "
                             "AND id_ingredient = %(id_ingredient)s",
                             {
                                 "id_utilisateur": utilisateur.id_utilisateur,
@@ -117,10 +140,12 @@ class ListeCourseDao(metaclass=Singleton):
                         )
                         if not cursor.fetchone():
                             cursor.execute(
-                                "INSERT INTO liste_course(id_utilisateur, id_ingredient) "
-                                "VALUES (%(id_utilisateur)s, %(id_ingredient)s)",
+                                "INSERT INTO liste_course(id_utilisateur,"
+                                "id_ingredient) VALUES"
+                                "(%(id_utilisateur)s, %(id_ingredient)s)",
                                 {
-                                    "id_utilisateur": utilisateur.id_utilisateur,
+                                    "id_utilisateur": (
+                                        utilisateur.id_utilisateur),
                                     "id_ingredient": id_ingredient,
                                 }
                             )
@@ -132,8 +157,13 @@ class ListeCourseDao(metaclass=Singleton):
             return False  # En cas d'erreur
 
     @log
-    def lister_ingredients_liste_course(self, utilisateur) -> list[Ingredient]:
-        """lister tous les ingrédients de la liste de course de l'utilisateur
+    def lister_ingredients_liste_course(
+        self,
+        utilisateur: Utilisateur
+    ) -> list[Ingredient]:
+        """
+
+        Liste tous les ingrédients de la liste de course de l'utilisateur.
 
         Parameters
         ----------
@@ -142,7 +172,8 @@ class ListeCourseDao(metaclass=Singleton):
         Returns
         -------
         liste_ingredients : list[Ingredient]
-            renvoie la liste de tous les ingrédients de la liste de course de l'utilisateur
+            renvoie la liste de tous les ingrédients de la liste de course
+            de l'utilisateur
         """
 
         try:
@@ -151,8 +182,8 @@ class ListeCourseDao(metaclass=Singleton):
                     cursor.execute(
                         "  SELECT *                              "
                         "  FROM ingredient  "
-                        "  JOIN liste_course USING (id_ingredient)             "
-                        "  WHERE id_utilisateur = %(id_utilisateur)s;           "
+                        "  JOIN liste_course USING (id_ingredient)        "
+                        "  WHERE id_utilisateur = %(id_utilisateur)s;    "
                     )
                     res = cursor.fetchall()
         except Exception as e:

@@ -9,7 +9,15 @@ from business_object.utilisateur import Utilisateur
 
 
 class UtilisateurDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour accéder aux Joueurs de la base de données"""
+
+    """
+
+    Création de la classe UtilisateurDao.
+
+    Cette classe fait le lien entre les objets de la classe Utilisateur
+    et la table utilisateur de la base de données.
+
+    """
 
     @log
     def creer(self, utilisateur) -> bool:
