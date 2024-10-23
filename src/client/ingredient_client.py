@@ -43,7 +43,7 @@ class IngredientClient:
                 liste_ingredients.append(ingredient)
         return liste_ingredients
 
-    def get_id_ingredient_by_name(nom_ingredient: str) -> str:
+    def get_id_ingredient_by_name(self, nom_ingredient: str) -> str:
         """
 
         Donne l'id de l'ingrédient à partir de son nom.

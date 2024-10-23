@@ -65,7 +65,7 @@ class UtilisateurDao(metaclass=Singleton):
 
         Parameters
         ----------
-        id_utilisateur : int
+        id_utilisateur : str
             numéro id de l'utilisateur que l'on souhaite trouver
 
         Returns
@@ -86,14 +86,7 @@ class UtilisateurDao(metaclass=Singleton):
         except Exception as e:
             logging.info(e)
             raise
-
-        utilisateur = None
-        if res:
-            utilisateur = Utilisateur(
-                id_utilisateur=res["id_utilisateur"],
-            )
-
-        return utilisateur
+        return res
 
     @log
     def existence_id(self, id_utilisateur) -> bool:

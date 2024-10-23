@@ -12,6 +12,7 @@ from service.ingredient_service import IngredientService
 from service.categorie_service import CategorieService
 from service.recette_service import RecetteService
 from service.utilisateur_service import UtilisateurService
+from service.recette_favorite_service import RecetteFavoriteService
 from service.ingredient_recette_service import IngredientRecetteService
 from dao.origine_dao import OrigineDao
 from dao.ingredient_recette_dao import IngredientRecetteDao

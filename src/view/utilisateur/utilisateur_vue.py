@@ -2,8 +2,6 @@ from InquirerPy import inquirer
 
 from view.vue_abstraite import VueAbstraite
 
-from service.utilisateur_service import UtilisateurService
-
 
 class UtilisateurVue(VueAbstraite):
     """Vue du menu de l'utilisateur connecté.

@@ -24,7 +24,9 @@ class Session(metaclass=Singleton):
         """Suppression des données de la session"""
         self.utilisateur = None
         self.debut_connexion = None
-        self.choix_filtres = []
+        self.choix_filtres_ingredient = []
+        self.choix_filtres_origine = []
+        self.choix_filtres_categorie = []
 
     def afficher(self) -> str:
         """Afficher les informations de connexion"""
