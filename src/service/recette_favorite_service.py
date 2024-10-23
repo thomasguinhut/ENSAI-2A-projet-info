@@ -17,14 +17,14 @@ class RecetteFavoriteService:
 
     """
     @log
-    def supprimer(self, recette: str) -> bool:
+    def supprimer(self, nom_recette: str) -> bool:
         """
         
         Suppression d'une recette de la liste des recettes favorites.
 
         Parameters
         ----------
-        recette : str
+        nom_recette : str
             recette à supprimer de la liste des recettes favorites
 
         Returns
@@ -50,3 +50,22 @@ class RecetteFavoriteService:
                 )
                 liste_recettes.append(recette)
         return liste_recettes
+
+    @log
+    def ajouter_favori(self, id_utilisateur,nom_recette) -> bool:
+        """
+        Ajout d'une recette à la liste des recettes favorites de l'utilisateur.
+
+        Parameters
+        ----------
+        recette : Recette
+            recette à ajouter de la liste des recettes favorites
+        utilisateur : Utilisateur
+            utilisateur dont on modifie la liste des recetttes favorites
+
+        Returns
+        -------
+            True si la recette a bien été ajoutée
+.
+        """
+        return RecettesFavoritesDao().ajouter_recette_a_liste(utilisateur, recette)
