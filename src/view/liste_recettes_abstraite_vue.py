@@ -7,6 +7,13 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
     """Classe abstraite pour les listes de recettes avec des fonctionnalités communes."""
 
     def __init__(self, recettes_par_page=5, message=""):
+        """
+        Initialise la vue des listes de recettes.
+
+        Args:
+            recettes_par_page (int): Nombre de recettes à afficher par page.
+            message (str): Message à afficher (par défaut: "").
+        """
         super().__init__(message=message)
         self.liste_recettes = RecetteService().trouver_liste_recettes()
         self.recettes_par_page = recettes_par_page
@@ -14,7 +21,11 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
 
     def filtrer_recettes(self):
         """Filtre la liste des recettes en fonction des filtres choisis."""
-        if self.filtres_ingredient == [] and self.filtres_origine == [] and self.filtres_categorie == []:
+        if [
+            Session().choix_filtres_ingredient,
+            Session().choix_filtres_origine,
+            Session().choix_filtres_categorie
+        ] == [[], [], []]:
             return self.liste_recettes
         else:
             return RecetteService().filtrer_recettes(
