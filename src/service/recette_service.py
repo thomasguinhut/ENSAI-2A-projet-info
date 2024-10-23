@@ -9,6 +9,8 @@ from client.categorie_client import CategorieClient
 from client.origine_client import OrigineClient
 
 from dao.recette_dao import RecetteDao
+from dao.origine_dao import OrigineDao
+from service.categorie_service import CategorieService
 
 
 class RecetteService:
@@ -62,12 +64,16 @@ class RecetteService:
         liste_recettes = []
         if res:
             for row in res:
+                origine = Origine(id_origine=row["id_origine"],
+                                  nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
+                categorie = Categorie(id_categorie=row["id_categorie"],
+                                  nom_categorie=CategorieDao().get_nom_categorie_by_id(row["id_categorie"]))
                 recette = Recette(
                     id_recette=row["id_recette"],
                     nom_recette=row["nom_recette"],
                     instructions_recette=row["instructions_recette"],
-                    id_origine=row["id_origine"],
-                    id_categorie=row["id_categorie"],
+                    origine_recette=origine,
+                    categorie_recette=categorie,
                 )
                 liste_recettes.append(recette)
         return liste_recettes
