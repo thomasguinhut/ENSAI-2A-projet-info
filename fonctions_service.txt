@@ -1,4 +1,4 @@
-trouver_recette(nom_recette) BENJAMIN LE FAIT
+trouver_recette(nom_recette) OK
 filtrer_recettes(liste_recettes, filtres) #filtres sous la forme d'une liste de caractères; renvoie une liste d'objets Recette
 
 ajouter_favori(id_utilisateur, self.recette)
