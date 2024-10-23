@@ -99,8 +99,8 @@ class UtilisateurService:
         if res:
             utilisateur = Utilisateur(
                 id_utilisateur=res["id_utilisateur"],
-                mdp_utilisateur=res["mdp_utilisateur"],
-                favoris=RecetteFavoriteService().lister_recettes_favorites(res["id_utilisateur"]),
+                mdp=res["mdp"],
+                favoris=RecetteFavoriteService().lister_recette_favorite(res["id_utilisateur"]),
                 courses=ListeCourseService().lister_ingredients_liste_course(res["id_utilisateur"])
             )
         return utilisateur

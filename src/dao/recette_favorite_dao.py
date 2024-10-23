@@ -86,16 +86,16 @@ class RecetteFavoriteDao(metaclass=Singleton):
         return created
 
     @log
-    def lister_recette_favorite(self, utilisateur) -> list[dict]:
+    def lister_recette_favorite(self, id_utilisateur) -> list[dict]:
         """lister toutes les recettes favorites pour un utilisateur donné
 
         Parameters
         ----------
-        utilisateur : Utilisateur
+        id_utilisateur : str
 
         Returns
         -------
-        liste_recettes : list[Recettes]
+        liste_recette : list[Recettes]
             renvoie la liste de toutes les recettes favorites de l'utilisateur
         """
 

@@ -36,9 +36,9 @@ class RecetteFavoriteService:
         return RecetteFavoriteDao().supprimer(objet_recette)
 
     @log
-    def lister_recettes_favorites(self, utilisateur) -> list[Recette]:
-        res = RecetteFavoriteDao().lister_recettes_favorites(self, utilisateur)
-        liste_recettes = []
+    def lister_recette_favorite(self, utilisateur) -> list[Recette]:
+        res = RecetteFavoriteDao().lister_recette_favorite(self, utilisateur)
+        liste_recette = []
         if res:
             for row in res:
                 recette = Recette(
@@ -48,8 +48,8 @@ class RecetteFavoriteService:
                     id_origine=row["id_origine"],
                     id_categorie=row["id_categorie"],
                 )
-                liste_recettes.append(recette)
-        return liste_recettes
+                liste_recette.append(recette)
+        return liste_recette
 
     @log
     def ajouter_favori(self, id_utilisateur, nom_recette) -> bool:
