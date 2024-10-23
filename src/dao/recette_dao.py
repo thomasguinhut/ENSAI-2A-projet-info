@@ -13,7 +13,8 @@ class RecetteDao(metaclass=Singleton):
     Création de la classe RecetteDao.
 
     Cette classe fait le lien entre les objets de la classe Recette,
-    disponibles avec la classe Recette Service, et la base de données.
+    disponibles avec la classe Recette Service, et la table recette de la
+    base de données.
 
     """
 

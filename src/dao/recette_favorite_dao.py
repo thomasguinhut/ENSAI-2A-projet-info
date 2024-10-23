@@ -9,7 +9,15 @@ from business_object.recette import Recette
 
 
 class RecettesFavoritesDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour gérer les recettes favorites"""
+
+    """
+
+    Création de la classe RecettesFavoritesDao.
+
+    Cette classe fait le lien entre les objets des classes métiers
+    et la table recette_favorite de la base de données.
+
+    """
 
     @log
     def supprimer(self, recette) -> bool:
