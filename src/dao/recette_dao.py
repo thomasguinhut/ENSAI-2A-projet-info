@@ -159,3 +159,37 @@ class RecetteDao(metaclass=Singleton):
             logging.info(e)
             raise
         return res
+
+    @log
+    def trouver_recette(self, nom_recette) -> dict[
+            "id": str, str, str, str, str, str]:
+        """
+
+        Trouver une recette dans la base de données
+
+        Parameters
+        ----------
+        nom_recette : str
+
+        Returns
+        -------
+        recette : dict[
+            str, str, str, Origine, Categorie, list[Ingredient]
+            Renvoie une recette sous forme de dictionnaire
+
+        """
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT *"
+                        "   FROM recette"
+                        "   WHERE nom_recette=%(nom_recette)s;                     ",
+                        {"nom_recette": nom_recette},
+                    )
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        return res

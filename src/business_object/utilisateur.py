@@ -33,7 +33,7 @@ class Utilisateur:
     """
 
     def __init__(self, id_utilisateur: str, mdp: str,
-                 favoris: list[Recette], courses: list[Ingredient]):
+                 favoris: list[Recette] = None, courses: list[Ingredient] = None):
         """
         Constructeur de la classe.
 
@@ -43,16 +43,18 @@ class Utilisateur:
             raise TypeError("id_utilisateur doit être un str")
         if not isinstance(mdp, str):
             raise TypeError("mdp doit être un str")
-        if not isinstance(favoris, list):
+        if not isinstance(favoris, list) and favoris is not None:
             raise TypeError("favoris doit être une liste")
-        for i in favoris:
-            if not isinstance(i, Recette):
-                raise TypeError(f"{i} doit être une Recette")
-        if not isinstance(courses, list):
+        if favoris:
+            for i in favoris:
+                if not isinstance(i, Recette):
+                    raise TypeError(f"{i} doit être une Recette")
+        if not isinstance(courses, list) and courses is not None:
             raise TypeError("courses doit être une liste")
-        for i in courses:
-            if not isinstance(i, Ingredient):
-                raise TypeError(f"{i} doit être un Ingredient")
+        if courses:
+            for i in courses:
+                if not isinstance(i, Ingredient):
+                    raise TypeError(f"{i} doit être un Ingredient")
 
         self.id_utilisateur = id_utilisateur
         self.mdp = mdp
