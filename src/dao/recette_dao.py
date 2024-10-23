@@ -98,6 +98,44 @@ class RecetteDao(metaclass=Singleton):
             raise
         return res
 
+    def liste_recettes_par_filtres(self, filtres_ingredients: list[Ingredient],
+                                   filtres_origines: list[Origine],
+                                   filtres_categories: list[Categorie]
+                                   ):
+        for ingredient in filtres_ingredients:
+            id_ingredient = ingredient.id_ingredient
+            try:
+                with DBConnection().connection as connection:
+                    with connection.cursor() as cursor:
+                        req = "SELECT mmmmmmm FROm truc WHERE"
+                        for filtre in filtres_ingredients:
+                            req += "ir.id_ingredient = {id_ingredient}".format(
+                                id_ingredient=filtre)
+                        cursor.execute(
+                            """
+                            SELECT DISTINCT (r.id_recette, r.nom_recette,
+                                            r.instructions_recette)
+                            FROM recette r
+                            JOIN ingredient_recette ir
+                            ON r.id_recette = ir.id_recette
+                            JOIN ingredient i
+                            ON ir.id_ingredient = i.id_ingredient
+                            JOIN origine o
+                            ON r.id_origine = o.id_origine
+                            JOIN categorie c
+                            ON r.id_categorie = c.id_categorie
+                            WHERE r.id_origine = 'id_origine_1')
+                            AND r.id_categorie = 'id_categorie_1')
+                            AND i.id_ingredient = 'id_ingredient_1');
+                            """,
+                            {"id_categorie": categorie.id_categorie},
+                        )
+                        res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        return res
+
     @log
     def lister_recettes_par_categorie(self, categorie) -> list[dict]:
         """lister toutes les recettes par catégorie
