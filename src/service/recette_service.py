@@ -114,7 +114,7 @@ class RecetteService:
         return liste_recettes
 
     @log
-    def trouver_recette(self,nom_recette):
+    def trouver_recette(self, nom_recette):
         res = RecetteDao().trouver_recette(nom_recette)
         if res:
             for row in res:
