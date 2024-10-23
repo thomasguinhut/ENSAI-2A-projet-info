@@ -14,7 +14,7 @@ class OrigineDao(metaclass=Singleton):
     @log
     def creer(self, origine) -> bool:
         """
-        
+
         Creation d'une origine dans la base de données
 
         Parameters
@@ -26,7 +26,7 @@ class OrigineDao(metaclass=Singleton):
         created : bool
             True si la création est un succès
             False sinon
-            
+
         """
         res = None
         try:
@@ -36,7 +36,8 @@ class OrigineDao(metaclass=Singleton):
                         "INSERT INTO origine(id_origine, nom_origine) VALUES        "
                         "(%(id_origine)s, %(nom_origine)s)             "
                         "  RETURNING id_origine;                                ",
-                        {"id_origine": origine.id_origine, "nom_origine": origine.nom_origine},
+                        {"id_origine": origine.id_origine,
+                            "nom_origine": origine.nom_origine},
                     )
                     res = cursor.fetchone()
         except Exception as e:
@@ -49,42 +50,46 @@ class OrigineDao(metaclass=Singleton):
         return created
 
     def get_nom_origine_by_id(self, id_origine: str) -> str:
-            """
+        """
 
-            Donne le nom de l'origine à partir de son id.
+        Donne le nom de l'origine à partir de son id.
 
-            Parameters
-            ----------
-            id : str
+        Parameters
+        ----------
+        id : str
 
-            Returns
-            -------
-            str
-                nom de l'origine recherchée
+        Returns
+        -------
+        str
+            nom de l'origine recherchée
 
-            Raises
-            ------
-            TypeError
-                id_origine doit être un str
+        Raises
+        ------
+        TypeError
+            id_origine doit être un str
 
-            """
+        """
 
-            if not isinstance(id_origine, str):
-                raise TypeError("id_origine doit être un str")
-            id_origine = id_origine.lower()
-            res = None
-            try:
-                with DBConnection().connection as connection:
-                    with connection.cursor() as cursor:
-                        cursor.execute(
-                            "SELECT id_origine"
-                            "   FROM origine"
-                            "   WHERE lower(nom_origine) = %(id_origine)s"
-                            "   RETURNING id_origine;"
-                        )
-                        res = cursor.fetchone()
-            except Exception as e:
-                logging.info(e)
-                raise
-            if res:
-                return verif
+        if not isinstance(id_origine, str):
+            raise TypeError("id_origine doit être un str")
+
+        id_origine = id_origine.lower()
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT nom_origine "
+                        "FROM origine "
+                        "WHERE lower(id_origine) = %(id_origine)s;",
+                        {'id_origine': id_origine}
+                    )
+                    res = cursor.fetchone()
+        except Exception as e:
+            logging.info(e)
+            raise
+
+        if res:
+            return res['nom_origine']
+        else:
+            return None
