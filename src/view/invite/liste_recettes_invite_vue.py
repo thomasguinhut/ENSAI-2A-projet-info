@@ -1,7 +1,5 @@
 from InquirerPy import inquirer
 from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
-from service.recette_service import RecetteService
-
 
 """def recuperer_choix_recettes(self):
         recettes_pages = self.liste_recettes[((self.page_actuelle-1)*self.recettes_par_page):(self.page_actuelle*self.recettes_par_page)]
@@ -14,7 +12,7 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
 
     def choisir_menu(self):
         pages = self.diviser_en_pages()
-        if not pages:  
+        if not pages:
             print("Aucune recette disponible.")
             return
 
@@ -39,5 +37,3 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
                 from view.invite.recette_invite_vue import RecetteInviteVue
 
                 return RecetteInviteVue()
-
-    

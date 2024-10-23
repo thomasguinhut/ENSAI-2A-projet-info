@@ -4,7 +4,7 @@ from view.session import Session
 
 from service.recette_service import RecetteService
 
-import inquirer
+from InquirerPy import inquirer
 
 
 class RecetteUtilisateurVue(VueAbstraite):
@@ -59,4 +59,6 @@ class RecetteUtilisateurVue(VueAbstraite):
                 print(f"Les ingrédients de la recette '{self.recette.nom}' ont été ajoutés à la liste de courses.")
 
             elif choix == "Retourner à la liste des recettes":
+                from view.utilisateur.liste_recettes_utilisateur_vue import ListeRecettesUtilisateurVue
+
                 return ListeRecettesUtilisateurVue()

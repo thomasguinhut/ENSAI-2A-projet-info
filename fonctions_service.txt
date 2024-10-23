@@ -1,0 +1,12 @@
+trouver_recette(nom_recette)
+RecetteService.trouver_liste_recettes()
+
+ajouter_favori(id_utilisateur, self.recette)
+retirer_favori(id_utilisateur, self.recette)
+ajouter_avis(id_utilisateur, self.recette, note, commentaire)
+retirer_avis(id_utilisateur, self.recette)
+ajouter_ingredients_courses(id_utilisateur, self.recette)
+
+CategorieService.trouver_liste_categories()
+OriginesService.trouver_liste_origines()
+IngredientsService.trouver_liste_ingredients()

@@ -11,6 +11,7 @@ class Session(metaclass=Singleton):
         """Création de la session"""
         self.utilisateur = None
         self.debut_connexion = None
+        self.choix_filtres = []
 
     def connexion(self, utilisateur):
         """Enregistement des données en session"""
@@ -21,6 +22,7 @@ class Session(metaclass=Singleton):
         """Suppression des données de la session"""
         self.utilisateur = None
         self.debut_connexion = None
+        self.choix_filtres = []
 
     def afficher(self) -> str:
         """Afficher les informations de connexion"""
