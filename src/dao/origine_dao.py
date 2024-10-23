@@ -47,3 +47,44 @@ class OrigineDao(metaclass=Singleton):
             origine.id_origine = res["id_origine"]
             created = True
         return created
+
+    def get_nom_origine_by_id(self, id_origine: str) -> str:
+            """
+
+            Donne le nom de l'origine à partir de son id.
+
+            Parameters
+            ----------
+            id : str
+
+            Returns
+            -------
+            str
+                nom de l'origine recherchée
+
+            Raises
+            ------
+            TypeError
+                id_origine doit être un str
+
+            """
+
+            if not isinstance(id_origine, str):
+                raise TypeError("id_origine doit être un str")
+            id_origine = id_origine.lower()
+            res = None
+            try:
+                with DBConnection().connection as connection:
+                    with connection.cursor() as cursor:
+                        cursor.execute(
+                            "SELECT id_origine"
+                            "   FROM origine"
+                            "   WHERE lower(nom_origine) = %(id_origine)s"
+                            "   RETURNING id_origine;"
+                        )
+                        res = cursor.fetchone()
+            except Exception as e:
+                logging.info(e)
+                raise
+            if res:
+                return verif
