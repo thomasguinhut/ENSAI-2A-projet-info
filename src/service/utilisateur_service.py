@@ -5,7 +5,7 @@ from utils.securite import hash_password
 
 from business_object.utilisateur import Utilisateur
 from dao.utilisateur_dao import UtilisateurDao
-from service.recettes_favorites_service import RecettesFavoritesService
+from service.recette_favorite_service import RecettesFavoritesService
 from service.liste_course_service import ListeCourseService
 
 

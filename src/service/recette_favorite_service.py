@@ -19,7 +19,7 @@ class RecetteFavoriteService:
     @log
     def supprimer(self, nom_recette: str) -> bool:
         """
-                
+
         Suppression d'une recette de la liste des recettes favorites.
 
         Parameters
