@@ -11,10 +11,5 @@ retirer_avis(id_utilisateur, self.recette)
 ajouter_ingredients_courses(id_utilisateur, self.recette)
 
 CategorieService.trouver_liste_categories() OK
-<<<<<<< HEAD
 OriginesService.trouver_liste_origines() OK
 IngredientsService.trouver_liste_ingredients() OK
-=======
-OrigineService.trouver_liste_origines()
-IngredientService.trouver_liste_ingredients()
->>>>>>> ac32cebb6f72575561694b9de0ad70f7d0a61a67

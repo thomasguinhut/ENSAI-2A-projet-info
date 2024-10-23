@@ -54,12 +54,12 @@ class RecetteService:
             if id_ingredient:
                 ingredient = Ingredient(id_ingredient, nom_ingredient)
                 liste_ingredients.append(ingredient)
-       
+
         id_categorie = CategorieClient().get_id_categorie_by_name(
             recette["categorie_recette"])
         id_origine = OrigineClient().get_id_origine_by_name(
             recette["origine_recette"])
-            
+
         if id_categorie and id_origine:
             print(id_categorie)
             print(id_origine)
@@ -114,10 +114,14 @@ class RecetteService:
     @log
     def liste_recettes_par_filtres(
         self,
-            filtres_ingredients: list[Ingredient] = None,
-            filtres_origines: list[Origine] = None,
-            filtres_categories: list[Categorie] = None
+            filtres_ingredients: list[str] = None,
+            filtres_origines: list[str] = None,
+            filtres_categories: list[str] = None
     ) -> list[Recette]:
+        liste_filtres_ingredients = []
+        for ingredient in filtres_ingredients:
+            objet_ingredient = Ingredient(ingredient,
+                                          )
         res = RecetteDao().liste_recettes_par_filtres(filtres_ingredients,
                                                       filtres_origines,
                                                       filtres_categories)

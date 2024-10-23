@@ -93,7 +93,6 @@ class UtilisateurService:
         utilisateurs = UtilisateurDao().lister_tous()
         return id_utilisateur in [j.id_utilisateur for j in utilisateurs]
 
-<<<<<<< HEAD
     @log
     def trouver_utilisateur(self, id_utilisateur):
         res = UtilisateurDao().trouver_par_id(id_utilisateur)
@@ -101,11 +100,9 @@ class UtilisateurService:
             utilisateur = Utilisateur(
                 id_utilisateur=res["id_utilisateur"],
                 mdp_utilisateur=res["mdp_utilisateur"],
-                favoris=RecettesFavoritesService().lister_recettes_favorites(
+                favoris=RecetteFavoriteService().lister_recettes_favorites(
                     res["id_utilisateur"]),
                 courses=ListeCourseService().lister_ingredients_liste_course(
                     res["id_utilisateur"])
             )
         return utilisateur
-=======
->>>>>>> ac32cebb6f72575561694b9de0ad70f7d0a61a67

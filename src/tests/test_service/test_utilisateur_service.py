@@ -42,6 +42,7 @@ def test_creer_echec():
     # THEN
     assert utilisateur is None
 
+
 def test_trouver_par_id():
     """ Recherche de l'Utilisateur par son id """
 

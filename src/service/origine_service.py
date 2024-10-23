@@ -67,3 +67,55 @@ class OrigineService:
                 )
                 liste_origines.append(origine)
         return liste_origines
+
+    @log
+    def get_nom_origine_by_id(self, id_origine: str) -> str:
+        """
+
+        Donne le nom de l'origine à partir de son id.
+
+        Parameters
+        ----------
+        id : str
+
+        Returns
+        -------
+        str
+            nom de l'origine recherchée
+
+        Raises
+        ------
+        TypeError
+            id_origine doit être un str
+
+        """
+
+        if not isinstance(id_origine, str):
+            raise TypeError("id_origine doit être un str")
+        return OrigineDao().get_nom_origine_by_id(id_origine)
+
+    @log
+    def get_id_origine_by_name(self, nom_origine: str) -> str:
+        """
+
+        Donne l'id de l'origine à partir de son nom.
+
+        Parameters
+        ----------
+        nom_origine : str
+
+        Returns
+        -------
+        id_origine str
+            id de l'origine recherchée
+
+        Raises
+        ------
+        TypeError
+            nom_origine doit être un str
+
+        """
+
+        if not isinstance(nom_origine, str):
+            raise TypeError("nom_origine doit être un str")
+        return OrigineDao().get_id_origine_by_name(nom_origine)
