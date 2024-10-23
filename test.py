@@ -12,4 +12,4 @@ from dao.origine_dao import OrigineDao
 from dao.ingredient_recette_dao import IngredientRecetteDao
 
 
-print(IngredientRecetteService().lister_ingredients_by_recette("52768"))
+print(RecetteService().lister_toutes_recettes())
