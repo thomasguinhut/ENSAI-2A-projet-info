@@ -48,7 +48,7 @@ class IngredientRecetteDao(metaclass=Singleton):
                 recette.id_recette = res["id_recette"]
                 created = True
         return created
-    
+
     @log
     def lister_recettes_par_ingredient(self, ingredient) -> list[dict]:
         """lister toutes les recettes par ingrédient
@@ -69,12 +69,42 @@ class IngredientRecetteDao(metaclass=Singleton):
                     cursor.execute(
                         "SELECT *                              "
                         "  FROM recette; "
-                        "  JOIN recette_ingredient USING(id_recette)"
+                        "  JOIN ingredient_recette USING(id_recette)"
                         "  JOIN ingredient USING(id_ingredient)"
                         "  WHERE id_ingredient=%(id_ingredient)s;                     ",
                         {"id_ingredient": ingredient.id_ingredient},
                     )
 
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        return res
+
+    @log
+    def lister_ingredients_by_recette(self, id_recette) -> list[dict]:
+        """lister toutes les recettes par ingrédient
+
+        Parameters
+        ----------
+        id_recette : str
+
+        Returns
+        -------
+        res : list[dict]
+            renvoie une liste de dictionnaire d'ingrédients
+        """
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT ingredient.id_ingredient, ingredient.nom_ingredient "
+                        "FROM ingredient "
+                        "JOIN ingredient_recette USING(id_ingredient) "
+                        "WHERE id_recette = %(id_recette)s;",
+                        {'id_recette': id_recette}
+                        )
                     res = cursor.fetchall()
         except Exception as e:
             logging.info(e)

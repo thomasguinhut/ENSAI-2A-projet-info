@@ -71,3 +71,25 @@ class IngredientRecetteService:
                 )
                 liste_recettes.append(recette)
         return liste_recettes
+
+    @log
+    def lister_ingredients_by_recette(self, id_recette) -> list[dict]:
+        """lister toutes les recettes par ingrédient
+
+        Parameters
+        ----------
+        id_recette : str
+
+        Returns
+        -------
+        res : list[dict]
+            renvoie une liste de dictionnaire d'ingrédients
+        """
+        res = IngredientRecetteDao().lister_ingredients_by_recette(id_recette)
+        liste_ingredient = []
+        if res:
+            for row in res:
+                ingredient = Ingredient(row["id_ingredient"],
+                                        row["nom_ingredient"])
+                liste_ingredient.append(ingredient)
+        return liste_ingredient
