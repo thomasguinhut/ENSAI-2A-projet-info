@@ -10,6 +10,7 @@ from service.recette_service import RecetteService
 from service.ingredient_recette_service import IngredientRecetteService
 from dao.origine_dao import OrigineDao
 from dao.ingredient_recette_dao import IngredientRecetteDao
+from dao.categorie_dao import CategorieDao
 
 
-print(RecetteService().lister_toutes_recettes())
+print(CategorieService().trouver_liste_categories())

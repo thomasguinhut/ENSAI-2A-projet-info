@@ -1,5 +1,5 @@
-trouver_recette(nom_recette)
-RecetteService.trouver_liste_recettes()
+trouver_recette(nom_recette) : BENJAMIN LE FAIT
+RecetteService.trouver_liste_recettes() : OK
 
 ajouter_favori(id_utilisateur, self.recette)
 retirer_favori(id_utilisateur, self.recette)
@@ -7,6 +7,6 @@ ajouter_avis(id_utilisateur, self.recette, note, commentaire)
 retirer_avis(id_utilisateur, self.recette)
 ajouter_ingredients_courses(id_utilisateur, self.recette)
 
-CategorieService.trouver_liste_categories()
+CategorieService.trouver_liste_categories() OK
 OriginesService.trouver_liste_origines()
 IngredientsService.trouver_liste_ingredients()
