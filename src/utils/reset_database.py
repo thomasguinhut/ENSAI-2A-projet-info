@@ -37,6 +37,8 @@ class ResetDatabase(metaclass=Singleton):
 
         """
 
+        os.environ["POSTGRES_SCHEMA"] = "projet"
+
         if verif:
             dotenv.load_dotenv()
             schema = os.environ["POSTGRES_SCHEMA"]
