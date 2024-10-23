@@ -1,4 +1,5 @@
 trouver_recette(nom_recette) OK
+trouver_utilisateur(id_utilisateur)
 filtrer_recettes(liste_recettes, filtres) #filtres sous la forme d'une liste de caractères; renvoie une liste d'objets Recette
 
 ajouter_favori(id_utilisateur, self.recette)
@@ -8,5 +9,10 @@ retirer_avis(id_utilisateur, self.recette)
 ajouter_ingredients_courses(id_utilisateur, self.recette)
 
 CategorieService.trouver_liste_categories() OK
-OriginesService.trouver_liste_origines()
-IngredientsService.trouver_liste_ingredients()
+<<<<<<< HEAD
+OrigineService.trouver_liste_origines()
+IngredientService.trouver_liste_ingredients()
+=======
+OriginesService.trouver_liste_origines() OK
+IngredientsService.trouver_liste_ingredients() OK
+>>>>>>> 5552251a4568a31dc42233f288735bf841749fce

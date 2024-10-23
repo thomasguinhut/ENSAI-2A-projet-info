@@ -4,6 +4,8 @@ from view.vue_abstraite import VueAbstraite
 
 class InviteVue(VueAbstraite):
     """Vue du mode invité."""
+    def __init__(self, message=""):
+        super().__init__(message)
 
     def choisir_menu(self):
         """Choix du menu suivant
@@ -29,6 +31,6 @@ class InviteVue(VueAbstraite):
                 pass
 
             case "Afficher la liste des recettes":
-                from view.invite.liste_recettes_invite_vue import ListeRecettesInviteVue
+                from view.menu_liste_recettes_vue import MenuListeRecettes
 
-                return ListeRecettesInviteVue("Affichage de la liste des recettes")
+                return MenuListeRecettes()

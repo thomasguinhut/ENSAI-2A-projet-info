@@ -44,3 +44,26 @@ class OrigineService:
             return nouvelle_origine
         else:
             return None
+
+    @log
+    def trouver_liste_origines(self) -> list[Origine]:
+        """
+
+        Affiche toutes les origines de la base de données.
+
+        Returns
+        -------
+        list[Origine]
+
+        """
+
+        res = OrigineDao().trouver_liste_origines()
+        liste_origines = []
+        if res:
+            for row in res:
+                origine = Origine(
+                    id_origine=row["id_origine"],
+                    nom_origine=row["nom_origine"],
+                )
+                liste_origines.append(origine)
+        return liste_origines

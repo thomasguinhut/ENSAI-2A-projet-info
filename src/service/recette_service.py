@@ -10,7 +10,6 @@ from client.origine_client import OrigineClient
 
 from dao.recette_dao import RecetteDao
 from dao.origine_dao import OrigineDao
-from service.categorie_service import CategorieService
 from service.ingredient_recette_service import IngredientRecetteService
 
 
@@ -21,15 +20,33 @@ class RecetteService:
     Création de classe RecetteService.
 
     Cette classe, qui ne contient que des méthodes, transforme toute
-    donnée de l'application en objet de classes métiers. Cela facilite
-    ensuite la manipulation des informations.
-    les recettes en objet de la classe Recette . Cela facilite ensuite
-    la manipulation des informations.
+    donnée de l'application qui sont des recettes en objet de la classe
+    Recette. Cela facilite ensuite la manipulation des informations.
 
     """
 
     @log
     def creer(self, recette: dict) -> Recette:
+        """
+
+        Crée une Recette.
+
+        Parameters
+        ----------
+        recette : dict[id_recette: str, nom_recette: str,
+                         instructions_recette: str,
+                         categorie_recette: Categorie,
+                         origine_recette: Origine,
+                         ingredients_recette : list[Ingredient]]
+            On utilise l'output de la méthode get_recette() présente dans
+            la classe RecetteClient.
+
+        Returns
+        -------
+        Recette
+
+        """
+
         liste_ingredients = []
         for nom_ingredient in recette["ingredients_recette"]:
             id_ingredient = IngredientClient().get_id_ingredient_by_name(
@@ -63,7 +80,17 @@ class RecetteService:
                 return None
 
     @log
-    def trouver_liste_recettes(self):
+    def trouver_liste_recettes(self) -> list[Recette]:
+        """
+
+        Affiche toutes les recettes de la base de données.
+
+        Returns
+        -------
+        list[Recette]
+
+        """
+
         res = RecetteDao().lister_toutes_recettes()
         liste_recettes = []
         if res:
@@ -117,20 +144,21 @@ class RecetteService:
         return liste_recettes
 
     @log
-    def trouver_recette(self,nom_recette):
+    def trouver_recette(self, nom_recette):
         res = RecetteDao().trouver_recette(nom_recette)
         if res:
             for row in res:
                 origine = Origine(id_origine=row["id_origine"],
                                   nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
                 categorie = Categorie(id_categorie=row["id_categorie"],
-                                  nom_categorie=CategorieClient().get_nom_categorie_by_id(row["id_categorie"]))
+                                      nom_categorie=CategorieClient().get_nom_categorie_by_id(row["id_categorie"]))
                 recette = Recette(
                     id_recette=row["id_recette"],
                     nom_recette=row["nom_recette"],
                     instructions_recette=row["instructions_recette"],
                     origine_recette=origine,
                     categorie_recette=categorie,
-                    ingredients_recette=IngredientRecetteService().lister_ingredients_by_recette(row["id_recette"])
+                    ingredients_recette=IngredientRecetteService(
+                    ).lister_ingredients_by_recette(row["id_recette"])
                 )
         return recette

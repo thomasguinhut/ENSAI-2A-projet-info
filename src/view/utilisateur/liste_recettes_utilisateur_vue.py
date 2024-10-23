@@ -1,6 +1,5 @@
 from InquirerPy import inquirer
 from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
-from service.recette_service import RecetteService
 
 """def recuperer_choix_recettes(self):
         recettes_pages = self.liste_recettes[((self.page_actuelle-1)*self.recettes_par_page):(self.page_actuelle*self.recettes_par_page)]
@@ -10,6 +9,8 @@ from service.recette_service import RecetteService
 
 
 class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
+    def __init__(self, message=""):
+        super().__init__(message)
 
     def choisir_menu(self):
         pages = self.diviser_en_pages()
@@ -40,4 +41,4 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
             else:
                 from view.utilisateur.recette_utilisateur_vue import RecetteUtilisateurVue
 
-                return RecetteUtilisateurVue(choix)
+                return RecetteUtilisateurVue(choix, f"Affichage de la recette{choix}")

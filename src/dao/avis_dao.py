@@ -5,15 +5,31 @@ from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
 
+from business_objet.utilisateur import Utilisateur
+from business_objet.recette import Recette
+from business_objet.avis import Avis
+
 # from business_object.avis import Avis
 
 
 class AvisDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour accéder aux avis de la base de données"""
+
+    """
+
+    Création de la classe AvisDao.
+
+    Cette classe fait le lien entre les objets des classes métiers
+    et la table avis de la base de données.
+
+    """
 
     @log
-    def supprimer_avis(self, utilisateur, recette) -> bool:
-        """Suppression d'un avis associé à un utilisateur et une recette dans la base de données
+    def supprimer_avis(self, utilisateur: Utilisateur,
+                       recette: Recette) -> bool:
+        """
+
+        Suppression d'un avis associé à un utilisateur et une recette dans
+        la base de données.
 
         Parameters
         ----------
@@ -26,8 +42,10 @@ class AvisDao(metaclass=Singleton):
         Returns
         -------
             True si l'avis a bien été supprimé
-        """
 
+        """
+        id_utilisateur = utilisateur.id_utilisateur
+        id_recette = recette.id_recette
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -37,8 +55,8 @@ class AvisDao(metaclass=Singleton):
                         " WHERE id_utilisateur=%(id_utilisateur)s    "
                         " AND id_recette=%(id_recette)s              ",
                         {
-                            "id_utilisateur": utilisateur.id_utilisateur,
-                            "id_recette": recette.id_recette
+                            "id_utilisateur": id_utilisateur,
+                            "id_recette": id_recette
                         },
                     )
                     res = cursor.rowcount
@@ -49,8 +67,11 @@ class AvisDao(metaclass=Singleton):
         return res > 0
 
     @log
-    def ajouter_avis(self, avis, utilisateur, recette) -> bool:
-        """Ajout d'un avis
+    def ajouter_avis(self, avis: Avis, utilisateur: Utilisateur,
+                     recette: Recette) -> bool:
+        """
+
+        Ajout d'un avis.
 
         Parameters
         ----------

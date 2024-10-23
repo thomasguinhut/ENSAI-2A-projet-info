@@ -7,8 +7,15 @@ from dao.db_connection import DBConnection
 
 
 class IngredientRecetteDao(metaclass=Singleton):
-    """Classe contenant les méthodes pour accéder aux ingrédient
-    d'une recette de la base de données"""
+
+    """
+
+    Création de la classe IngredientRecetteDao.
+
+    Cette classe fait le lien entre les objets des classes Ingredient et
+    Recette et la table ingredient_recette de la base de données.
+
+    """
 
     @log
     def creer(self, recette) -> bool:
@@ -104,7 +111,7 @@ class IngredientRecetteDao(metaclass=Singleton):
                         "JOIN ingredient_recette USING(id_ingredient) "
                         "WHERE id_recette = %(id_recette)s;",
                         {'id_recette': id_recette}
-                        )
+                    )
                     res = cursor.fetchall()
         except Exception as e:
             logging.info(e)

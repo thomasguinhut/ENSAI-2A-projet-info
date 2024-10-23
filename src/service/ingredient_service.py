@@ -25,7 +25,7 @@ class IngredientService:
 
         Parameters
         ----------
-        categorie : dict[id_ingredient: str, nom_ingredient: str]
+        ingredient : dict[id_ingredient: str, nom_ingredient: str]
             On utilise l'output de la méthode get_ingredient() présente dans
             la classe IngredientClient.
 
@@ -43,3 +43,26 @@ class IngredientService:
             return nouvel_ingredient
         else:
             return None
+
+    @log
+    def trouver_liste_ingredients(self) -> list[Ingredient]:
+        """
+
+        Affiche tous les ingrédients de la base de données.
+
+        Returns
+        -------
+        list[Ingredient]
+
+        """
+
+        res = IngredientDao().trouver_liste_ingredients()
+        liste_ingredients = []
+        if res:
+            for row in res:
+                ingredient = Ingredient(
+                    id_ingredient=row["id_ingredient"],
+                    nom_ingredient=row["nom_ingredient"],
+                )
+                liste_ingredients.append(ingredient)
+        return liste_ingredients
