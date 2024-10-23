@@ -13,6 +13,6 @@ from service.ingredient_recette_service import IngredientRecetteService
 from dao.origine_dao import OrigineDao
 from dao.ingredient_recette_dao import IngredientRecetteDao
 from dao.categorie_dao import CategorieDao
-from dao.recette_favorite_dao import RecettesFavoritesDao
+from dao.recette_favorite_dao import RecetteFavoriteDao
 
 recette = UtilisateurService().trouver_utilisateur("1")
