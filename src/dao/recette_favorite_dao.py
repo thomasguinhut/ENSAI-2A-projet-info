@@ -8,11 +8,11 @@ from business_object.recette import Recette
 # from business_object.utilisateur import Utilisateur
 
 
-class RecettesFavoritesDao(metaclass=Singleton):
+class RecetteFavoriteDao(metaclass=Singleton):
 
     """
 
-    Création de la classe RecettesFavoritesDao.
+    Création de la classe RecetteFavoriteDao.
 
     Cette classe fait le lien entre les objets des classes métiers
     et la table recette_favorite de la base de données.
@@ -86,7 +86,7 @@ class RecettesFavoritesDao(metaclass=Singleton):
         return created
 
     @log
-    def lister_recettes_favorites(self, utilisateur) -> list[dict]:
+    def lister_recette_favorite(self, utilisateur) -> list[dict]:
         """lister toutes les recettes favorites pour un utilisateur donné
 
         Parameters

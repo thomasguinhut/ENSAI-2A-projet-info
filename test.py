@@ -15,9 +15,4 @@ from dao.ingredient_recette_dao import IngredientRecetteDao
 from dao.categorie_dao import CategorieDao
 from dao.recette_favorite_dao import RecettesFavoritesDao
 
-recette = RecetteService().trouver_recette("Apple Frangipan Tart")
-print(recette)
-# utilisateur = UtilisateurService().trouver_par_id("1")
-# print(utilisateur)
-utilisateur = Utilisateur("1", "thomas")
-print(RecettesFavoritesDao().ajouter_recette_a_liste(utilisateur, recette))
+recette = UtilisateurService().trouver_utilisateur("1")
