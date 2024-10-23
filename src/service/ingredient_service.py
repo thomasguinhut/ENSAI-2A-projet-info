@@ -66,3 +66,55 @@ class IngredientService:
                 )
                 liste_ingredients.append(ingredient)
         return liste_ingredients
+
+    @log
+    def get_nom_ingredient_by_id(self, id_ingredient: str) -> str:
+        """
+
+        Donne le nom de l'ingrédient à partir de son id.
+
+        Parameters
+        ----------
+        id_ingredient: str
+
+        Returns
+        -------
+        nom_ingredient: str
+            nom de l'ingrédient recherché
+
+        Raises
+        ------
+        TypeError
+            id_ingredient doit être un str
+
+        """
+
+        if not isinstance(id_ingredient, str):
+            raise TypeError("id_origine doit être un str")
+        return IngredientDao().get_nom_ingredient_by_id(id_ingredient)
+
+    @log
+    def get_id_ingredient_by_name(self, nom_ingredient: str) -> str:
+        """
+
+        Donne l'id de l'ingrédient à partir de son nom.
+
+        Parameters
+        ----------
+        nom_ingredient: str
+
+        Returns
+        -------
+        id_ingredient: str
+            id de l'ingrédient recherché
+
+        Raises
+        ------
+        TypeError
+            nom_ingredient doit être un str
+
+        """
+
+        if not isinstance(nom_ingredient, str):
+            raise TypeError("nom_origine doit être un str")
+        return IngredientDao().get_id_ingredient_by_name(nom_ingredient)

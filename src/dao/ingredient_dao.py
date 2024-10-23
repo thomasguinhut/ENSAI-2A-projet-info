@@ -90,3 +90,90 @@ class IngredientDao(metaclass=Singleton):
             logging.info(e)
             raise
         return res
+
+    def get_nom_ingredient_by_id(self, id_ingredient: str) -> str:
+        """
+
+        Donne le nom de l'ingrédient à partir de son id.
+
+        Parameters
+        ----------
+        id_ingredient : str
+
+        Returns
+        -------
+        nom_ingrédient: str
+            nom de l'ingrédient recherchée
+
+        Raises
+        ------
+        TypeError
+            id_ingredient doit être un str
+
+        """
+
+        if not isinstance(id_ingredient, str):
+            raise TypeError("id_ingredient doit être un str")
+
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT nom_ingredient "
+                        "FROM ingredient "
+                        "WHERE id_ingredient = %(id_ingredient)s;",
+                        {'id_ingredient': id_ingredient}
+                    )
+                    res = cursor.fetchone()
+        except Exception as e:
+            logging.info(e)
+            raise
+        if res:
+            return res['nom_ingredient']
+        else:
+            return None
+
+    def get_id_ingredient_by_name(self, nom_ingredient: str) -> str:
+        """
+
+        Donne l'id de l'ingrédient à partir de son nom.
+
+        Parameters
+        ----------
+        nom_ingredient: str
+
+        Returns
+        -------
+        id_ingredient str
+            id de l'ingrédient recherché
+
+        Raises
+        ------
+        TypeError
+            nom_ingredient doit être un str
+
+        """
+
+        if not isinstance(nom_ingredient, str):
+            raise TypeError("nom_origine doit être un str")
+
+        nom_ingredient = nom_ingredient.lower()
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT id_ingredient "
+                        "FROM ingredient "
+                        "WHERE lower(nom_ingredient) = %(nom_ingredient)s;",
+                        {'nom_ingredient': nom_ingredient}
+                    )
+                    res = cursor.fetchone()
+        except Exception as e:
+            logging.info(e)
+            raise
+        if res:
+            return res['id_ingredient']
+        else:
+            return None

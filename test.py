@@ -21,4 +21,10 @@ from dao.recette_favorite_dao import RecetteFavoriteDao
 from dao.recette_dao import RecetteDao
 
 
-print(UtilisateurService().afficher_tous())
+ingredient = [Ingredient("33", "Bramley Apples")]
+origine = [Origine("2", "France")]
+categorie = [Categorie("2", "Dessert")]
+
+print(RecetteService().liste_recettes_par_filtres(filtres_ingredients=None,
+                                                  filtres_origines=origine,
+                                                  filtres_categories=categorie))

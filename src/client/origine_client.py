@@ -47,35 +47,3 @@ class OrigineClient:
                     liste_origine.append(origine)
                     i += 1
         return liste_origine
-
-    def get_id_origine_by_name(self, nom_origine: str) -> str:
-        """
-
-        Donne l'id de l'origine à partir de son nom.
-
-        Il s'agit bien de l'id que l'on crée nous-même dans la méthode
-        get_origine().
-
-        Parameters
-        ----------
-        nom_origine : str
-
-        Returns
-        -------
-        str
-            id de l'origine recherchée
-
-        Raises
-        ------
-        TypeError
-            nom_origine doit être un str
-
-        """
-
-        if not isinstance(nom_origine, str):
-            raise TypeError("nom_origine doit être un str")
-
-        raw_types = OrigineClient().get_origine()
-        for t in raw_types:
-            if t["nom_origine"].lower() == nom_origine.lower():
-                return t["id_origine"]

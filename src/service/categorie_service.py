@@ -67,3 +67,55 @@ class CategorieService:
                 )
                 liste_categories.append(categorie)
         return liste_categories
+
+    @log
+    def get_nom_categorie_by_id(self, id_categorie: str) -> str:
+        """
+
+        Donne le nom de la catégorie à partir de son id.
+
+        Parameters
+        ----------
+        id_categorie: str
+
+        Returns
+        -------
+        nom_categorie: str
+            nom de la catégorie recherchée
+
+        Raises
+        ------
+        TypeError
+            id_categorie doit être un str
+
+        """
+
+        if not isinstance(id_categorie, str):
+            raise TypeError("id_categorie doit être un str")
+        return CategorieDao().get_nom_categorie_by_id(id_categorie)
+
+    @log
+    def get_id_categorie_by_name(self, nom_categorie: str) -> str:
+        """
+
+        Donne l'id de la catégorie à partir de son nom.
+
+        Parameters
+        ----------
+        nom_origine : str
+
+        Returns
+        -------
+        id_categorie str
+            id de la catégorie recherchée
+
+        Raises
+        ------
+        TypeError
+            nom_categorie doit être un str
+
+        """
+
+        if not isinstance(nom_categorie, str):
+            raise TypeError("nom_categorie doit être un str")
+        return CategorieDao().get_id_categorie_by_name(nom_categorie)
