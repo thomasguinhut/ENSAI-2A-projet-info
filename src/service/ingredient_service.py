@@ -116,5 +116,5 @@ class IngredientService:
         """
 
         if not isinstance(nom_ingredient, str):
-            raise TypeError("nom_origine doit être un str")
+            raise TypeError("nom_ingredient doit être un str")
         return IngredientDao().get_id_ingredient_by_name(nom_ingredient)

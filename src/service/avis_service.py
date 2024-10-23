@@ -35,7 +35,11 @@ class AvisService:
         return AvisDao().supprimer_avis(utilisateur, recette)
 
     @log
-    def ajouter_avis(self, note: int, commentaire: str, utilisateur: Utilisateur, recette: Recette)  -> bool:
+    def ajouter_avis(self,
+                     note: int,
+                     commentaire: str,
+                     utilisateur: Utilisateur,
+                     recette: Recette) -> bool:
         """
 
         Ajout d'un avis.
