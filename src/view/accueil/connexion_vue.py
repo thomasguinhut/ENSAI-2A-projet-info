@@ -17,7 +17,7 @@ class ConnexionVue(VueAbstraite):
         try:
             utilisateur = UtilisateurService().se_connecter(id_utilisateur, mdp)
 
-            # Si l'utilisateur a été trouvé à partir de ses identifiants de 
+            # Si l'utilisateur a été trouvé à partir de ses identifiants de
             # connexion
             if utilisateur:
                 message = f"Vous êtes connecté sous le pseudo {utilisateur.id_utilisateur}"
