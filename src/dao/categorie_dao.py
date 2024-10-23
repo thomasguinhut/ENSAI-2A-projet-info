@@ -47,3 +47,35 @@ class CategorieDao(metaclass=Singleton):
             categorie.id_categorie = res["id_categorie"]
             created = True
         return created
+
+    @log
+    def trouver_liste_categories(self) -> list[dict[str, str]]:
+        """
+
+        Liste toutes les catégories de la base de donénes.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        liste_categories : list[dict[
+            "id_categorie": str, "nom_categorie": str]]
+            Renvoie la liste de toutes les catégories sous forme de
+            dictionnaires
+
+        """
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT *"
+                        "   FROM categorie;"
+                    )
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        return res

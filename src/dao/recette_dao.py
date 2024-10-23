@@ -66,7 +66,7 @@ class RecetteDao(metaclass=Singleton):
         return created
 
     @log
-    def lister_toutes_recettes(self) -> list[dict[
+    def trouver_liste_recettes(self) -> list[dict[
             "id": str, str, str, str, str, str]]:
         """
 

@@ -44,3 +44,16 @@ class CategorieService:
             return nouvelle_categorie
         else:
             return None
+
+    @log
+    def trouver_liste_categories(self):
+        res = CategorieDao().trouver_liste_categories()
+        liste_categories = []
+        if res:
+            for row in res:
+                categorie = Categorie(
+                    id_categorie=row["id_categorie"],
+                    nom_categorie=row["nom_categorie"],
+                )
+                liste_categories.append(categorie)
+        return liste_categories

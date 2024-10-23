@@ -13,9 +13,9 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
 
     def choisir_menu(self):
         pages = self.diviser_en_pages()
-        if not pages:  
+        if not pages:
             print("Aucune recette disponible.")
-            
+
             from view.utilisateur.utilisateur_vue import UtilisateurVue
 
             return UtilisateurVue('Retour au menu principal')
@@ -41,5 +41,3 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
                 from view.utilisateur.recette_utilisateur_vue import RecetteUtilisateurVue
 
                 return RecetteUtilisateurVue(choix)
-
-
