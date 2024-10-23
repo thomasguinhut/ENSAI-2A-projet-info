@@ -5,7 +5,7 @@ from business_object.ingredient import Ingredient
 from dao.liste_course_dao import ListeCourseDao
 
 
-class ListeCourseService:
+class ListeCourseservice:
 
     """
 
