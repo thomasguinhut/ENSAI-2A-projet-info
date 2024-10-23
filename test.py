@@ -11,4 +11,4 @@ from service.ingredient_recette_service import IngredientRecetteService
 from dao.origine_dao import OrigineDao
 
 
-print(RecetteService().lister_toutes_recettes())
+print(CategorieClient().get_nom_categorie_by_id("2"))

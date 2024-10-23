@@ -42,7 +42,7 @@ class CategorieClient:
                 liste_categories.append(categorie)
         return liste_categories
 
-    def get_id_categorie_by_name(nom_categorie: str) -> str:
+    def get_id_categorie_by_name(self, nom_categorie: str) -> str:
         """
 
         Donne l'id de la catégorie à partir de son nom.
@@ -75,35 +75,35 @@ class CategorieClient:
                 if t["strCategory"].lower() == nom_categorie.lower():
                     return t["idCategory"]
 
-        def get_nom_categorie_by_id(id_categorie: str) -> str:
-            """
+    def get_nom_categorie_by_id(self, id_categorie: str) -> str:
+        """
 
-            Donne le nom de la catégorie à partir de son id.
+        Donne le nom de la catégorie à partir de son id.
 
-            Parameters
-            ----------
-            id_categorie : str
+        Parameters
+        ----------
+        id_categorie : str
 
-            Returns
-            -------
-            str
-                nom de la catégorie recherchée
+        Returns
+        -------
+        str
+            nom de la catégorie recherchée
 
-            Raises
-            ------
-            TypeError
-                id_categorie doit être un str
+        Raises
+        ------
+        TypeError
+            id_categorie doit être un str
 
-            """
+        """
 
-            if not isinstance(id_categorie, str):
-                raise TypeError("id_categorie doit être un str")
+        if not isinstance(id_categorie, str):
+            raise TypeError("id_categorie doit être un str")
 
-            req = requests.get(
-                "https://www.themealdb.com/api/json/v1/1/categories.php?"
-            )
-            if req.status_code == 200:
-                raw_types = req.json()["categories"]
-                for t in raw_types:
-                    if t["idCategory"].lower() == id_categorie.lower():
-                        return t["strCategory"]
+        req = requests.get(
+            "https://www.themealdb.com/api/json/v1/1/categories.php?"
+        )
+        if req.status_code == 200:
+            raw_types = req.json()["categories"]
+            for t in raw_types:
+                if t["idCategory"].lower() == id_categorie.lower():
+                    return t["strCategory"]
