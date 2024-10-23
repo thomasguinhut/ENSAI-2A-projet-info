@@ -8,5 +8,5 @@ retirer_avis(id_utilisateur, self.recette)
 ajouter_ingredients_courses(id_utilisateur, self.recette)
 
 CategorieService.trouver_liste_categories() OK
-OriginesService.trouver_liste_origines()
-IngredientsService.trouver_liste_ingredients()
+OrigineService.trouver_liste_origines()
+IngredientService.trouver_liste_ingredients()

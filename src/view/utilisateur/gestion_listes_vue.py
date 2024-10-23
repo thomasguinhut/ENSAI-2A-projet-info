@@ -4,6 +4,9 @@ from view.vue_abstraite import VueAbstraite
 
 
 class GestionListesVue(VueAbstraite):
+    def __init__(self, message=""):
+        super().__init__(message)
+
     def choisir_menu(self):
         choix = inquirer.select(
             message="Que souhaitez-vous faire ?",

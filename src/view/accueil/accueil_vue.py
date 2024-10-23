@@ -4,6 +4,8 @@ from view.vue_abstraite import VueAbstraite
 
 class AccueilVue(VueAbstraite):
     """Vue d'accueil de l'application"""
+    def __init__(self, message=""):
+        super().__init__(message)
 
     def choisir_menu(self):
         """Choix du menu suivant
