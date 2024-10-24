@@ -133,8 +133,6 @@ class RecetteService:
         if filtres_ingredients:
             liste_filtres_ingredients = []
             for ingredient in filtres_ingredients:
-                print(IngredientService().get_id_ingredient_by_name(
-                    ingredient))
                 objet_ingredient = Ingredient(
                     id_ingredient=(
                         IngredientService().get_id_ingredient_by_name(

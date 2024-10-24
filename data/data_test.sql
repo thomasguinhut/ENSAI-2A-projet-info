@@ -14,7 +14,7 @@ INSERT INTO categorie (id_categorie, nom_categorie) VALUES
 -- Insertion des origines
 INSERT INTO origine (id_origine, nom_origine) VALUES
 ('2', 'Canadian'),
-('17', 'Mexican');
+('17','Mexican');
 
 -- Insertion des ingrédients
 INSERT INTO ingredient (id_ingredient, nom_ingredient) VALUES
