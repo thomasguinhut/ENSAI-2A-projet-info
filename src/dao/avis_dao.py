@@ -5,9 +5,9 @@ from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
 
-from business_objet.utilisateur import Utilisateur
-from business_objet.recette import Recette
-from business_objet.avis import Avis
+from business_object.utilisateur import Utilisateur
+from business_object.recette import Recette
+from business_object.avis import Avis
 
 # from business_object.avis import Avis
 

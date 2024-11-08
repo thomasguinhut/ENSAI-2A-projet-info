@@ -25,12 +25,12 @@ class TypeFiltreVue(VueAbstraite):
         match choix:
             case "Ingrédient":
                 from view.filtres.filtre_ingredient_vue import FiltreIngredientVue
-                return FiltreIngredientVue("Ingrédients")
+                return FiltreIngredientVue()
 
             case "Catégorie":
                 from view.filtres.filtre_categorie_vue import FiltreCategorieVue
-                return FiltreCategorieVue("Catégories")
+                return FiltreCategorieVue()
 
             case "Origine":
                 from view.filtres.filtre_origine_vue import FiltreOrigineVue
-                return FiltreOrigineVue("Origines")
+                return FiltreOrigineVue()

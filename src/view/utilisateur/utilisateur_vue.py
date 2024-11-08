@@ -31,22 +31,21 @@ class UtilisateurVue(VueAbstraite):
         choix = inquirer.select(
             message="Que souhaitez-vous faire : ",
             choices=[
-                "Quitter",
                 "Afficher la liste des recettes",
                 "Gérer les listes",
+                "Retour à l'écran d'accueil"
             ],
         ).execute()
 
         match choix:
-            case "Quitter":
-                pass
-
             case "Afficher la liste des recettes":
                 from view.menu_liste_recettes_vue import MenuListeRecettes
-
                 return MenuListeRecettes()
 
             case "Gérer les listes":
                 from view.utilisateur.gestion_listes_vue import GestionListesVue
-
                 return GestionListesVue()
+
+            case "Retour à l'écran d'accueil":
+                from view.accueil.accueil_vue import AccueilVue
+                return AccueilVue()

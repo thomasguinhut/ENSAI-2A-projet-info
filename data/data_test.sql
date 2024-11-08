@@ -1,10 +1,10 @@
 -- Insertion des utilisateurs
 INSERT INTO utilisateur (id_utilisateur, mdp) VALUES
-('1', 'thomas'),
-('2', 'benjamin'),
-('3', 'akmal'),
-('4', 'fany'),
-('5', 'toussaint');
+('thomas', '12345'),
+('benjamin', '12345'),
+('akmal', '12345'),
+('fany', '12345'),
+('toussaint', '12345');
 
 -- Insertion des catégories
 INSERT INTO categorie (id_categorie, nom_categorie) VALUES
@@ -14,7 +14,7 @@ INSERT INTO categorie (id_categorie, nom_categorie) VALUES
 -- Insertion des origines
 INSERT INTO origine (id_origine, nom_origine) VALUES
 ('2', 'Canadian'),
-('17', 'Mexican');
+('17','Mexican');
 
 -- Insertion des ingrédients
 INSERT INTO ingredient (id_ingredient, nom_ingredient) VALUES

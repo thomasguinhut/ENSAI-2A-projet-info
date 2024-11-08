@@ -22,20 +22,22 @@ class AjouterFiltresInviteVue(VueAbstraite):
             choices=[
                 "Sélectionner des filtres",
                 "Afficher les recettes filtrées",
-                "Retourner au menu principal"
+                "Retour"
             ]
         ).execute()
 
         match choix:
             case "Sélectionner des filtres":
                 from view.filtres.type_filtre_vue import TypeFiltreVue
-                return TypeFiltreVue("Type du filtre")
+                return TypeFiltreVue()
 
             case "Afficher les recettes filtrées":
                 from view.invite.liste_recettes_invite_vue import ListeRecettesInviteVue
-                return ListeRecettesInviteVue("Affichage de la liste des recettes filtrées")
+                return ListeRecettesInviteVue()
 
-            case "Retourner au menu principal":
-                Session().choix_filtres = []
-                from view.invite.invite_vue import InviteVue
-                return InviteVue("Retour au menu principal")
+            case "Retour":
+                Session().choix_filtres_ingredient = []
+                Session().choix_filtres_origine = []
+                Session().choix_filtres_categorie = []
+                from view.accueil.accueil_vue import AccueilVue
+                return AccueilVue()

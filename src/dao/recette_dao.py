@@ -104,13 +104,12 @@ class RecetteDao(metaclass=Singleton):
 
         return res
 
-    def liste_recettes_par_filtres(
+    def filtrer_recettes(
         self,
             filtres_ingredients: list[Ingredient],
             filtres_origines: list[Origine],
             filtres_categories: list[Categorie]
     ):
-        liste_recettes = []
         if filtres_ingredients:
             recettes_ingredients = []
             id_recettes_ingredients = []
@@ -205,7 +204,7 @@ class RecetteDao(metaclass=Singleton):
                                      & set(id_recettes_categories))
         elif filtres_ingredients:
             recettes = recettes_ingredients
-            id_liste_recettes = id_recettes_categories
+            id_liste_recettes = id_recettes_ingredients
         elif filtres_origines:
             recettes = recettes_origines
             id_liste_recettes = id_recettes_origines
@@ -214,11 +213,10 @@ class RecetteDao(metaclass=Singleton):
             id_liste_recettes = id_recettes_categories
         else:
             id_liste_recettes = []
-
         ids_vus = set()
         recettes_filtrees = []
-        for recette in recettes[0]:
-            id_recette = recette["id_recette"]
+        for recette in recettes:
+            id_recette = recette[0]["id_recette"]
             if id_recette in id_liste_recettes and id_recette not in ids_vus:
                 recettes_filtrees.append(recette)
                 ids_vus.add(id_recette)

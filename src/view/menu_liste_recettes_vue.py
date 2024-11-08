@@ -37,8 +37,8 @@ class MenuListeRecettes(VueAbstraite):
                     return AjouterFiltresInviteVue()
 
                 case "Retour au menu principal":
-                    from view.invite.invite_vue import InviteVue
-                    return InviteVue()
+                    from view.accueil.accueil_vue import AccueilVue
+                    return AccueilVue()
 
         else:
             match choix:

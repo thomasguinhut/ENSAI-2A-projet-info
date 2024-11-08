@@ -11,7 +11,7 @@ class ResetDatabaseTest(metaclass=Singleton):
 
     """
 
-    Initialisation de la base de données test/
+    Initialisation de la base de données test.
 
     """
 
