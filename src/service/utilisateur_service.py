@@ -48,7 +48,7 @@ class UtilisateurService:
         return UtilisateurDao().supprimer(utilisateur)
 
     @log
-    def afficher_tous(self) -> str:
+    def lister_tous(self) -> str:
         """Afficher tous les utilisateurs
         Sortie : Une chaine de caractères mise sous forme de tableau
         """
@@ -84,7 +84,7 @@ class UtilisateurService:
     @log
     def se_connecter(self, id_utilisateur, mdp) -> Utilisateur:
         """Se connecter à partir de id_utilisateur et mdp"""
-        return UtilisateurDao().se_connecter(id_utilisateur, hash_password(mdp, id_utilisateur))
+        return UtilisateurDao().se_connecter(id_utilisateur, mdp)
 
     @log
     def id_utilisateur_deja_utilise(self, id_utilisateur) -> bool:

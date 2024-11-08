@@ -1,8 +1,7 @@
 from view.vue_abstraite import VueAbstraite
-from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
 from service.recette_service import RecetteService
 
-import inquirer
+from InquirerPy import inquirer
 
 
 class RecetteInviteVue(VueAbstraite):
@@ -22,7 +21,7 @@ class RecetteInviteVue(VueAbstraite):
 
     def afficher_recette_invite(self):
         """Affiche les détails de la recette sélectionnée."""
-        ListeRecettesAbstraiteVue.afficher_recette(self.nom_recette)
+        self.afficher_recette(self.nom_recette)
 
     def choisir_menu(self):
         """Affiche le menu des options disponibles pour l'utilisateur invité."""
