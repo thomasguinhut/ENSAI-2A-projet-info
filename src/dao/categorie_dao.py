@@ -88,3 +88,90 @@ class CategorieDao(metaclass=Singleton):
             logging.info(e)
             raise
         return res
+
+    def get_nom_categorie_by_id(self, id_categorie: str) -> str:
+        """
+
+        Donne le nom de la catégorie à partir de son id.
+
+        Parameters
+        ----------
+        id_categorie : str
+
+        Returns
+        -------
+        str
+            nom de la catégorie recherchée
+
+        Raises
+        ------
+        TypeError
+            id_categorie doit être un str
+
+        """
+
+        if not isinstance(id_categorie, str):
+            raise TypeError("id_categorie doit être un str")
+
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT nom_categorie "
+                        "FROM categorie "
+                        "WHERE id_categorie = %(id_categorie)s;",
+                        {'id_categorie': id_categorie}
+                    )
+                    res = cursor.fetchone()
+        except Exception as e:
+            logging.info(e)
+            raise
+        if res:
+            return res['nom_categorie']
+        else:
+            return None
+
+    def get_id_categorie_by_name(self, nom_categorie: str) -> str:
+        """
+
+        Donne l'id de la catégorie à partir de son nom.
+
+        Parameters
+        nom_categorie
+        nom_origine : str
+
+        Returns
+        -------
+        id_categorie str
+            id de la catégorie recherchée
+
+        Raises
+        ------
+        TypeError
+            nom_categorie doit être un str
+
+        """
+
+        if not isinstance(nom_categorie, str):
+            raise TypeError("nom_origine doit être un str")
+
+        nom_categorie = nom_categorie.lower()
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT id_categorie "
+                        "FROM categorie "
+                        "WHERE lower(nom_categorie) = %(nom_categorie)s;",
+                        {'nom_categorie': nom_categorie}
+                    )
+                    res = cursor.fetchone()
+        except Exception as e:
+            logging.info(e)
+            raise
+        if res:
+            return res['id_categorie']
+        else:
+            return None

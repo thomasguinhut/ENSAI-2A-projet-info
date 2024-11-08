@@ -22,6 +22,9 @@ from dao.recette_dao import RecetteDao
 
 
 <<<<<<< HEAD
+print(IngredientService().get_id_ingredient_by_name("Bramley Apples"))
+=======
+<<<<<<< HEAD
 UtilisateurService().trouver_par_id("1")
 =======
 ingredient = [Ingredient("33", "Bramley Apples")]
@@ -32,3 +35,4 @@ print(RecetteService().liste_recettes_par_filtres(filtres_ingredients=None,
                                                   filtres_origines=origine,
                                                   filtres_categories=categorie))
 >>>>>>> 2cb0671215f12d39720e209a1be6db4aea16f70a
+>>>>>>> d0f47c51d56ca7e94fad5c05d837512ec634b0a0

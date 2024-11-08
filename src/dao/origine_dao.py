@@ -82,7 +82,6 @@ class OrigineDao(metaclass=Singleton):
         if not isinstance(id_origine, str):
             raise TypeError("id_origine doit être un str")
 
-        id_origine = id_origine.lower()
         res = None
         try:
             with DBConnection().connection as connection:
@@ -97,9 +96,52 @@ class OrigineDao(metaclass=Singleton):
         except Exception as e:
             logging.info(e)
             raise
-
         if res:
             return res['nom_origine']
+        else:
+            return None
+
+    def get_id_origine_by_name(self, nom_origine: str) -> str:
+        """
+
+        Donne l'id de l'origine à partir de son nom.
+
+        Parameters
+        ----------
+        nom_origine : str
+
+        Returns
+        -------
+        id_origine str
+            id de l'origine recherchée
+
+        Raises
+        ------
+        TypeError
+            nom_origine doit être un str
+
+        """
+
+        if not isinstance(nom_origine, str):
+            raise TypeError("nom_origine doit être un str")
+
+        nom_origine = nom_origine.lower()
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT id_origine "
+                        "FROM origine "
+                        "WHERE lower(nom_origine) = %(nom_origine)s;",
+                        {'nom_origine': nom_origine}
+                    )
+                    res = cursor.fetchone()
+        except Exception as e:
+            logging.info(e)
+            raise
+        if res:
+            return res['id_origine']
         else:
             return None
 

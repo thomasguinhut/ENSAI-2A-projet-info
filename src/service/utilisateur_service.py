@@ -92,4 +92,3 @@ class UtilisateurService:
         Retourne True si l'id existe déjà en BDD"""
         utilisateurs = UtilisateurDao().lister_tous()
         return id_utilisateur in [j.id_utilisateur for j in utilisateurs]
-
