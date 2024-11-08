@@ -48,7 +48,7 @@ class UtilisateurService:
         return UtilisateurDao().supprimer(utilisateur)
 
     @log
-    def afficher_tous(self) -> str:
+    def lister_tous(self) -> str:
         """Afficher tous les utilisateurs
         Sortie : Une chaine de caractères mise sous forme de tableau
         """
