@@ -8,7 +8,6 @@ from business_object.ingredient import Ingredient
 from dao.recette_dao import RecetteDao
 from dao.origine_dao import OrigineDao
 from dao.ingredient_dao import IngredientDao
-from dao.categorie_dao import CategorieDao
 from service.ingredient_recette_service import IngredientRecetteService
 from service.ingredient_service import IngredientService
 from service.categorie_service import CategorieService
@@ -56,11 +55,11 @@ class RecetteService:
             if id_ingredient:
                 ingredient = Ingredient(id_ingredient, nom_ingredient)
                 liste_ingredients.append(ingredient)
-        id_categorie = CategorieClient().get_id_categorie_by_name(
+        id_categorie = CategorieService().get_id_categorie_by_name(
             recette["categorie_recette"])
-        id_origine = OrigineClient().get_id_origine_by_name(
+        id_origine = OrigineService().get_id_origine_by_name(
             recette["origine_recette"]
-            )
+        )
         if id_categorie and id_origine:
             print(id_categorie)
             print(id_origine)
@@ -100,7 +99,7 @@ class RecetteService:
                                   nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
                 categorie = Categorie(
                     id_categorie=row["id_categorie"],
-                    nom_categorie=CategorieClient().get_nom_categorie_by_id(row["id_categorie"]))
+                    nom_categorie=CategorieService().get_nom_categorie_by_id(row["id_categorie"]))
                 recette = Recette(
                     id_recette=row["id_recette"],
                     nom_recette=row["nom_recette"],
@@ -162,7 +161,7 @@ class RecetteService:
                                   nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
                 categorie = Categorie(
                     id_categorie=row["id_categorie"],
-                    nom_categorie=CategorieClient().get_nom_categorie_by_id(row["id_categorie"]))
+                    nom_categorie=CategorieService().get_nom_categorie_by_id(row["id_categorie"]))
                 recette = Recette(
                     id_recette=row[0]["id_recette"],
                     nom_recette=row[0]["nom_recette"],
@@ -184,7 +183,7 @@ class RecetteService:
                                   nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
                 categorie = Categorie(
                     id_categorie=row["id_categorie"],
-                    nom_categorie=CategorieClient().get_nom_categorie_by_id(row["id_categorie"]))
+                    nom_categorie=CategorieService().get_nom_categorie_by_id(row["id_categorie"]))
                 recette = Recette(
                     id_recette=row["id_recette"],
                     nom_recette=row["nom_recette"],
@@ -195,3 +194,29 @@ class RecetteService:
                     ).lister_ingredients_by_recette(row["id_recette"])
                 )
         return recette
+
+    @log
+    def get_nom_recette_by_id(self, id_recette: str) -> str:
+        """
+
+        Donne le nom de la catégorie à partir de son id.
+
+        Parameters
+        ----------
+        id_recette: str
+
+        Returns
+        -------
+        nom_recette: str
+            nom de la recette recherchée
+
+        Raises
+        ------
+        TypeError
+            id_recette doit être un str
+
+        """
+
+        if not isinstance(id_recette, str):
+            raise TypeError("id_recette doit être un str")
+        return RecetteDao().get_nom_recette_by_id(id_recette)

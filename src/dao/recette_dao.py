@@ -256,3 +256,46 @@ class RecetteDao(metaclass=Singleton):
             logging.info(e)
             raise
         return res
+
+    def get_nom_recette_by_id(self, id_recette: str) -> str:
+        """
+
+        Donne le nom de la recette à partir de son id.
+
+        Parameters
+        ----------
+        id : str
+
+        Returns
+        -------
+        str
+            nom de la recette recherchée
+
+        Raises
+        ------
+        TypeError
+            id_recette doit être un str
+
+        """
+
+        if not isinstance(id_recette, str):
+            raise TypeError("id_recette doit être un str")
+
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT nom_recette "
+                        "FROM recette "
+                        "WHERE id_recette = %(id_recette)s;",
+                        {'id_recette': id_recette}
+                    )
+                    res = cursor.fetchone()
+        except Exception as e:
+            logging.info(e)
+            raise
+        if res:
+            return res['nom_recette']
+        else:
+            return None
