@@ -56,12 +56,11 @@ class RecetteService:
             if id_ingredient:
                 ingredient = Ingredient(id_ingredient, nom_ingredient)
                 liste_ingredients.append(ingredient)
-
-        id_categorie = CategorieDao().get_id_categorie_by_name(
+        id_categorie = CategorieClient().get_id_categorie_by_name(
             recette["categorie_recette"])
-        id_origine = OrigineDao().get_id_origine_by_name(
-            recette["origine_recette"])
-
+        id_origine = OrigineClient().get_id_origine_by_name(
+            recette["origine_recette"]
+            )
         if id_categorie and id_origine:
             print(id_categorie)
             print(id_origine)
@@ -97,15 +96,11 @@ class RecetteService:
         liste_recettes = []
         if res:
             for row in res:
-                origine = Origine(
-                    id_origine=row["id_origine"],
-                    nom_origine=(
-                        OrigineDao().get_nom_origine_by_id(row["id_origine"])))
+                origine = Origine(id_origine=row["id_origine"],
+                                  nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
                 categorie = Categorie(
                     id_categorie=row["id_categorie"],
-                    nom_categorie=(
-                        CategorieDao().get_nom_categorie_by_id(
-                            row["id_categorie"])))
+                    nom_categorie=CategorieClient().get_nom_categorie_by_id(row["id_categorie"]))
                 recette = Recette(
                     id_recette=row["id_recette"],
                     nom_recette=row["nom_recette"],
@@ -163,14 +158,11 @@ class RecetteService:
         liste_recettes = []
         if res:
             for row in res:
-                origine = Origine(
-                    id_origine=row[0]["id_origine"],
-                    nom_origine=OrigineDao().get_nom_origine_by_id(
-                        row[0]["id_origine"]))
+                origine = Origine(id_origine=row["id_origine"],
+                                  nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
                 categorie = Categorie(
-                    id_categorie=row[0]["id_categorie"],
-                    nom_categorie=CategorieDao().get_nom_categorie_by_id(
-                        row[0]["id_categorie"]))
+                    id_categorie=row["id_categorie"],
+                    nom_categorie=CategorieClient().get_nom_categorie_by_id(row["id_categorie"]))
                 recette = Recette(
                     id_recette=row[0]["id_recette"],
                     nom_recette=row[0]["nom_recette"],
@@ -188,14 +180,11 @@ class RecetteService:
         res = RecetteDao().trouver_recette(nom_recette)
         if res:
             for row in res:
-                origine = Origine(
-                    id_origine=row["id_origine"],
-                    nom_origine=OrigineDao().get_nom_origine_by_id(
-                        row["id_origine"]))
+                origine = Origine(id_origine=row["id_origine"],
+                                  nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
                 categorie = Categorie(
                     id_categorie=row["id_categorie"],
-                    nom_categorie=CategorieDao().get_nom_categorie_by_id(
-                        row["id_categorie"]))
+                    nom_categorie=CategorieClient().get_nom_categorie_by_id(row["id_categorie"]))
                 recette = Recette(
                     id_recette=row["id_recette"],
                     nom_recette=row["nom_recette"],
