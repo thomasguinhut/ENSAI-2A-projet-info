@@ -117,18 +117,18 @@ INSERT INTO ingredient_recette (id_recette, id_ingredient) VALUES
 -- Insertion des avis
 INSERT INTO avis (id_avis, commentaire, note, id_utilisateur,
                   id_recette) VALUES
-('1', 'Délicieux !', 5, '3', '52768'),
-('2', 'Bonne recette, mais un peu long à faire.', 4, '5', '53050');
+('thomas', 'Délicieux !', 5, 'akmal', '52768'),
+('benjamin', 'Bonne recette, mais un peu long à faire.', 4, 'toussaint', '53050');
 
 -- Insertion des recettes favorites
 INSERT INTO recette_favorite (id_utilisateur, id_recette) VALUES
-('2', '52768'),
-('4', '52768'),
-('4', '53050');
+('benjamin', '52768'),
+('fany', '52768'),
+('fany', '53050');
 
 -- Insertion des ingrédients dans la liste de courses
 INSERT INTO liste_course (id_utilisateur, id_ingredient) VALUES
-('1', '33'),
-('3', '70'),
-('5', '70'),
-('5', '33');
+('thomas', '33'),
+('akmal', '70'),
+('toussaint', '70'),
+('toussaint', '33');
