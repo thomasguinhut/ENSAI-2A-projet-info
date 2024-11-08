@@ -4,6 +4,7 @@
 DROP TABLE IF EXISTS utilisateur CASCADE ;
 CREATE TABLE utilisateur(
     id_utilisateur   VARCHAR PRIMARY KEY,
+    pseudo VARCHAR NOT NULL,
     mdp VARCHAR NOT NULL
 );
 
