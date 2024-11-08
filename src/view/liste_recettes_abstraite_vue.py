@@ -6,7 +6,7 @@ from view.session import Session
 class ListeRecettesAbstraiteVue(VueAbstraite):
     """Classe abstraite pour les listes de recettes avec des fonctionnalités communes."""
 
-    def __init__(self, recettes_par_page=5, message=""):
+    def __init__(self, message=""):
         """
         Initialise la vue des listes de recettes.
 
@@ -16,7 +16,6 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
         """
         super().__init__(message=message)
         self.liste_recettes = RecetteService().trouver_liste_recettes()
-        self.recettes_par_page = recettes_par_page
         self.page_actuelle = 0
 
     def filtrer_recettes(self):
@@ -38,8 +37,8 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
         """Divise la liste des recettes filtrées en pages."""
         recettes_filtrees = self.filtrer_recettes()
         return [
-            recettes_filtrees[i:(i + self.recettes_par_page)]
-            for i in range(0, len(recettes_filtrees), self.recettes_par_page)
+            recettes_filtrees[i:(i + 5)]
+            for i in range(0, len(recettes_filtrees), 5)
         ]
 
     def creer_options_menu(self, pages):

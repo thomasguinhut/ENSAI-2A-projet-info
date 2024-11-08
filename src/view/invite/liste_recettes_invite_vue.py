@@ -17,7 +17,6 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
     def choisir_menu(self):
         """Affiche le menu de sélection des recettes et gère les choix de l'utilisateur."""
         pages = self.diviser_en_pages()
-
         if not pages:
             print("Aucune recette disponible.")
             return
@@ -25,7 +24,7 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
         while True:
             choix = inquirer.select(
                 message="Choisissez une recette ou une option :",
-                choices=ListeRecettesAbstraiteVue().creer_options_menu(pages)
+                choices=self.creer_options_menu(pages)
             ).execute()
 
             if choix == "Retourner au menu principal":
