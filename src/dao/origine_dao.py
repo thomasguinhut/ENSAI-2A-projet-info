@@ -140,7 +140,7 @@ class OrigineDao(metaclass=Singleton):
         except Exception as e:
             logging.info(e)
             raise
-        if res:
+        if res is not None:
             return res['id_origine']
         else:
             return None
