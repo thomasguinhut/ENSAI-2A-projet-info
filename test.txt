@@ -22,3 +22,5 @@
 # from dao.recette_dao import RecetteDao
 # from dao.utilisateur_dao import UtilisateurDao
 # from dao.ingredient_recette_dao import IngredientRecetteDao
+
+utilisateur_service.lister_tous()

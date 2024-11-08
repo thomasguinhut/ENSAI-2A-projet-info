@@ -19,10 +19,12 @@ class ConnexionVue(VueAbstraite):
 
             # Si l'utilisateur a été trouvé à partir de ses identifiants de
             # connexion
-            if utilisateur:
+            print(utilisateur)
+            if utilisateur is not None:
+                print(utilisateur)
                 message = f"Vous êtes connecté sous le pseudo {utilisateur.id_utilisateur}"
 
-                from view.utilisateur_vue import UtilisateurVue
+                from view.utilisateur.utilisateur_vue import UtilisateurVue
 
                 return UtilisateurVue(message)
 
