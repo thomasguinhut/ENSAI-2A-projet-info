@@ -23,4 +23,17 @@ from dao.recette_dao import RecetteDao
 from dao.utilisateur_dao import UtilisateurDao
 from dao.ingredient_recette_dao import IngredientRecetteDao
 
-print(UtilisateurService().se_connecter('thomas','12345'))
+from dao.db_connection import DBConnection
+
+#print(UtilisateurService().se_connecter('thomas','12345'))
+
+#print(OrigineDao().get_id_origine_by_name('mexican'))
+
+print(RecetteService().creer({
+        "id_recette": "0",
+        "nom_recette": "Salade estivale",
+        "instructions_recette": "Mélanger",
+        "categorie_recette": "Dessert",
+        "origine_recette": "French",
+        "ingredients_recette": ["Butter", "Cumin"]
+        }))

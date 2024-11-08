@@ -48,7 +48,7 @@ def test_creer_ok():
         "nom_recette": "Salade estivale",
         "instructions_recette": "Mélanger",
         "categorie_recette": "Dessert",
-        "origine_recette": "French",
+        "origine_recette": "Mexican",
         "ingredients_recette": ["Butter", "Cumin"]
         }
     RecetteDao().creer = MagicMock(return_value=True)
