@@ -1,10 +1,10 @@
 -- Insertion des utilisateurs
-INSERT INTO utilisateur (id_utilisateur, pseudo, mdp) VALUES
-('1', 'thomas', '12345'),
-('2', 'benjamin', '12345'),
-('3', 'akmal', '12345'),
-('4', 'fany', '12345'),
-('5', 'toussaint', '12345');
+INSERT INTO utilisateur (id_utilisateur, mdp) VALUES
+('thomas', '12345'),
+('benjamin', '12345'),
+('akmal', '12345'),
+('fany', '12345'),
+('toussaint', '12345');
 
 -- Insertion des catégories
 INSERT INTO categorie (id_categorie, nom_categorie) VALUES
