@@ -1,4 +1,3 @@
-coucou
 from unittest.mock import MagicMock
 
 from service.recette_service import RecetteService

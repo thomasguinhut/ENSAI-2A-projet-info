@@ -85,7 +85,7 @@ class RecetteFavoriteDao(metaclass=Singleton):
         return created
 
     @log
-    def lister_recette_favorite(self, id_utilisateur) -> list[dict]:
+    def lister_recette_favorite(self, utilisateur) -> list[dict]:
         """lister toutes les recettes favorites pour un utilisateur donné
 
         Parameters
@@ -97,6 +97,8 @@ class RecetteFavoriteDao(metaclass=Singleton):
         liste_recette : list[Recettes]
             renvoie la liste de toutes les recettes favorites de l'utilisateur
         """
+
+        id_utilisateur = utilisateur.id_utilisateur
 
         try:
             with DBConnection().connection as connection:
