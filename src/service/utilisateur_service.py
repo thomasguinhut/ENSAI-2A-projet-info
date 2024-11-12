@@ -93,5 +93,4 @@ class UtilisateurService:
     def id_utilisateur_deja_utilise(self, id_utilisateur) -> bool:
         """Vérifie si l'id est déjà utilisé
         Retourne True si l'id existe déjà en BDD"""
-        utilisateurs = UtilisateurDao().lister_tous()
-        return id_utilisateur in [j.id_utilisateur for j in utilisateurs]
+        return UtilisateurService().trouver_par_id(id_utilisateur) is not None

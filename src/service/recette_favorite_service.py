@@ -49,7 +49,9 @@ class RecetteFavoriteService:
                     row["id_recette"])
                 recette = RecetteService().trouver_recette(nom_recette)
                 liste_recette.append(recette)
-        return liste_recette
+            return liste_recette
+        else:
+            return None
 
     @log
     def ajouter_favori(self, id_utilisateur, nom_recette) -> bool:
@@ -68,4 +70,6 @@ class RecetteFavoriteService:
             True si la recette a bien été ajoutée
 .
         """
-        RecetteFavoriteDao().ajouter_recette_a_liste(id_utilisateur, nom_recette)
+        utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
+        recette = RecetteService().trouver_recette(nom_recette)
+        RecetteFavoriteDao().ajouter_recette_a_liste(utilisateur, recette)
