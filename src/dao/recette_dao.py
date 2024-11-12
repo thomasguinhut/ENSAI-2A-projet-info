@@ -100,7 +100,6 @@ class RecetteDao(metaclass=Singleton):
         except Exception as e:
             logging.info(e)
             raise
-        print(res)
 
         return res
 
