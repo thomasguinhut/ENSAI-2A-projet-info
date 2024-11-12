@@ -68,6 +68,19 @@ class IngredientService:
         return liste_ingredients
 
     @log
+    def trouver_ingredient(self, nom_ingredient) -> Ingredient:
+        """
+        """
+
+        res = IngredientDao().trouver_ingredient(nom_ingredient)
+        if res:
+            ingredient = Ingredient(
+                id_ingredient=res[0]["id_ingredient"],
+                nom_ingredient=res[0]["nom_ingredient"],
+            )
+        return ingredient
+
+    @log
     def get_nom_ingredient_by_id(self, id_ingredient: str) -> str:
         """
 

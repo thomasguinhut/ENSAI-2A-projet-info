@@ -19,7 +19,7 @@ class RecetteFavoriteDao(metaclass=Singleton):
     """
 
     @log
-    def supprimer(self, recette) -> bool:
+    def supprimer(self, utilisateur, recette) -> bool:
         """Suppression d'une recette de la liste des recettes favorites
 
         Parameters
@@ -38,8 +38,12 @@ class RecetteFavoriteDao(metaclass=Singleton):
                     # Supprimer la recette de la liste des recettes favorites
                     cursor.execute(
                         "DELETE FROM recette_favorite                  "
-                        " WHERE id_recette=%(id_recette)s      ",
-                        {"id_recette": recette.id_recette},
+                        " WHERE id_utilisateur=%(id_utilisateur)s      "
+                        " AND id_recette=%(id_recette)s      ",
+                        {
+                            "id_utilisateur": utilisateur.id_utilisateur,
+                            "id_recette": recette.id_recette
+                        },
                     )
                     res = cursor.rowcount
         except Exception as e:
@@ -49,7 +53,7 @@ class RecetteFavoriteDao(metaclass=Singleton):
         return res > 0
 
     @log
-    def ajouter_recette_a_liste(self, utilisateur, recette) -> bool:
+    def ajouter_favori(self, utilisateur, recette) -> bool:
         """Ajout d'une recette à la liste des recettes favorites d'un utilisateur donné
 
         Parameters

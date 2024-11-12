@@ -91,6 +91,27 @@ class IngredientDao(metaclass=Singleton):
             raise
         return res
 
+    @log
+    def trouver_ingredient(self, nom_ingredient) -> dict[str, str]:
+        """
+
+        """
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT *"
+                        "   FROM ingredient "
+                        "   WHERE nom_ingredient=%(nom_ingredient)s;                     ",
+                        {"nom_ingredient": nom_ingredient},
+                    )
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        return res
+
     def get_nom_ingredient_by_id(self, id_ingredient: str) -> str:
         """
 

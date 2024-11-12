@@ -20,7 +20,7 @@ class RecetteFavoriteService:
 
     """
     @log
-    def supprimer(self, nom_recette: str) -> bool:
+    def supprimer(self, id_utilisateur, nom_recette: str) -> bool:
         """
 
         Suppression d'une recette de la liste des recettes favorites.
@@ -35,8 +35,9 @@ class RecetteFavoriteService:
             True si la recette a bien été supprimée
 .
         """
-        objet_recette = Recette().str_vers_recette(nom_recette)
-        RecetteFavoriteDao().supprimer(objet_recette)
+        utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
+        recette = RecetteService().trouver_recette(nom_recette)
+        RecetteFavoriteDao().supprimer(utilisateur, recette)
 
     @log
     def lister_recette_favorite(self, id_utilisateur) -> list[Recette]:
@@ -72,4 +73,4 @@ class RecetteFavoriteService:
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         recette = RecetteService().trouver_recette(nom_recette)
-        RecetteFavoriteDao().ajouter_recette_a_liste(utilisateur, recette)
+        RecetteFavoriteDao().ajouter_favori(utilisateur, recette)
