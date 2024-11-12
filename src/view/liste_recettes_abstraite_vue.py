@@ -44,10 +44,14 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
     def creer_options_menu(self, pages):
         """Crée les options de menu incluant la pagination."""
         options = [recette.nom_recette for recette in pages[self.page_actuelle]]
-        options.append("Page précédente" if self.page_actuelle > 0 else "Fin")
-        options.append("Page suivante" if self.page_actuelle <
-                       len(pages) - 1 else "Fin")
+
+        if self.page_actuelle > 0:
+            options.append("Page précédente")
+        if self.page_actuelle < len(pages) - 1:
+            options.append("Page suivante")
+
         options.append("Retourner au menu principal")
+
         return options
 
     def afficher_recette(self, nom_recette):
@@ -61,10 +65,10 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
             return
 
         print(f"\nDétails de la recette '{recette.nom_recette}':")
-        print("Ingrédients:", recette.ingredients_recette)
-        print("Instructions:", recette.instructions_recette)
-        print("Catégorie:", recette.categorie_recette or "Non spécifiée")
-        print("Origine:", recette.origine_recette or "Non spécifiée")
-        print("Avis:", recette.avis_recette or "Aucun avis")
+        print("\nIngrédients:", recette.ingredients_recette)
+        print("\nInstructions:", recette.instructions_recette)
+        print("\nCatégorie:", recette.categorie_recette.nom_categorie or "Non spécifiée")
+        print("\nOrigine:", recette.origine_recette.nom_origine or "Non spécifiée")
+        print("\nAvis:", recette.avis_recette or "Aucun avis")
 
-        input("\nAppuyez sur 'Entrée' pour retourner à la liste des recettes.")
+        input("\nAppuyez sur 'Entrée' pour retourner à la liste des recettes.\n")

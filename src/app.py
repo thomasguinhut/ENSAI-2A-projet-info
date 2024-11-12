@@ -42,12 +42,8 @@ async def utilisateur_par_id(id_utilisateur: int):
 class UtilisateurModel(BaseModel):
     """Définir un modèle Pydantic pour les Utilisateurs"""
 
-    id_utilisateur: int | None = None  # Champ optionnel
-    pseudo: str
+    id_utilisateur: int | None = None
     mdp: str
-    age: int
-    mail: str
-    fan_pokemon: bool
 
 
 @app.post("/utilisateur/", tags=["Utilisateurs"])
