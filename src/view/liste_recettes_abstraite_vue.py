@@ -61,7 +61,7 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
             return
 
         print(f"\nDétails de la recette '{recette.nom_recette}':")
-        print("Ingrédients:", ", ".join(recette.ingredients_recette))
+        print("Ingrédients:", recette.ingredients_recette)
         print("Instructions:", recette.instructions_recette)
         print("Catégorie:", recette.categorie_recette or "Non spécifiée")
         print("Origine:", recette.origine_recette or "Non spécifiée")

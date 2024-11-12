@@ -176,6 +176,8 @@ class ListeCourseDao(metaclass=Singleton):
             de l'utilisateur
         """
 
+        id_utilisateur = utilisateur.id_utilisateur
+
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -183,22 +185,12 @@ class ListeCourseDao(metaclass=Singleton):
                         "  SELECT *                              "
                         "  FROM ingredient  "
                         "  JOIN liste_course USING (id_ingredient)        "
-                        "  WHERE id_utilisateur = %(id_utilisateur)s;    "
+                        "  WHERE id_utilisateur = %(id_utilisateur)s;    ",
+                        {"id_utilisateur": id_utilisateur},
                     )
                     res = cursor.fetchall()
         except Exception as e:
             logging.info(e)
             raise
 
-        liste_ingredients = []
-
-        if res:
-            for row in res:
-                ingredient = Ingredient(
-                    id_ingredient=row["id_ingredient"],
-                    nom_ingredient=row["nom_ingredient"],
-                )
-
-                liste_ingredients.append(ingredient)
-
-        return liste_ingredients
+        return res

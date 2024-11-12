@@ -30,14 +30,13 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
             if choix == "Retourner au menu principal":
                 from view.accueil.accueil_vue import AccueilVue
                 return AccueilVue("Retour au menu principal")
-            elif choix == "Page suivante":
-                if self.page_actuelle < len(pages) - 1:
-                    self.page_actuelle += 1
-                self.choisir_menu()
-            elif choix == "Page précédente":
-                if self.page_actuelle > 0:
-                    self.page_actuelle -= 1
+
+            if choix == "Page suivante" and self.page_actuelle < len(pages) - 1:
+                self.page_actuelle += 1
+            elif choix == "Page précédente" and self.page_actuelle > 0:
+                self.page_actuelle -= 1
+            elif choix not in ["Page suivante", "Page précédente"]:
+                self.afficher_recette(choix)
                 self.choisir_menu()
             else:
-                from view.invite.recette_invite_vue import RecetteInviteVue
-                return RecetteInviteVue(choix, f"Affichage de la recette {choix}")
+                self.choisir_menu()
