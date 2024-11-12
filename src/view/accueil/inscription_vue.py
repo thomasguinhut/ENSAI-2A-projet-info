@@ -11,7 +11,6 @@ class InscriptionVue(VueAbstraite):
     def choisir_menu(self):
         # Demande à l'utilisateur de saisir pseudo, mot de passe...
         id_utilisateur = inquirer.text(message="Entrez votre pseudo : ").execute()
-
         if UtilisateurService().id_utilisateur_deja_utilise(id_utilisateur):
             from view.accueil.accueil_vue import AccueilVue
 
