@@ -5,8 +5,6 @@ from utils.securite import hash_password
 
 from business_object.utilisateur import Utilisateur
 from dao.utilisateur_dao import UtilisateurDao
-from service.recette_favorite_service import RecetteFavoriteService
-from service.liste_course_service import ListeCourseService
 
 
 class UtilisateurService:
@@ -32,7 +30,12 @@ class UtilisateurService:
     @log
     def trouver_par_id(self, id_utilisateur) -> Utilisateur:
         """Trouver un utilisateur à partir de son id"""
-        return UtilisateurDao().trouver_par_id(id_utilisateur)
+        res = UtilisateurDao().trouver_par_id(id_utilisateur)
+        utilisateur = Utilisateur(
+            id_utilisateur=id_utilisateur,
+            mdp=res['mdp'],
+        )
+        return utilisateur
 
     @log
     def modifier(self, utilisateur) -> Utilisateur:

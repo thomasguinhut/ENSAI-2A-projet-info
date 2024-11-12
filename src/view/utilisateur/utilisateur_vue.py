@@ -26,7 +26,7 @@ class UtilisateurVue(VueAbstraite):
             Retourne la vue choisie par l'utilisateur dans le terminal
         """
 
-        print("\n" + "-" * 50 + "\nMenu Joueur\n" + "-" * 50 + "\n")
+        print("\n" + "-" * 50 + "\nMenu Utilisateur\n" + "-" * 50 + "\n")
 
         choix = inquirer.select(
             message="Que souhaitez-vous faire : ",

@@ -60,9 +60,8 @@ class RecetteService:
         id_origine = OrigineService().get_id_origine_by_name(
             recette["origine_recette"]
         )
+
         if id_categorie and id_origine:
-            print(id_categorie)
-            print(id_origine)
             categorie = Categorie(id_categorie, recette["categorie_recette"])
             origine = Origine(id_origine, recette["origine_recette"])
 
@@ -74,6 +73,7 @@ class RecetteService:
                 categorie_recette=categorie,
                 origine_recette=origine,
             )
+            print(RecetteDao().creer(nouvelle_recette))
             if RecetteDao().creer(nouvelle_recette):
                 return nouvelle_recette
             else:

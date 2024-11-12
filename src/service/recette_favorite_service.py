@@ -2,6 +2,8 @@ from utils.log_decorator import log
 
 from business_object.recette import Recette
 
+from service.utilisateur_service import UtilisateurService
+
 from dao.recette_favorite_dao import RecetteFavoriteDao
 from service.recette_service import RecetteService
 
@@ -38,7 +40,8 @@ class RecetteFavoriteService:
 
     @log
     def lister_recette_favorite(self, id_utilisateur) -> list[Recette]:
-        res = RecetteFavoriteDao().lister_recette_favorite(id_utilisateur)
+        utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
+        res = RecetteFavoriteDao().lister_recette_favorite(utilisateur)
         liste_recette = []
         if res:
             for row in res:

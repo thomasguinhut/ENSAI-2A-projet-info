@@ -1,4 +1,3 @@
-coucou
 from unittest.mock import MagicMock
 
 from service.recette_service import RecetteService
@@ -35,7 +34,7 @@ liste_recettes = [
         instructions_recette="Cuire",
         categorie_recette=Categorie("2", "Dessert"),
         origine_recette=Origine("2", "French"),
-        ingredients_recette=[Ingredient("305", "Sugar"), Ingredient("333", "CuWatermin")]
+        ingredients_recette=[Ingredient("305", "Sugar"), Ingredient("333", "Water")]
         ),
 ]
 
@@ -61,39 +60,39 @@ def test_creer_ok():
     assert recette.id_recette == recette_dico["id_recette"]
 
 
-# def test_creer_echec():
-#     """Création de recette échouée
-#     (car la méthode RecetteDao().creer retourne False)"""
+def test_creer_echec():
+    """Création de recette échouée
+    (car la méthode RecetteDao().creer retourne False)"""
 
-#     # GIVEN
-#     recette_dico = {
-#         "id_recette": "0",
-#         "nom_recette": "Salade estivale",
-#         "instructions_recette": "Mélanger",
-#         "categorie_recette": "Dessert",
-#         "origine_recette": "French",
-#         "ingredients_recette": ["Butter", "Cumin"]
-#         }
-#     RecetteDao().creer = MagicMock(return_value=True)
+    # GIVEN
+    recette_dico = {
+        "id_recette": "0",
+        "nom_recette": "Salade estivale",
+        "instructions_recette": "Mélanger",
+        "categorie_recette": "Dessert",
+        "origine_recette": "Mexican",
+        "ingredients_recette": ["Butter", "Cumin"]
+        }
+    RecetteDao().creer = MagicMock(return_value=False)
 
-#     # WHEN
-#     recette = RecetteService().creer(recette_dico)
+    # WHEN
+    recette = RecetteService().creer(recette_dico)
 
-#     # THEN
-#     assert recette.id_recette == recette_dico["id_recette"]
+    # THEN
+    assert recette is None
 
 
-# def test_trouver_liste_recettes():
-#     """Lister toutes les recettes"""
+def test_trouver_liste_recettes():
+    """Lister toutes les recettes"""
 
-#     # GIVEN
-#     RecetteDao().trouver_liste_recettes = MagicMock(return_value=liste_recettes)
+    # GIVEN
+    RecetteDao().trouver_liste_recettes = MagicMock(return_value=liste_recettes)
 
-#     # WHEN
-#     res = RecetteService().trouver_liste_recettes()
+    # WHEN
+    res = RecetteService().trouver_liste_recettes()
 
-#     # THEN
-#     assert len(res) == 3
+    # THEN
+    assert len(res) == 3
 
 # def test_lister_tous_inclure_mdp_true():
 #     """Lister les recettes en incluant les mots de passe"""
