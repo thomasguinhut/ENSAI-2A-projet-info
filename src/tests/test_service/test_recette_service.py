@@ -17,7 +17,7 @@ liste_recettes = [
         nom_recette="Recette0",
         instructions_recette="Mélanger",
         categorie_recette=Categorie("2", "Dessert"),
-        origine_recette=Origine("2", "French"),
+        origine_recette=Origine("17", "Mexican"),
         ingredients_recette=[Ingredient("41", "Butter"), Ingredient("104", "Cumin")]
         ),
     Recette(
@@ -25,7 +25,7 @@ liste_recettes = [
         nom_recette="Recette1",
         instructions_recette="Verser",
         categorie_recette=Categorie("2", "Dessert"),
-        origine_recette=Origine("2", "French"),
+        origine_recette=Origine("2", "Canadian"),
         ingredients_recette=[Ingredient("95", "Coriander"), Ingredient("154", "Ginger")]
         ),
     Recette(
@@ -33,8 +33,8 @@ liste_recettes = [
         nom_recette="Recette2",
         instructions_recette="Cuire",
         categorie_recette=Categorie("2", "Dessert"),
-        origine_recette=Origine("2", "French"),
-        ingredients_recette=[Ingredient("305", "Sugar"), Ingredient("333", "Water")]
+        origine_recette=Origine("2", "Canadian"),
+        ingredients_recette=[Ingredient("305", "Sugar"), Ingredient("95", "Coriander")]
         ),
 ]
 
@@ -85,44 +85,29 @@ def test_creer_echec():
 def test_trouver_liste_recettes():
     """Lister toutes les recettes"""
 
-    # GIVEN
-    RecetteDao().trouver_liste_recettes = MagicMock(return_value=liste_recettes)
-
     # WHEN
     res = RecetteService().trouver_liste_recettes()
 
     # THEN
-    assert len(res) == 3
-
-# def test_lister_tous_inclure_mdp_true():
-#     """Lister les recettes en incluant les mots de passe"""
-
-#     # GIVEN
-#     recetteDao().lister_tous = MagicMock(return_value=liste_recettes)
-
-#     # WHEN
-#     res = recetteService().lister_tous(inclure_mdp=True)
-
-#     # THEN
-#     assert len(res) == 3
-#     for recette in res:
-#         assert recette.mdp is not None
+    assert len(res) == 2
 
 
-# def test_lister_tous_inclure_mdp_false():
-#     """Lister les recettes en excluant les mots de passe"""
+def test_filtrer_recettes():
+    """Renvoyer liste des recettes avec les filtres"""
 
-#     # GIVEN
-#     recetteDao().lister_tous = MagicMock(return_value=liste_recettes)
+    # GIVEN
+    filtres_ingredients = ["Coriander"]
+    filtres_origines = ["Canadian"]
+    filtres_categories = ["Dessert"]
 
-#     # WHEN
-#     res = recetteService().lister_tous()
-
-#     # THEN
-#     assert len(res) == 3
-#     for recette in res:
-#         assert not recette.mdp
-
+    # WHEN
+    res = RecetteService().filtrer_recettes(
+        filtres_ingredients,
+        filtres_origines,
+        filtres_categories)
+    
+    # THEN
+    assert len(res) == 2
 
 # def test_pseudo_deja_utilise_oui():
 #     """Le pseudo est déjà utilisé dans liste_recettes"""

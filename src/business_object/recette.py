@@ -78,10 +78,10 @@ class Recette:
         self.instructions_recette = instructions_recette
         self.categorie_recette = categorie_recette
         self.origine_recette = origine_recette
-    
+        self.avis_recette = avis_recette
+
     def liste_ingredient_forme_explicite(self):
         affichage = ""
         for ingredient in self.ingredients_recette:
             affichage += ingredient.nom_ingredient.capitalize() + ", "
         return affichage[:-2]
-
