@@ -28,5 +28,6 @@ class ListeCourseService:
                 )
 
                 liste_ingredients.append(ingredient)
-
-        return liste_ingredients
+            return liste_ingredients
+        else:
+            return None

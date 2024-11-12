@@ -92,6 +92,7 @@ class RecetteService:
         """
 
         res = RecetteDao().trouver_liste_recettes()
+        print(res)
         liste_recettes = []
         if res:
             for row in res:
@@ -110,7 +111,7 @@ class RecetteService:
                     ).lister_ingredients_by_recette(row["id_recette"])
                 )
                 liste_recettes.append(recette)
-        return liste_recettes
+        return None
 
     @ log
     def filtrer_recettes(
