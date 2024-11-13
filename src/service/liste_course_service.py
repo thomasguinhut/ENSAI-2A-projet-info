@@ -3,8 +3,8 @@ from utils.log_decorator import log
 from business_object.ingredient import Ingredient
 
 from service.utilisateur_service import UtilisateurService
-from service.recette_service import RecetteService
 from service.ingredient_service import IngredientService
+from service.recette_service import RecetteService
 
 from dao.liste_course_dao import ListeCourseDao
 
@@ -35,13 +35,13 @@ class ListeCourseService:
             return None
 
     @log
-    def ajouter_ingredients_courses(self, id_utilisateur, nom_ingredient) -> bool:
+    def ajouter_ingredients_courses(self, id_utilisateur, nom_recette) -> bool:
         """
 .
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
-        ingredient = IngredientService().trouver_ingredient(nom_ingredient)
-        ListeCourseDao().ajouter_ingredients_courses(utilisateur, ingredient)
+        recette = RecetteService().trouver_recette(nom_recette)
+        ListeCourseDao().ajouter_ingredients_courses(utilisateur, recette)
 
     @log
     def supprimer(self, id_utilisateur, nom_ingredient: str) -> bool:

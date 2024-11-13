@@ -105,53 +105,53 @@ class ListeCourseDao(metaclass=Singleton):
         created : bool
             True si l'ajout est un succès, False sinon
         """
-
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     # Récupération des ingrédients de la recette
                     cursor.execute(
-                        """
-                        SELECT i.id_ingredient
-                        FROM ingredient i
-                        JOIN recette_ingredient ri
-                            ON i.id_ingredient = ri.id_ingredient
-                        WHERE ri.id_recette = %(id_recette)s
-                        """,
+                        "SELECT i.id_ingredient "
+                        "   FROM ingredient i "
+                        "   JOIN ingredient_recette ir "
+                        "   ON i.id_ingredient = ir.id_ingredient "
+                        "   WHERE ir.id_recette = %(id_recette)s",
                         {
                             "id_recette": recette.id_recette,
                         }
                     )
                     ingredients = cursor.fetchall()
-
+                    print(ingredients)
                     # Ajout des ingrédients à la liste de courses
                     for ingredient in ingredients:
+                        print(ingredient)
                         id_ingredient = ingredient["id_ingredient"]
                         # Vérification si l'ingrédient est déjà dans la liste
                         # de courses
                         cursor.execute(
-                            "SELECT 1 FROM liste_course"
-                            "WHERE id_utilisateur=% (id_utilisateur)s "
-                            "AND id_ingredient = %(id_ingredient)s",
+                            "SELECT 1 "
+                            "   FROM liste_course "
+                            "   WHERE id_utilisateur=%(id_utilisateur)s "
+                            "   AND id_ingredient = %(id_ingredient)s ",
                             {
                                 "id_utilisateur": utilisateur.id_utilisateur,
-                                "id_ingredient": id_ingredient,
+                                "id_ingredient": id_ingredient
                             }
                         )
-                        if not cursor.fetchone():
+                        print(cursor.fetchone())
+                        print(cursor.fetchone() is None)
+                        """if (cursor.fetchone() is None):
+                            print(id_ingredient)
                             cursor.execute(
-                                "INSERT INTO liste_course(id_utilisateur,"
-                                "id_ingredient) VALUES"
+                                "INSERT INTO liste_course(id_utilisateur, "
+                                "id_ingredient) VALUES "
                                 "(%(id_utilisateur)s, %(id_ingredient)s)",
                                 {
                                     "id_utilisateur": (
                                         utilisateur.id_utilisateur),
-                                    "id_ingredient": id_ingredient,
+                                    "id_ingredient": id_ingredient
                                 }
-                            )
-
+                            )"""
             return True  # Tous les ingrédients ont été ajoutés avec succès
-
         except Exception as e:
             logging.info(e)
             return False  # En cas d'erreur
