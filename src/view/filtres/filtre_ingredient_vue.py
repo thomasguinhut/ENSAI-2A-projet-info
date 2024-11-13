@@ -10,7 +10,7 @@ class FiltreIngredientVue(FiltreAbstraitVue):
     def __init__(self):
         """Initialise la vue des filtres par ingrédient."""
         super().__init__()
-        self.liste_criteres = IngredientService.trouver_liste_ingredients()
+        self.liste_criteres = IngredientService().trouver_liste_ingredients()
 
     def choisir_menu(self):
         """Affiche le menu de sélection des filtres par ingrédient."""

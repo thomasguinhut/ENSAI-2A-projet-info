@@ -47,8 +47,9 @@ def test_trouver_par_id():
     """ Recherche de l'Utilisateur par son id """
 
     # GIVEN
-    id_utilisateur, mdp = "1", "thomas"
-    utilisateur_attendu = Utilisateur(id_utilisateur="1", mdp="thomas")
+    id_utilisateur = "thomas"
+    mdp = "12345"
+    utilisateur_attendu = Utilisateur(id_utilisateur="thomas", mdp="1234")
     UtilisateurDao().trouver_par_id = MagicMock(return_value=utilisateur_attendu)
 
     # WHEN
@@ -57,12 +58,14 @@ def test_trouver_par_id():
     # THEN
     assert utilisateur_trouve == utilisateur_attendu
 
+
 def test_existence_id():
     """ Vérifie si un id existe dans la base de données """
 
     # GIVEN
-    id_utilisateur, mdp = "1", "thomas"
-    utilisateur_attendu = Utilisateur(id_utilisateur="1", mdp="thomas")
+    id_utilisateur = "thomas"
+    mdp = "12345"
+    utilisateur_attendu = Utilisateur(id_utilisateur="thomas", mdp="12345")
     UtilisateurDao().trouver_par_id = MagicMock(return_value=utilisateur_attendu)
 
     # WHEN
