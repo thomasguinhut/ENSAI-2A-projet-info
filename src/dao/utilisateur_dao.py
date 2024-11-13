@@ -133,6 +133,7 @@ class UtilisateurDao(metaclass=Singleton):
         utilisateur : Utilisateur
             renvoie l'utilisateur que l'on cherche
         """
+        
         res = None
         try:
             with DBConnection().connection as connection:

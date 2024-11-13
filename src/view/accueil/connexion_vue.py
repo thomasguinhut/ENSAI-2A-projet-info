@@ -1,6 +1,7 @@
 from InquirerPy import inquirer
 from view.vue_abstraite import VueAbstraite
 from service.utilisateur_service import UtilisateurService
+from utils.securite import hash_password
 
 
 class ConnexionVue(VueAbstraite):
@@ -12,6 +13,7 @@ class ConnexionVue(VueAbstraite):
         # Demande à l'utilisateur de saisir pseudo et mot de passe
         id_utilisateur = inquirer.text(message="Entrez votre pseudo : ").execute()
         mdp = inquirer.secret(message="Entrez votre mot de passe :").execute()
+        mdp = hash_password(mdp, id_utilisateur)
 
         # Appel du service pour trouver l'utilisateur
         try:

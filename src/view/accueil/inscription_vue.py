@@ -13,7 +13,6 @@ class InscriptionVue(VueAbstraite):
         id_utilisateur = inquirer.text(message="Entrez votre pseudo : ").execute()
         if UtilisateurService().id_utilisateur_deja_utilise(id_utilisateur):
             from view.accueil.accueil_vue import AccueilVue
-
             return AccueilVue(f"Le pseudo {id_utilisateur} est déjà utilisé.")
 
         mdp = inquirer.secret(
