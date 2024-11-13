@@ -55,7 +55,6 @@ class IngredientService:
         list[Ingredient]
 
         """
-
         res = IngredientDao().trouver_liste_ingredients()
         liste_ingredients = []
         if res:
