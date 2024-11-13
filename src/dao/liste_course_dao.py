@@ -175,9 +175,8 @@ class ListeCourseDao(metaclass=Singleton):
             renvoie la liste de tous les ingrédients de la liste de course
             de l'utilisateur
         """
-
+        print(utilisateur)
         id_utilisateur = utilisateur.id_utilisateur
-
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:

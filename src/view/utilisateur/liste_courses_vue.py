@@ -15,6 +15,7 @@ class ListeCoursesVue(VueAbstraite):
             message (str): Message à afficher (par défaut: "").
         """
         super().__init__(message=message)
+        #print(Session().utilisateur)
         self.liste_courses = ListeCourseService().lister_ingredient_liste_course(
             Session().utilisateur
             )

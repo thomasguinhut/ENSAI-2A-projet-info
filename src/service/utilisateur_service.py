@@ -31,11 +31,13 @@ class UtilisateurService:
     def trouver_par_id(self, id_utilisateur) -> Utilisateur:
         """Trouver un utilisateur à partir de son id"""
         res = UtilisateurDao().trouver_par_id(id_utilisateur)
-        utilisateur = Utilisateur(
-            id_utilisateur=id_utilisateur,
-            mdp=res['mdp'],
-        )
-        return utilisateur
+        if res is not None:
+            utilisateur = Utilisateur(
+                id_utilisateur=id_utilisateur,
+                mdp=res['mdp'],
+            )
+            return utilisateur
+        return None
 
     @log
     def modifier(self, utilisateur) -> Utilisateur:
