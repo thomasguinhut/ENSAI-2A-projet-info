@@ -122,32 +122,17 @@ def test_trouver_recette():
     assert res.id_recette == "52768"
 
 
-# def test_pseudo_deja_utilise_oui():
-#     """Le pseudo est déjà utilisé dans liste_recettes"""
+def test_get_nom_recette_by_id():
+    """Renvoyer le nom de la recette à partir de son id"""
 
-#     # GIVEN
-#     pseudo = "lea"
+    # GIVEN
+    id_recette = "53050"
 
-#     # WHEN
-#     recetteDao().lister_tous = MagicMock(return_value=liste_recettes)
-#     res = recetteService().pseudo_deja_utilise(pseudo)
+    # WHEN
+    res = RecetteService().get_nom_recette_by_id(id_recette)
 
-#     # THEN
-#     assert res
-
-
-# def test_pseudo_deja_utilise_non():
-#     """Le pseudo n'est pas utilisé dans liste_recettes"""
-
-#     # GIVEN
-#     pseudo = "chaton"
-
-#     # WHEN
-#     recetteDao().lister_tous = MagicMock(return_value=liste_recettes)
-#     res = recetteService().pseudo_deja_utilise(pseudo)
-
-#     # THEN
-#     assert not res
+    # THEN
+    assert res == "Ayam Percik"
 
 
 if __name__ == "__main__":

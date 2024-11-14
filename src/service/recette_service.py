@@ -205,7 +205,7 @@ class RecetteService:
     def get_nom_recette_by_id(self, id_recette: str) -> str:
         """
 
-        Donne le nom de la catégorie à partir de son id.
+        Donne le nom de la recette à partir de son id.
 
         Parameters
         ----------
