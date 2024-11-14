@@ -49,11 +49,11 @@ class RecetteUtilisateurVue(VueAbstraite):
                 self.choisir_menu()
 
             elif choix == "Ajouter aux favoris":
-                RecetteFavoriteService().ajouter_favori(id_utilisateur, self.recette)
+                RecetteFavoriteService().ajouter_favori(id_utilisateur, self.nom_recette)
                 print(f"La recette '{self.recette.nom}' a été ajoutée aux favoris.")
 
             elif choix == "Retirer des favoris":
-                RecetteFavoriteService().retirer_favori(id_utilisateur, self.recette)
+                RecetteFavoriteService().retirer_favori(id_utilisateur, self.nom_recette)
                 print(f"La recette '{self.recette.nom}' a été retirée des favoris.")
 
             elif choix == "Ajouter un avis":

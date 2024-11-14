@@ -69,4 +69,4 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
         print("\nOrigine:", recette.origine_recette.nom_origine or "Non spécifiée")
         print("\nAvis:", recette.avis_recette or "Aucun avis")
 
-        input("\nAppuyez sur 'Entrée' pour retourner à la liste des recettes.\n")
+        input("\nAppuyez sur 'Entrée' pour revenir en arrière.\n")

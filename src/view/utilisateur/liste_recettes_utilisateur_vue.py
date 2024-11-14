@@ -45,4 +45,4 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
             else:
                 from view.utilisateur.recette_utilisateur_vue import RecetteUtilisateurVue
 
-                return RecetteUtilisateurVue(choix, f"Affichage de la recette {choix}")
+                return RecetteUtilisateurVue(choix, f"Recette {choix}")
