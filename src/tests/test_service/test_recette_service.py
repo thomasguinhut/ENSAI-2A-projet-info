@@ -11,34 +11,6 @@ from business_object.ingredient import Ingredient
 from business_object.recette import Recette
 
 
-liste_recettes = [
-    Recette(
-        id_recette="0",
-        nom_recette="Recette0",
-        instructions_recette="Mélanger",
-        categorie_recette=Categorie("2", "Dessert"),
-        origine_recette=Origine("17", "Mexican"),
-        ingredients_recette=[Ingredient("41", "Butter"), Ingredient("104", "Cumin")],
-    ),
-    Recette(
-        id_recette="1",
-        nom_recette="Recette1",
-        instructions_recette="Verser",
-        categorie_recette=Categorie("2", "Dessert"),
-        origine_recette=Origine("2", "Canadian"),
-        ingredients_recette=[Ingredient("95", "Coriander"), Ingredient("154", "Ginger")],
-    ),
-    Recette(
-        id_recette="2",
-        nom_recette="Recette2",
-        instructions_recette="Cuire",
-        categorie_recette=Categorie("2", "Dessert"),
-        origine_recette=Origine("2", "Canadian"),
-        ingredients_recette=[Ingredient("305", "Sugar"), Ingredient("95", "Coriander")],
-    ),
-]
-
-
 def test_creer_ok():
     """ "Création de recette réussie"""
 
