@@ -3,6 +3,8 @@ from view.session import Session
 
 from service.recette_service import RecetteService
 from service.recette_favorite_service import RecetteFavoriteService
+from service.avis_service import AvisService
+from service.liste_course_service import ListeCourseService
 
 from InquirerPy import inquirer
 
@@ -59,15 +61,15 @@ class RecetteUtilisateurVue(VueAbstraite):
             elif choix == "Ajouter un avis":
                 note = input("Entrez une note entre 1 et 5 : ")
                 commentaire = input("Entrez un commentaire : ")
-                RecetteService().ajouter_avis(id_utilisateur, self.recette, note, commentaire)
+                AvisService().ajouter_avis(id_utilisateur, self.recette, note, commentaire)
                 print(f"Votre avis a été ajouté à la recette '{self.nom_recette}'.")
 
             elif choix == "Retirer un avis":
-                RecetteService().retirer_avis(id_utilisateur, self.recette)
+                AvisService().retirer_avis(id_utilisateur, self.recette)
                 print(f"Votre avis a été retiré de la recette '{self.nom_recette}'.")
 
             elif choix == "Ajouter les ingrédients à la liste de courses":
-                RecetteService().ajouter_ingredients_courses(id_utilisateur, self.nom_recette)
+                ListeCourseService().ajouter_ingredients_courses(id_utilisateur, self.nom_recette)
                 print(
                     f"Les ingrédients de la recette '{self.nom_recette}' "
                     "ont été ajoutés à la liste de courses."
