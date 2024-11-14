@@ -22,19 +22,21 @@ class AjouterFiltresUtilisateurVue(VueAbstraite):
             choices=[
                 "Sélectionner des filtres",
                 "Afficher les recettes filtrées",
-                "Retourner au menu principal"
-            ]
+                "Retourner au menu principal",
+            ],
         ).execute()
 
         match choix:
             case "Sélectionner des filtres":
                 from view.filtres.type_filtre_vue import TypeFiltreVue
+
                 return TypeFiltreVue("Type du filtre")
 
             case "Afficher les recettes filtrées":
                 from view.utilisateur.liste_recettes_utilisateur_vue import (
-                    ListeRecettesUtilisateurVue
+                    ListeRecettesUtilisateurVue,
                 )
+
                 return ListeRecettesUtilisateurVue("Affichage de la liste des recettes filtrées")
 
             case "Retourner au menu principal":
@@ -42,4 +44,5 @@ class AjouterFiltresUtilisateurVue(VueAbstraite):
                 Session().choix_filtres_origine = []
                 Session().choix_filtres_categorie = []
                 from view.utilisateur.utilisateur_vue import UtilisateurVue
+
                 return UtilisateurVue("Retour au menu principal")

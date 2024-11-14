@@ -26,7 +26,7 @@ class FiltreCategorieVue(FiltreAbstraitVue):
             return AjouterFiltresVue()
         else:
             Session().choix_filtres_categorie.append(choix)
-            return self.choisir_menu
+            return self.choisir_menu()
 
     def creer_options_menu(self, liste_criteres):
         """Génère les options de menu à partir de la liste des critères."""

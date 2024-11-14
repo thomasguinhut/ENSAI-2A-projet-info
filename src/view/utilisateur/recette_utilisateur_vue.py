@@ -1,5 +1,4 @@
 from view.vue_abstraite import VueAbstraite
-from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
 from view.session import Session
 
 from service.recette_service import RecetteService
@@ -23,11 +22,6 @@ class RecetteUtilisateurVue(VueAbstraite):
         self.nom_recette = nom_recette
         self.recette = RecetteService().trouver_recette(nom_recette)
 
-    def afficher_recette_utilisateur(self):
-        """Affiche les détails de la recette et propose des options à l'utilisateur."""
-        ListeRecettesAbstraiteVue.afficher_recette(self.nom_recette)
-        self.choisir_menu()
-
     def choisir_menu(self):
         """Affiche le menu des options disponibles pour l'utilisateur connecté."""
         id_utilisateur = Session().utilisateur.id_utilisateur
@@ -36,21 +30,30 @@ class RecetteUtilisateurVue(VueAbstraite):
             choix = inquirer.select(
                 message="Que souhaitez-vous faire ?",
                 choices=[
+                    "Afficher la recette",
                     "Ajouter aux favoris",
                     "Retirer des favoris",
                     "Ajouter un avis",
                     "Retirer un avis",
                     "Ajouter les ingrédients à la liste de courses",
-                    "Retourner à la liste des recettes"
-                ]
+                    "Retourner à la liste des recettes",
+                ],
             ).execute()
 
-            if choix == "Ajouter aux favoris":
-                RecetteFavoriteService().ajouter_favori(id_utilisateur, self.recette)
+            if choix == "Afficher la recette":
+                from view.utilisateur.liste_recettes_utilisateur_vue import (
+                    ListeRecettesUtilisateurVue,
+                )
+
+                ListeRecettesUtilisateurVue().afficher_recette(self.nom_recette)
+                self.choisir_menu()
+
+            elif choix == "Ajouter aux favoris":
+                RecetteFavoriteService().ajouter_favori(id_utilisateur, self.nom_recette)
                 print(f"La recette '{self.recette.nom}' a été ajoutée aux favoris.")
 
             elif choix == "Retirer des favoris":
-                RecetteFavoriteService().retirer_favori(id_utilisateur, self.recette)
+                RecetteFavoriteService().retirer_favori(id_utilisateur, self.nom_recette)
                 print(f"La recette '{self.recette.nom}' a été retirée des favoris.")
 
             elif choix == "Ajouter un avis":
@@ -66,12 +69,13 @@ class RecetteUtilisateurVue(VueAbstraite):
             elif choix == "Ajouter les ingrédients à la liste de courses":
                 RecetteService().ajouter_ingredients_courses(id_utilisateur, self.recette)
                 print(
-                      f"Les ingrédients de la recette '{self.recette.nom}' "
-                      "ont été ajoutés à la liste de courses."
-                    )
+                    f"Les ingrédients de la recette '{self.recette.nom}' "
+                    "ont été ajoutés à la liste de courses."
+                )
 
             elif choix == "Retourner à la liste des recettes":
                 from view.utilisateur.liste_recettes_utilisateur_vue import (
-                    ListeRecettesUtilisateurVue
+                    ListeRecettesUtilisateurVue,
                 )
+
                 return ListeRecettesUtilisateurVue("Retour à la liste des recettes")

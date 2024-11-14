@@ -1,6 +1,7 @@
 import logging
 import dotenv
 
+
 from utils.log_init import initialiser_logs
 
 from view.accueil.accueil_vue import AccueilVue
