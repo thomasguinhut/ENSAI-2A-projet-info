@@ -31,7 +31,7 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
             ).execute()
 
             if choix == "Retourner au menu principal":
-                from view.accueil.utilisateur_vue import UtilisateurVue
+                from view.utilisateur.utilisateur_vue import UtilisateurVue
 
                 return UtilisateurVue("Retour au menu principal")
             elif choix == "Page suivante":
