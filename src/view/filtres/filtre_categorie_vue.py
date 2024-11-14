@@ -12,17 +12,17 @@ class FiltreCategorieVue(FiltreAbstraitVue):
         Initialise la vue des filtres par catégorie.
         """
         super().__init__()
-        self.liste_criteres = CategorieService.trouver_liste_categories()
+        self.liste_criteres = CategorieService().trouver_liste_categories()
 
     def choisir_menu(self):
         """Affiche le menu de sélection des filtres par catégorie."""
         choix = inquirer.select(
-            message="Choisissez vos filtres:",
-            choices=self.creer_options_menu(self.liste_criteres)
+            message="Choisissez vos filtres:", choices=self.creer_options_menu(self.liste_criteres)
         ).execute()
 
         if choix == "Retourner au menu des filtres":
             from view.filtres.ajouter_filtres_vue import AjouterFiltresVue
+
             return AjouterFiltresVue()
         else:
             Session().choix_filtres_categorie.append(choix)

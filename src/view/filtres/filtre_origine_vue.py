@@ -12,17 +12,17 @@ class FiltreOrigineVue(FiltreAbstraitVue):
         Initialise la vue des filtres par origine.
         """
         super().__init__()
-        self.liste_criteres = OrigineService.trouver_liste_origines()
+        self.liste_criteres = OrigineService().trouver_liste_origines()
 
     def choisir_menu(self):
         """Affiche le menu de sélection des filtres par origine."""
         choix = inquirer.select(
-            message="Choisissez vos filtres:",
-            choices=self.creer_options_menu(self.liste_criteres)
+            message="Choisissez vos filtres:", choices=self.creer_options_menu(self.liste_criteres)
         ).execute()
 
         if choix == "Retourner au menu des filtres":
             from view.filtres.ajouter_filtres_vue import AjouterFiltresVue
+
             return AjouterFiltresVue()
         else:
             Session().choix_filtres_origine.append(choix)
