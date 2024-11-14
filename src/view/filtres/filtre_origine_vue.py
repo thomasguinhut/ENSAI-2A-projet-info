@@ -27,3 +27,9 @@ class FiltreOrigineVue(FiltreAbstraitVue):
         else:
             Session().choix_filtres_origine.append(choix)
             return self.choisir_menu
+
+    def creer_options_menu(self, liste_criteres):
+        """Génère les options de menu à partir de la liste des critères."""
+        options = [critere.nom_origine for critere in self.liste_criteres]
+        options.append("Retourner au menu des filtres")
+        return options

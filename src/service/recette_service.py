@@ -86,7 +86,6 @@ class RecetteService:
         """
 
         res = RecetteDao().trouver_liste_recettes()
-        print(res)
         liste_recettes = []
         if res:
             for row in res:
