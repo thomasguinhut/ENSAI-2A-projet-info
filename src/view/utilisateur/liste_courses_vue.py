@@ -37,6 +37,6 @@ class ListeCoursesVue(VueAbstraite):
 
     def creer_options_menu(self):
         """Crée les options de menu à partir des ingrédients de la liste de courses."""
-        options = [ingredient.nom for ingredient in self.liste_courses]
+        options = [ingredient.nom_ingredient for ingredient in self.liste_courses]
         options.append("Retourner au menu principal")
         return options
