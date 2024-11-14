@@ -46,16 +46,23 @@ CREATE TABLE recette(
 -----------------------------------------------------
 -- Avis
 -----------------------------------------------------
-DROP TABLE IF EXISTS avis CASCADE ;
-CREATE TABLE avis(
-    id_avis             VARCHAR PRIMARY KEY,
-    commentaire         TEXT,
-    note                NUMERIC,
-    id_utilisateur      VARCHAR,
-    id_recette          VARCHAR,
-    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur),
-    FOREIGN KEY(id_recette) REFERENCES recette(id_recette)
+DROP TABLE IF EXISTS avis CASCADE;
+
+CREATE TABLE avis (
+    id_avis SERIAL PRIMARY KEY,            -- Auto-incrémentation de id_avis
+    commentaire TEXT,
+    note NUMERIC,
+    id_utilisateur VARCHAR,                -- Clé étrangère vers la table utilisateur
+    id_recette VARCHAR,                    -- Clé étrangère vers la table recette
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    FOREIGN KEY (id_recette) REFERENCES recette(id_recette)
 );
+
+-----------------------------------------------------
+-- Aligner la séquence de id_avis avec les données existantes
+-----------------------------------------------------
+SELECT setval('avis_id_avis_seq', (SELECT COALESCE(MAX(id_avis), 1) FROM avis) + 1);
+
 
 
 -----------------------------------------------------

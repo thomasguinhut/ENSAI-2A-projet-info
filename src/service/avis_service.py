@@ -1,20 +1,20 @@
 from utils.log_decorator import log
 
-from business_object.utilisateur import Utilisateur
-from business_object.recette import Recette
+from service.recette_service import RecetteService
+from service.utilisateur_service import UtilisateurService
 
 from dao.avis_dao import AvisDao
 
 
 class AvisService:
-
     """
 
     Création de la classe AvisService
 
     """
+
     @log
-    def retirer_avis(self, utilisateur: Utilisateur, recette: Recette) -> bool:
+    def retirer_avis(self, id_utilisateur: str, nom_recette: str) -> bool:
         """
 
         Suppression d'un avis d'un utilisateur donné sur une recette donnée.
@@ -32,14 +32,14 @@ class AvisService:
             True si l'avis a bien été supprimé
 
         """
-        return AvisDao().supprimer_avis(utilisateur, recette)
+        utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
+        recette = RecetteService().trouver_recette(nom_recette)
+        return AvisDao().retirer_avis(utilisateur, recette)
 
     @log
-    def ajouter_avis(self,
-                     note: int,
-                     commentaire: str,
-                     utilisateur: Utilisateur,
-                     recette: Recette) -> bool:
+    def ajouter_avis(
+        self, note: int, commentaire: str, id_utilisateur: str, nom_recette: str
+    ) -> bool:
         """
 
         Ajout d'un avis.
@@ -55,4 +55,6 @@ class AvisService:
             True si l'avis a bien été ajouté
 
         """
+        utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
+        recette = RecetteService().trouver_recette(nom_recette)
         return AvisDao().ajouter_avis(note, commentaire, utilisateur, recette)

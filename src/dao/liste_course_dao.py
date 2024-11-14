@@ -42,14 +42,15 @@ class ListeCourseDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     # Supprimer l'ingrédient de la liste de courses'
                     cursor.execute(
-                        "DELETE FROM liste_course                  "
-                        " WHERE id_utilisateur=%(id_utilisateur)s      ",
-                        " AND id_ingredient=%(id_ingredient)s      ",
+                        "DELETE "
+                        " FROM liste_course "
+                        " WHERE id_utilisateur=%(id_utilisateur)s "
+                        " AND id_ingredient=%(id_ingredient)s",
                         {
                             "id_utilisateur": utilisateur.id_utilisateur,
                             "id_ingredient": ingredient.id_ingredient}
                     )
-                    res = cursor.rowcount()
+                    res = cursor.rowcount
         except Exception as e:
             logging.info(e)
             raise

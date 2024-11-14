@@ -15,7 +15,6 @@ from service.origine_service import OrigineService
 
 
 class RecetteService:
-
     """
 
     Création de classe RecetteService.
@@ -50,16 +49,12 @@ class RecetteService:
 
         liste_ingredients = []
         for nom_ingredient in recette["ingredients_recette"]:
-            id_ingredient = IngredientDao().get_id_ingredient_by_name(
-                nom_ingredient)
+            id_ingredient = IngredientDao().get_id_ingredient_by_name(nom_ingredient)
             if id_ingredient:
                 ingredient = Ingredient(id_ingredient, nom_ingredient)
                 liste_ingredients.append(ingredient)
-        id_categorie = CategorieService().get_id_categorie_by_name(
-            recette["categorie_recette"])
-        id_origine = OrigineService().get_id_origine_by_name(
-            recette["origine_recette"]
-        )
+        id_categorie = CategorieService().get_id_categorie_by_name(recette["categorie_recette"])
+        id_origine = OrigineService().get_id_origine_by_name(recette["origine_recette"])
 
         if id_categorie and id_origine:
             categorie = Categorie(id_categorie, recette["categorie_recette"])
@@ -73,7 +68,6 @@ class RecetteService:
                 categorie_recette=categorie,
                 origine_recette=origine,
             )
-            print(RecetteDao().creer(nouvelle_recette))
             if RecetteDao().creer(nouvelle_recette):
                 return nouvelle_recette
             else:
@@ -96,30 +90,34 @@ class RecetteService:
         liste_recettes = []
         if res:
             for row in res:
-                origine = Origine(id_origine=row["id_origine"],
-                                  nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
+                origine = Origine(
+                    id_origine=row["id_origine"],
+                    nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]),
+                )
                 categorie = Categorie(
                     id_categorie=row["id_categorie"],
-                    nom_categorie=CategorieService().get_nom_categorie_by_id(row["id_categorie"]))
+                    nom_categorie=CategorieService().get_nom_categorie_by_id(row["id_categorie"]),
+                )
                 recette = Recette(
                     id_recette=row["id_recette"],
                     nom_recette=row["nom_recette"],
                     instructions_recette=row["instructions_recette"],
                     origine_recette=origine,
                     categorie_recette=categorie,
-                    ingredients_recette=IngredientRecetteService(
-                    ).lister_ingredients_by_recette(row["id_recette"])
+                    ingredients_recette=IngredientRecetteService().lister_ingredients_by_recette(
+                        row["id_recette"]
+                    ),
                 )
                 liste_recettes.append(recette)
             return liste_recettes
         return None
 
-    @ log
+    @log
     def filtrer_recettes(
         self,
-            filtres_ingredients: list[str] = None,
-            filtres_origines: list[str] = None,
-            filtres_categories: list[str] = None
+        filtres_ingredients: list[str] = None,
+        filtres_origines: list[str] = None,
+        filtres_categories: list[str] = None,
     ) -> list[Recette]:
 
         liste_filtres_ingredients = None
@@ -130,70 +128,76 @@ class RecetteService:
             liste_filtres_ingredients = []
             for ingredient in filtres_ingredients:
                 objet_ingredient = Ingredient(
-                    id_ingredient=(
-                        IngredientService().get_id_ingredient_by_name(
-                            ingredient)),
-                    nom_ingredient=ingredient)
+                    id_ingredient=(IngredientService().get_id_ingredient_by_name(ingredient)),
+                    nom_ingredient=ingredient,
+                )
                 liste_filtres_ingredients.append(objet_ingredient)
 
         if filtres_origines:
             liste_filtres_origines = []
             for origine in filtres_origines:
                 objet_origine = Origine(
-                    id_origine=OrigineService().get_id_origine_by_name(
-                        origine),
-                    nom_origine=origine)
+                    id_origine=OrigineService().get_id_origine_by_name(origine), nom_origine=origine
+                )
                 liste_filtres_origines.append(objet_origine)
 
         if filtres_categories:
             liste_filtres_categories = []
             for categorie in filtres_categories:
                 objet_categorie = Categorie(
-                    id_categorie=CategorieService().get_id_categorie_by_name(
-                        categorie),
-                    nom_categorie=categorie)
+                    id_categorie=CategorieService().get_id_categorie_by_name(categorie),
+                    nom_categorie=categorie,
+                )
                 liste_filtres_categories.append(objet_categorie)
-        res = RecetteDao().filtrer_recettes(liste_filtres_ingredients,
-                                            liste_filtres_origines,
-                                            liste_filtres_categories)
+        res = RecetteDao().filtrer_recettes(
+            liste_filtres_ingredients, liste_filtres_origines, liste_filtres_categories
+        )
         liste_recettes = []
         if res:
             for row in res:
-                origine = Origine(id_origine=row["id_origine"],
-                                  nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
+                origine = Origine(
+                    id_origine=row["id_origine"],
+                    nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]),
+                )
                 categorie = Categorie(
                     id_categorie=row["id_categorie"],
-                    nom_categorie=CategorieService().get_nom_categorie_by_id(row["id_categorie"]))
+                    nom_categorie=CategorieService().get_nom_categorie_by_id(row["id_categorie"]),
+                )
                 recette = Recette(
                     id_recette=row[0]["id_recette"],
                     nom_recette=row[0]["nom_recette"],
                     instructions_recette=row[0]["instructions_recette"],
                     origine_recette=origine,
                     categorie_recette=categorie,
-                    ingredients_recette=IngredientRecetteService(
-                    ).lister_ingredients_by_recette(row[0]["id_recette"])
+                    ingredients_recette=IngredientRecetteService().lister_ingredients_by_recette(
+                        row[0]["id_recette"]
+                    ),
                 )
                 liste_recettes.append(recette)
         return liste_recettes
 
-    @ log
+    @log
     def trouver_recette(self, nom_recette):
         res = RecetteDao().trouver_recette(nom_recette)
         if res:
             for row in res:
-                origine = Origine(id_origine=row["id_origine"],
-                                  nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]))
+                origine = Origine(
+                    id_origine=row["id_origine"],
+                    nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]),
+                )
                 categorie = Categorie(
                     id_categorie=row["id_categorie"],
-                    nom_categorie=CategorieService().get_nom_categorie_by_id(row["id_categorie"]))
+                    nom_categorie=CategorieService().get_nom_categorie_by_id(row["id_categorie"]),
+                )
                 recette = Recette(
                     id_recette=row["id_recette"],
                     nom_recette=row["nom_recette"],
                     instructions_recette=row["instructions_recette"],
                     origine_recette=origine,
                     categorie_recette=categorie,
-                    ingredients_recette=IngredientRecetteService(
-                    ).lister_ingredients_by_recette(row["id_recette"])
+                    ingredients_recette=IngredientRecetteService().lister_ingredients_by_recette(
+                        row["id_recette"]
+                    ),
                 )
         return recette
 
