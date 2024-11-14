@@ -173,16 +173,6 @@ class RecetteService:
                         row["id_recette"]
                     ),
                 )
-                # recette = Recette(
-                #     id_recette=row[0]["id_recette"],
-                #     nom_recette=row[0]["nom_recette"],
-                #     instructions_recette=row[0]["instructions_recette"],
-                #     origine_recette=origine,
-                #     categorie_recette=categorie,
-                #     ingredients_recette=IngredientRecetteService().lister_ingredients_by_recette(
-                #         row[0]["id_recette"]
-                #     ),
-                # )
                 liste_recettes.append(recette)
         return liste_recettes
 

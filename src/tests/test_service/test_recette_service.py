@@ -18,24 +18,24 @@ liste_recettes = [
         instructions_recette="Mélanger",
         categorie_recette=Categorie("2", "Dessert"),
         origine_recette=Origine("17", "Mexican"),
-        ingredients_recette=[Ingredient("41", "Butter"), Ingredient("104", "Cumin")]
-        ),
+        ingredients_recette=[Ingredient("41", "Butter"), Ingredient("104", "Cumin")],
+    ),
     Recette(
         id_recette="1",
         nom_recette="Recette1",
         instructions_recette="Verser",
         categorie_recette=Categorie("2", "Dessert"),
         origine_recette=Origine("2", "Canadian"),
-        ingredients_recette=[Ingredient("95", "Coriander"), Ingredient("154", "Ginger")]
-        ),
+        ingredients_recette=[Ingredient("95", "Coriander"), Ingredient("154", "Ginger")],
+    ),
     Recette(
         id_recette="2",
         nom_recette="Recette2",
         instructions_recette="Cuire",
         categorie_recette=Categorie("2", "Dessert"),
         origine_recette=Origine("2", "Canadian"),
-        ingredients_recette=[Ingredient("305", "Sugar"), Ingredient("95", "Coriander")]
-        ),
+        ingredients_recette=[Ingredient("305", "Sugar"), Ingredient("95", "Coriander")],
+    ),
 ]
 
 
@@ -49,8 +49,8 @@ def test_creer_ok():
         "instructions_recette": "Mélanger",
         "categorie_recette": "Dessert",
         "origine_recette": "Mexican",
-        "ingredients_recette": ["Butter", "Cumin"]
-        }
+        "ingredients_recette": ["Butter", "Cumin"],
+    }
     RecetteDao().creer = MagicMock(return_value=True)
 
     # WHEN
@@ -71,8 +71,8 @@ def test_creer_echec():
         "instructions_recette": "Mélanger",
         "categorie_recette": "Dessert",
         "origine_recette": "Mexican",
-        "ingredients_recette": ["Butter", "Cumin"]
-        }
+        "ingredients_recette": ["Butter", "Cumin"],
+    }
     RecetteDao().creer = MagicMock(return_value=False)
 
     # WHEN
@@ -102,12 +102,25 @@ def test_filtrer_recettes():
 
     # WHEN
     res = RecetteService().filtrer_recettes(
-        filtres_ingredients,
-        filtres_origines,
-        filtres_categories)
-    
+        filtres_ingredients, filtres_origines, filtres_categories
+    )
+
     # THEN
     assert len(res) == 1
+
+
+def test_trouver_recette():
+    """Trouver une recette"""
+
+    # GIVEN
+    nom_recette = "Apple Frangipan Tart"
+
+    # WHEN
+    res = RecetteService().trouver_recette(nom_recette)
+
+    # THEN
+    assert res.id_recette == "52768"
+
 
 # def test_pseudo_deja_utilise_oui():
 #     """Le pseudo est déjà utilisé dans liste_recettes"""
