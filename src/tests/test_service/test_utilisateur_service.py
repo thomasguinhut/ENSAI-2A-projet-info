@@ -64,13 +64,11 @@ def test_existence_id():
 
     # GIVEN
     id_utilisateur = "thomas"
-    mdp = "12345"
     utilisateur_attendu = Utilisateur(id_utilisateur="thomas", mdp="12345")
-    UtilisateurDao().trouver_par_id = MagicMock(return_value=utilisateur_attendu)
-
+    print(utilisateur_attendu)
     # WHEN
     utilisateur_trouve = UtilisateurService().trouver_par_id(id_utilisateur)
-
+    print(utilisateur_trouve)
     # THEN
     assert utilisateur_trouve == utilisateur_attendu
 
