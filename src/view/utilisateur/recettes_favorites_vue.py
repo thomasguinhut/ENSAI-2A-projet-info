@@ -15,23 +15,24 @@ class RecettesFavoritesVue(VueAbstraite):
             message (str): Message à afficher (par défaut: "").
         """
         super().__init__(message=message)
-        self.recettes_favorites = RecetteFavoriteService().lister_recettes_favorites(
+        self.recettes_favorites = RecetteFavoriteService().lister_recette_favorite(
             Session().utilisateur
         )
 
     def choisir_menu(self):
         """Affiche le menu de sélection des recettes favorites."""
         choix = inquirer.select(
-            message="Choisissez une recette ou une option :",
-            choices=self.creer_options_menu()
+            message="Choisissez une recette ou une option :", choices=self.creer_options_menu()
         ).execute()
 
         if choix == "Retourner au menu principal":
             from view.utilisateur.utilisateur_vue import UtilisateurVue
+
             return UtilisateurVue("Retour au menu principal")
 
         else:
             from view.utilisateur.recette_utilisateur_vue import RecetteUtilisateurVue
+
             return RecetteUtilisateurVue(choix, f"Affichage de la recette {choix}")
 
     def creer_options_menu(self):

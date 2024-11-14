@@ -21,17 +21,19 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
         if not pages:
             print("Aucune recette disponible.")
             from view.utilisateur.utilisateur_vue import UtilisateurVue
-            return UtilisateurVue('Retour au menu principal')
+
+            return UtilisateurVue("Retour au menu principal")
 
         while True:
             choix = inquirer.select(
                 message="Choisissez une recette ou une option :",
-                choices=ListeRecettesAbstraiteVue.creer_options_menu(pages)
+                choices=ListeRecettesAbstraiteVue.creer_options_menu(pages),
             ).execute()
 
             if choix == "Retourner au menu principal":
-                from view.accueil.accueil_vue import AccueilVue
-                return AccueilVue("Retour au menu principal")
+                from view.accueil.utilisateur_vue import UtilisateurVue
+
+                return UtilisateurVue("Retour au menu principal")
             elif choix == "Page suivante":
                 if self.page_actuelle < len(pages) - 1:
                     self.page_actuelle += 1
@@ -42,4 +44,5 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
                 self.choisir_menu()
             else:
                 from view.utilisateur.recette_utilisateur_vue import RecetteUtilisateurVue
+
                 return RecetteUtilisateurVue(choix, f"Affichage de la recette {choix}")

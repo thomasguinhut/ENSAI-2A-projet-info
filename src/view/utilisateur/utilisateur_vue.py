@@ -1,6 +1,7 @@
 from InquirerPy import inquirer
 
 from view.vue_abstraite import VueAbstraite
+from view.session import Session
 
 
 class UtilisateurVue(VueAbstraite):
@@ -33,19 +34,23 @@ class UtilisateurVue(VueAbstraite):
             choices=[
                 "Afficher la liste des recettes",
                 "Gérer les listes",
-                "Retour à l'écran d'accueil"
+                "Retour à l'écran d'accueil",
             ],
         ).execute()
 
         match choix:
             case "Afficher la liste des recettes":
                 from view.menu_liste_recettes_vue import MenuListeRecettes
+
                 return MenuListeRecettes()
 
             case "Gérer les listes":
                 from view.utilisateur.gestion_listes_vue import GestionListesVue
+
                 return GestionListesVue()
 
             case "Retour à l'écran d'accueil":
+                Session().deconnexion
                 from view.accueil.accueil_vue import AccueilVue
+
                 return AccueilVue()

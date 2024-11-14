@@ -15,20 +15,20 @@ class ListeCoursesVue(VueAbstraite):
             message (str): Message à afficher (par défaut: "").
         """
         super().__init__(message=message)
-        #print(Session().utilisateur)
         self.liste_courses = ListeCourseService().lister_ingredient_liste_course(
             Session().utilisateur
-            )
+        )
 
     def choisir_menu(self):
         """Permet à l'utilisateur de choisir un ingrédient à retirer ou une option."""
         choix = inquirer.select(
             message="Choisissez un ingrédient à retirer de la liste ou une option :",
-            choices=self.creer_options_menu()
+            choices=self.creer_options_menu(),
         ).execute()
 
         if choix == "Retourner au menu principal":
             from view.utilisateur.utilisateur_vue import UtilisateurVue
+
             return UtilisateurVue("Retour au menu principal")
         else:
             ListeCourseService().retirer_ingredient_course(Session().utilisateur, choix)

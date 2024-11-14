@@ -1,11 +1,13 @@
 from InquirerPy import inquirer
 from view.vue_abstraite import VueAbstraite
 from service.utilisateur_service import UtilisateurService
+from view.session import Session
 from utils.securite import hash_password
 
 
 class ConnexionVue(VueAbstraite):
     """Vue de Connexion (saisie de pseudo et mot de passe)"""
+
     def __init__(self, message=""):
         super().__init__(message)
 
@@ -22,6 +24,7 @@ class ConnexionVue(VueAbstraite):
             # Si l'utilisateur a été trouvé à partir de ses identifiants de
             # connexion
             if utilisateur is not None:
+                Session().connexion(utilisateur)
                 message = f"Vous êtes connecté sous le pseudo {utilisateur.id_utilisateur}"
 
                 from view.utilisateur.utilisateur_vue import UtilisateurVue
