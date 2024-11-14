@@ -11,7 +11,6 @@ from business_object.categorie import Categorie
 
 
 class RecetteDao(metaclass=Singleton):
-
     """
 
     Création de la classe RecetteDao.
@@ -53,11 +52,9 @@ class RecetteDao(metaclass=Singleton):
                         {
                             "id_recette": recette.id_recette,
                             "nom_recette": recette.nom_recette,
-                            "instructions_recette": (
-                                recette.instructions_recette),
+                            "instructions_recette": (recette.instructions_recette),
                             "id_origine": recette.origine_recette.id_origine,
-                            "id_categorie": (
-                                recette.categorie_recette.id_categorie),
+                            "id_categorie": (recette.categorie_recette.id_categorie),
                         },
                     )
                     res = cursor.fetchone()
@@ -71,8 +68,7 @@ class RecetteDao(metaclass=Singleton):
         return created
 
     @log
-    def trouver_liste_recettes(self) -> list[dict[
-            "id": str, str, str, str, str, str]]:
+    def trouver_liste_recettes(self) -> list[dict["id":str, str, str, str, str, str]]:
         """
 
         Liste toutes les recettes de la base de donénes.
@@ -92,10 +88,7 @@ class RecetteDao(metaclass=Singleton):
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    cursor.execute(
-                        "SELECT *"
-                        "   FROM recette;"
-                    )
+                    cursor.execute("SELECT *" "   FROM recette;")
                     res = cursor.fetchall()
         except Exception as e:
             logging.info(e)
@@ -105,9 +98,9 @@ class RecetteDao(metaclass=Singleton):
 
     def filtrer_recettes(
         self,
-            filtres_ingredients: list[Ingredient],
-            filtres_origines: list[Origine],
-            filtres_categories: list[Categorie]
+        filtres_ingredients: list[Ingredient],
+        filtres_origines: list[Origine],
+        filtres_categories: list[Categorie],
     ):
         if filtres_ingredients:
             recettes_ingredients = []
@@ -117,15 +110,17 @@ class RecetteDao(metaclass=Singleton):
                 try:
                     with DBConnection().connection as connection:
                         with connection.cursor() as cursor:
-                            req = ("SELECT * FROM recette r "
-                                   "JOIN ingredient_recette ir "
-                                   "ON r.id_recette = ir.id_recette "
-                                   "JOIN ingredient i "
-                                   "ON ir.id_ingredient = i.id_ingredient "
-                                   "WHERE ")
-                            req += ("ir.id_ingredient = CAST({id_ingredient} "
-                                    "AS VARCHAR)".format(
-                                        id_ingredient=id_ingredient))
+                            req = (
+                                "SELECT * FROM recette r "
+                                "JOIN ingredient_recette ir "
+                                "ON r.id_recette = ir.id_recette "
+                                "JOIN ingredient i "
+                                "ON ir.id_ingredient = i.id_ingredient "
+                                "WHERE "
+                            )
+                            req += "ir.id_ingredient = CAST({id_ingredient} " "AS VARCHAR)".format(
+                                id_ingredient=id_ingredient
+                            )
                             cursor.execute(req)
                             res = cursor.fetchall()
                 except Exception as e:
@@ -141,13 +136,15 @@ class RecetteDao(metaclass=Singleton):
                 try:
                     with DBConnection().connection as connection:
                         with connection.cursor() as cursor:
-                            req = ("SELECT * FROM recette r "
-                                   "JOIN origine o "
-                                   "ON r.id_origine = o.id_origine "
-                                   "WHERE ")
-                            req += ("o.id_origine = CAST({id_origine} "
-                                    "AS VARCHAR)".format(
-                                        id_origine=id_origine))
+                            req = (
+                                "SELECT * FROM recette r "
+                                "JOIN origine o "
+                                "ON r.id_origine = o.id_origine "
+                                "WHERE "
+                            )
+                            req += "o.id_origine = CAST({id_origine} " "AS VARCHAR)".format(
+                                id_origine=id_origine
+                            )
                             cursor.execute(req)
                             res = cursor.fetchall()
                 except Exception as e:
@@ -163,13 +160,15 @@ class RecetteDao(metaclass=Singleton):
                 try:
                     with DBConnection().connection as connection:
                         with connection.cursor() as cursor:
-                            req = ("SELECT * FROM recette r "
-                                   "JOIN categorie c "
-                                   "ON r.id_categorie = c.id_categorie "
-                                   "WHERE ")
-                            req += ("c.id_categorie = CAST({id_categorie} "
-                                    "AS VARCHAR)".format(
-                                        id_categorie=id_categorie))
+                            req = (
+                                "SELECT * FROM recette r "
+                                "JOIN categorie c "
+                                "ON r.id_categorie = c.id_categorie "
+                                "WHERE "
+                            )
+                            req += "c.id_categorie = CAST({id_categorie} " "AS VARCHAR)".format(
+                                id_categorie=id_categorie
+                            )
                             cursor.execute(req)
                             res = cursor.fetchall()
                 except Exception as e:
@@ -179,28 +178,21 @@ class RecetteDao(metaclass=Singleton):
                 id_recettes_categories.append(res[0]["id_recette"])
         id_liste_recettes = []
         if filtres_ingredients and filtres_origines and filtres_categories:
-            recettes = (
-                recettes_ingredients + recettes_origines + recettes_categories)
+            recettes = recettes_ingredients + recettes_origines + recettes_categories
             id_liste_recettes = list(
-                set(id_recettes_categories) &
-                set(id_recettes_origines) &
                 set(id_recettes_categories)
+                & set(id_recettes_origines)
+                & set(id_recettes_categories)
             )
         elif filtres_ingredients and filtres_origines:
-            recettes = (
-                recettes_ingredients + recettes_origines)
-            id_liste_recettes = list(set(id_recettes_categories)
-                                     & set(id_recettes_origines))
+            recettes = recettes_ingredients + recettes_origines
+            id_liste_recettes = list(set(id_recettes_categories) & set(id_recettes_origines))
         elif filtres_ingredients and filtres_categories:
-            recettes = (
-                recettes_ingredients + recettes_categories)
-            id_liste_recettes = list(set(id_recettes_categories)
-                                     & set(id_recettes_categories))
+            recettes = recettes_ingredients + recettes_categories
+            id_liste_recettes = list(set(id_recettes_categories) & set(id_recettes_categories))
         elif filtres_origines and filtres_categories:
-            recettes = (
-                recettes_origines + recettes_categories)
-            id_liste_recettes = list(set(id_recettes_origines)
-                                     & set(id_recettes_categories))
+            recettes = recettes_origines + recettes_categories
+            id_liste_recettes = list(set(id_recettes_origines) & set(id_recettes_categories))
         elif filtres_ingredients:
             recettes = recettes_ingredients
             id_liste_recettes = id_recettes_ingredients
@@ -222,9 +214,8 @@ class RecetteDao(metaclass=Singleton):
 
         return recettes_filtrees
 
-    @ log
-    def trouver_recette(self, nom_recette) -> dict[
-            "id": str, str, str, str, str, str]:
+    @log
+    def trouver_recette(self, nom_recette) -> dict["id":str, str, str, str, str, str]:
         """
 
         Trouver une recette dans la base de données
@@ -285,16 +276,14 @@ class RecetteDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "SELECT nom_recette "
-                        "FROM recette "
-                        "WHERE id_recette = %(id_recette)s;",
-                        {'id_recette': id_recette}
+                        "SELECT nom_recette " "FROM recette " "WHERE id_recette = %(id_recette)s;",
+                        {"id_recette": id_recette},
                     )
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
             raise
         if res:
-            return res['nom_recette']
+            return res["nom_recette"]
         else:
             return None

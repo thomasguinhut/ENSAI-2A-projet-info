@@ -1,5 +1,4 @@
 class Avis:
-
     """
 
     Création de la classe Avis.
@@ -37,7 +36,7 @@ class Avis:
             raise TypeError("id_avis doit être un str")
         if not isinstance(commentaire, str):
             raise TypeError("commentaire doit être un str")
-        if not isinstance(note, str):
+        if not isinstance(note, int):
             raise TypeError("note doit être un int")
 
         self.id_avis = id_avis

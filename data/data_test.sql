@@ -117,8 +117,8 @@ INSERT INTO ingredient_recette (id_recette, id_ingredient) VALUES
 -- Insertion des avis
 INSERT INTO avis (id_avis, commentaire, note, id_utilisateur,
                   id_recette) VALUES
-('thomas', 'Délicieux !', 5, 'akmal', '52768'),
-('benjamin', 'Bonne recette, mais un peu long à faire.', 4, 'toussaint', '53050');
+('1', 'Délicieux !', 5, 'akmal', '52768'),
+('2', 'Bonne recette, mais un peu long à faire.', 4, 'toussaint', '53050');
 
 -- Insertion des recettes favorites
 INSERT INTO recette_favorite (id_utilisateur, id_recette) VALUES

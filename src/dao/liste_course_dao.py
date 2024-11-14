@@ -21,7 +21,7 @@ class ListeCourseDao(metaclass=Singleton):
     """
 
     @log
-    def supprimer(self, ingredient: Ingredient) -> bool:
+    def supprimer(self, utilisateur: Utilisateur, ingredient: Ingredient) -> bool:
         """
 
         Suppression un ingrédient donné de la liste de courses
@@ -42,9 +42,13 @@ class ListeCourseDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     # Supprimer l'ingrédient de la liste de courses'
                     cursor.execute(
-                        "DELETE FROM liste_course                  "
-                        " WHERE id_ingredient=%(id_ingredient)s      ",
-                        {"id_ingredient": ingredient.id_ingredient},
+                        "DELETE "
+                        " FROM liste_course "
+                        " WHERE id_utilisateur=%(id_utilisateur)s "
+                        " AND id_ingredient=%(id_ingredient)s",
+                        {
+                            "id_utilisateur": utilisateur.id_utilisateur,
+                            "id_ingredient": ingredient.id_ingredient}
                     )
                     res = cursor.rowcount
         except Exception as e:
@@ -137,9 +141,8 @@ class ListeCourseDao(metaclass=Singleton):
                                 "id_ingredient": id_ingredient
                             }
                         )
-                        print(cursor.fetchone())
-                        print(cursor.fetchone() is None)
-                        """if (cursor.fetchone() is None):
+                        res = cursor.fetchone()
+                        if (not isinstance(res, dict)):
                             print(id_ingredient)
                             cursor.execute(
                                 "INSERT INTO liste_course(id_utilisateur, "
@@ -150,7 +153,7 @@ class ListeCourseDao(metaclass=Singleton):
                                         utilisateur.id_utilisateur),
                                     "id_ingredient": id_ingredient
                                 }
-                            )"""
+                            )
             return True  # Tous les ingrédients ont été ajoutés avec succès
         except Exception as e:
             logging.info(e)
