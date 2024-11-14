@@ -16,7 +16,7 @@ class RecettesFavoritesVue(VueAbstraite):
         """
         super().__init__(message=message)
         self.recettes_favorites = RecetteFavoriteService().lister_recette_favorite(
-            Session().utilisateur
+            Session().utilisateur.id_utilisateur
         )
 
     def choisir_menu(self):

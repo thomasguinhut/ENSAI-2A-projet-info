@@ -16,7 +16,7 @@ class ListeCoursesVue(VueAbstraite):
         """
         super().__init__(message=message)
         self.liste_courses = ListeCourseService().lister_ingredient_liste_course(
-            Session().utilisateur
+            Session().utilisateur.id_utilisateur
         )
 
     def choisir_menu(self):
