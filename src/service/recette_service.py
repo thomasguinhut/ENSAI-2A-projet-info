@@ -155,6 +155,7 @@ class RecetteService:
         liste_recettes = []
         if res:
             for row in res:
+                row = row[0]
                 origine = Origine(
                     id_origine=row["id_origine"],
                     nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]),
@@ -164,15 +165,25 @@ class RecetteService:
                     nom_categorie=CategorieService().get_nom_categorie_by_id(row["id_categorie"]),
                 )
                 recette = Recette(
-                    id_recette=row[0]["id_recette"],
-                    nom_recette=row[0]["nom_recette"],
-                    instructions_recette=row[0]["instructions_recette"],
+                    id_recette=row["id_recette"],
+                    nom_recette=row["nom_recette"],
+                    instructions_recette=row["instructions_recette"],
                     origine_recette=origine,
                     categorie_recette=categorie,
                     ingredients_recette=IngredientRecetteService().lister_ingredients_by_recette(
-                        row[0]["id_recette"]
+                        row["id_recette"]
                     ),
                 )
+                # recette = Recette(
+                #     id_recette=row[0]["id_recette"],
+                #     nom_recette=row[0]["nom_recette"],
+                #     instructions_recette=row[0]["instructions_recette"],
+                #     origine_recette=origine,
+                #     categorie_recette=categorie,
+                #     ingredients_recette=IngredientRecetteService().lister_ingredients_by_recette(
+                #         row[0]["id_recette"]
+                #     ),
+                # )
                 liste_recettes.append(recette)
         return liste_recettes
 

@@ -96,9 +96,9 @@ def test_filtrer_recettes():
     """Renvoyer liste des recettes avec les filtres"""
 
     # GIVEN
-    filtres_ingredients = ["Coriander"]
+    filtres_ingredients = ["Butter"]
     filtres_origines = ["Canadian"]
-    filtres_categories = ["Dessert"]
+    filtres_categories = ["Lamb"]
 
     # WHEN
     res = RecetteService().filtrer_recettes(
@@ -107,7 +107,7 @@ def test_filtrer_recettes():
         filtres_categories)
     
     # THEN
-    assert len(res) == 2
+    assert len(res) == 1
 
 # def test_pseudo_deja_utilise_oui():
 #     """Le pseudo est déjà utilisé dans liste_recettes"""

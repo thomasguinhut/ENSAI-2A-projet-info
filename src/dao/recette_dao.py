@@ -98,9 +98,9 @@ class RecetteDao(metaclass=Singleton):
 
     def filtrer_recettes(
         self,
-        filtres_ingredients: list[Ingredient],
-        filtres_origines: list[Origine],
-        filtres_categories: list[Categorie],
+        filtres_ingredients: list[Ingredient] = None,
+        filtres_origines: list[Origine] = None,
+        filtres_categories: list[Categorie] = None,
     ):
         if filtres_ingredients:
             recettes_ingredients = []
