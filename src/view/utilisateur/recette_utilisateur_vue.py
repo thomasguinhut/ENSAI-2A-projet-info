@@ -61,11 +61,11 @@ class RecetteUtilisateurVue(VueAbstraite):
             elif choix == "Ajouter un avis":
                 note = input("Entrez une note entre 1 et 5 : ")
                 commentaire = input("Entrez un commentaire : ")
-                AvisService().ajouter_avis(id_utilisateur, self.recette, note, commentaire)
+                AvisService().ajouter_avis(note, commentaire, id_utilisateur, self.nom_recette)
                 print(f"Votre avis a été ajouté à la recette '{self.nom_recette}'.")
 
             elif choix == "Retirer un avis":
-                AvisService().retirer_avis(id_utilisateur, self.recette)
+                AvisService().retirer_avis(id_utilisateur, self.nom_recette)
                 print(f"Votre avis a été retiré de la recette '{self.nom_recette}'.")
 
             elif choix == "Ajouter les ingrédients à la liste de courses":
