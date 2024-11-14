@@ -32,7 +32,7 @@ class FiltreIngredientVue(FiltreAbstraitVue):
                 return AjouterFiltresInviteVue()
         else:
             Session().choix_filtres_ingredient.append(choix)
-            return self.choisir_menu
+            return self.choisir_menu()
 
     def creer_options_menu(self, liste_criteres):
         """Génère les options de menu à partir de la liste des critères."""
