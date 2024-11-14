@@ -23,6 +23,4 @@ from dao.recette_dao import RecetteDao
 from dao.utilisateur_dao import UtilisateurDao
 from dao.ingredient_recette_dao import IngredientRecetteDao
 
-print(ListeCourseService().lister_ingredient_liste_course(
-            "thomas"
-            ))
+print(UtilisateurService().trouver_par_id("thomas"))
