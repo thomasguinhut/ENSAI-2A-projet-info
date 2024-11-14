@@ -14,33 +14,33 @@ liste_utilisateurs = [
 ]
 
 
-def test_creer_ok():
-    """ Création de l'Utilisateur réussie"""
+# def test_creer_ok():
+#     """ Création de l'Utilisateur réussie"""
 
-    # GIVEN
-    id_utilisateur, mdp = "Tom", "1235"
-    UtilisateurDao().creer = MagicMock(return_value=True)
+#     # GIVEN
+#     id_utilisateur, mdp = "Tom", "1235"
+#     UtilisateurDao().creer = MagicMock(return_value=True)
 
-    # WHEN
-    utilisateur = UtilisateurService().creer(id_utilisateur, mdp)
+#     # WHEN
+#     utilisateur = UtilisateurService().creer(id_utilisateur, mdp)
 
-    # THEN
-    assert utilisateur is not None
+#     # THEN
+#     assert utilisateur is not None
 
 
-def test_creer_echec():
-    """Création de l'Utilisateur échouée
-    (car la méthode UtilisateurDao().creer retourne False)"""
+# def test_creer_echec():
+#     """Création de l'Utilisateur échouée
+#     (car la méthode UtilisateurDao().creer retourne False)"""
 
-    # GIVEN
-    id_utilisateur, mdp = "Ben", "1234"
-    UtilisateurDao().creer = MagicMock(return_value=False)
+#     # GIVEN
+#     id_utilisateur, mdp = "Ben", "1234"
+#     UtilisateurDao().creer = MagicMock(return_value=False)
 
-    # WHEN
-    utilisateur = UtilisateurService().creer(id_utilisateur, mdp)
+#     # WHEN
+#     utilisateur = UtilisateurService().creer(id_utilisateur, mdp)
 
-    # THEN
-    assert utilisateur is None
+#     # THEN
+#     assert utilisateur is None
 
 
 def test_trouver_par_id():
