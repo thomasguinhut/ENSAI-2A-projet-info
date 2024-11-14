@@ -50,26 +50,26 @@ class RecetteUtilisateurVue(VueAbstraite):
 
             elif choix == "Ajouter aux favoris":
                 RecetteFavoriteService().ajouter_favori(id_utilisateur, self.nom_recette)
-                print(f"La recette '{self.recette.nom}' a été ajoutée aux favoris.")
+                print(f"La recette '{self.nom_recette}' a été ajoutée aux favoris.")
 
             elif choix == "Retirer des favoris":
                 RecetteFavoriteService().retirer_favori(id_utilisateur, self.nom_recette)
-                print(f"La recette '{self.recette.nom}' a été retirée des favoris.")
+                print(f"La recette '{self.nom_recette}' a été retirée des favoris.")
 
             elif choix == "Ajouter un avis":
                 note = input("Entrez une note entre 1 et 5 : ")
                 commentaire = input("Entrez un commentaire : ")
                 RecetteService().ajouter_avis(id_utilisateur, self.recette, note, commentaire)
-                print(f"Votre avis a été ajouté à la recette '{self.recette.nom}'.")
+                print(f"Votre avis a été ajouté à la recette '{self.nom_recette}'.")
 
             elif choix == "Retirer un avis":
                 RecetteService().retirer_avis(id_utilisateur, self.recette)
-                print(f"Votre avis a été retiré de la recette '{self.recette.nom}'.")
+                print(f"Votre avis a été retiré de la recette '{self.nom_recette}'.")
 
             elif choix == "Ajouter les ingrédients à la liste de courses":
-                RecetteService().ajouter_ingredients_courses(id_utilisateur, self.recette)
+                RecetteService().ajouter_ingredients_courses(id_utilisateur, self.nom_recette)
                 print(
-                    f"Les ingrédients de la recette '{self.recette.nom}' "
+                    f"Les ingrédients de la recette '{self.nom_recette}' "
                     "ont été ajoutés à la liste de courses."
                 )
 
