@@ -2,6 +2,8 @@ from datetime import datetime
 
 from utils.singleton import Singleton
 
+from dao.recette_dao import RecetteDao
+
 
 class Session(metaclass=Singleton):
     """Stocke les données liées à une session."""
@@ -10,6 +12,7 @@ class Session(metaclass=Singleton):
         """Création de la session"""
         self.utilisateur = None
         self.debut_connexion = None
+        self.liste_recettes = RecetteDao().trouver_liste_recettes()
         self.choix_filtres_ingredient = []
         self.choix_filtres_origine = []
         self.choix_filtres_categorie = []

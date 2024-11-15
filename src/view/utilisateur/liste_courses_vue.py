@@ -35,7 +35,7 @@ class ListeCoursesVue(VueAbstraite):
                 Session().utilisateur.id_utilisateur, choix
             )
             print(f"L'ingrédient {choix} a été retiré de votre liste de courses!\n")
-            self.choisir_menu()
+            return ListeCoursesVue()
 
     def creer_options_menu(self):
         """Crée les options de menu à partir des ingrédients de la liste de courses."""

@@ -44,6 +44,6 @@ class AccueilVue(VueAbstraite):
                 return InscriptionVue("Création du compte utilisateur")
 
             case "Mode invité":
-                from view.menu_liste_recettes_vue import MenuListeRecettesVue
+                from view.invite.menu_liste_recettes_invite_vue import MenuListeRecettesInviteVue
 
-                return MenuListeRecettesVue("Mode invité")
+                return MenuListeRecettesInviteVue("Mode invité")

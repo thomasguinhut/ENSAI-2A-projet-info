@@ -35,9 +35,9 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
                 return AccueilVue("Retour au menu principal")
 
             elif choix == "Retour au menu précédent":
-                from view.menu_liste_recettes_vue import MenuListeRecettesVue
+                from view.invite.menu_liste_recettes_invite_vue import MenuListeRecettesInviteVue
 
-                return MenuListeRecettesVue()
+                return MenuListeRecettesInviteVue()
 
             if choix == "Page suivante" and self.page_actuelle < len(pages) - 1:
                 self.page_actuelle += 1

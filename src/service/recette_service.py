@@ -13,6 +13,8 @@ from service.ingredient_service import IngredientService
 from service.categorie_service import CategorieService
 from service.origine_service import OrigineService
 
+from view.session import Session
+
 
 class RecetteService:
     """
@@ -85,7 +87,7 @@ class RecetteService:
 
         """
 
-        res = RecetteDao().trouver_liste_recettes()
+        res = Session().liste_recettes
         liste_recettes = []
         if res:
             for row in res:
