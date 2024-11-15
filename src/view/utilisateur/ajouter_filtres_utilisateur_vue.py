@@ -40,9 +40,7 @@ class AjouterFiltresUtilisateurVue(VueAbstraite):
                 return ListeRecettesUtilisateurVue("Affichage de la liste des recettes filtrées")
 
             case "Retourner au menu principal":
-                Session().choix_filtres_ingredient = []
-                Session().choix_filtres_origine = []
-                Session().choix_filtres_categorie = []
+                Session().reset_filtres()
                 from view.utilisateur.utilisateur_vue import UtilisateurVue
 
                 return UtilisateurVue("Retour au menu principal")
