@@ -30,7 +30,7 @@ class IngredientRecetteDao(metaclass=Singleton):
              True si la création est un succès
              False sinon
         """
-
+        created = None
         for ingredient in recette.ingredients_recette:
 
             res = None
