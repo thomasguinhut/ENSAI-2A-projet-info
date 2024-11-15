@@ -38,9 +38,9 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
                 return UtilisateurVue("Retour au menu principal")
 
             elif choix == "Retour":
-                from view.menu_liste_recettes_vue import MenuListerecettesVue
+                from view.menu_liste_recettes_vue import MenuListeRecettesVue
 
-                return MenuListerecettesVue()
+                return MenuListeRecettesVue()
 
             elif choix == "Page suivante":
                 if self.page_actuelle < len(pages) - 1:

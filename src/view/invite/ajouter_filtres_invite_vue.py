@@ -19,7 +19,11 @@ class AjouterFiltresInviteVue(VueAbstraite):
         """Affiche le menu de sélection pour l'utilisateur invité et gère le choix effectué."""
         choix = inquirer.select(
             message="Faites votre choix :",
-            choices=["Sélectionner des filtres", "Afficher les recettes filtrées", "Retour"],
+            choices=[
+                "Sélectionner des filtres",
+                "Afficher les recettes filtrées",
+                "Retour au menu d'accueil",
+            ],
         ).execute()
 
         match choix:
@@ -33,7 +37,7 @@ class AjouterFiltresInviteVue(VueAbstraite):
 
                 return ListeRecettesInviteVue()
 
-            case "Retour":
+            case "Retour au menu d'accueil":
                 Session().reset_filtres()
                 from view.accueil.accueil_vue import AccueilVue
 

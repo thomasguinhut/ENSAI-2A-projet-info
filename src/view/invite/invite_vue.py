@@ -32,6 +32,6 @@ class InviteVue(VueAbstraite):
                 pass
 
             case "Afficher le menu des recettes":
-                from view.menu_liste_recettes_vue import MenuListeRecettes
+                from view.menu_liste_recettes_vue import MenuListeRecettesVue
 
-                return MenuListeRecettes()
+                return MenuListeRecettesVue()

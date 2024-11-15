@@ -40,9 +40,9 @@ class UtilisateurVue(VueAbstraite):
 
         match choix:
             case "Afficher la liste des recettes":
-                from view.menu_liste_recettes_vue import MenuListeRecettes
+                from view.menu_liste_recettes_vue import MenuListeRecettesVue
 
-                return MenuListeRecettes()
+                return MenuListeRecettesVue()
 
             case "Gérer les listes":
                 from view.utilisateur.gestion_listes_vue import GestionListesVue
