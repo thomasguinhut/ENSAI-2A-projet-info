@@ -40,7 +40,7 @@ class ListeCourseService:
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         recette = RecetteService().trouver_recette(nom_recette)
-        ListeCourseDao().ajouter_ingredients_courses(utilisateur, recette)
+        return ListeCourseDao().ajouter_ingredients_courses(utilisateur, recette)
 
     @log
     def retirer_ingredient_course(self, id_utilisateur, nom_ingredient: str) -> bool:
@@ -49,4 +49,4 @@ class ListeCourseService:
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         ingredient = IngredientService().trouver_ingredient(nom_ingredient)
-        ListeCourseDao().retirer_ingredient_course(utilisateur, ingredient)
+        return ListeCourseDao().supprimer(utilisateur, ingredient)
