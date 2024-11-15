@@ -4,9 +4,9 @@ from business_object.recette import Recette
 from business_object.origine import Origine
 from business_object.categorie import Categorie
 from business_object.ingredient import Ingredient
-from client.ingredient_client import IngredientClient
-from client.categorie_client import CategorieClient
-from client.origine_client import OrigineClient
+from service.ingredient_service import IngredientService
+from service.categorie_service import CategorieService
+from service.origine_service import OrigineService
 
 from dao.ingredient_recette_dao import IngredientRecetteDao
 
@@ -47,13 +47,13 @@ class IngredientRecetteService:
 
         liste_ingredients = []
         for nom_ingredient in recette["ingredients_recette"]:
-            id_ingredient = IngredientDao.get_id_ingredient_by_name(nom_ingredient)
+            id_ingredient = IngredientService().get_id_ingredient_by_name(nom_ingredient)
             if id_ingredient:
                 ingredient = Ingredient(id_ingredient, nom_ingredient)
                 liste_ingredients.append(ingredient)
 
-        id_categorie = CategorieDao.get_id_categorie_by_name(recette["categorie_recette"])
-        id_origine = OrigineDao().get_id_origine_by_name(recette["origine_recette"])
+        id_categorie = CategorieService().get_id_categorie_by_name(recette["categorie_recette"])
+        id_origine = OrigineService().get_id_origine_by_name(recette["origine_recette"])
         if id_categorie and id_origine:
             categorie = Categorie(id_categorie, recette["categorie_recette"])
             origine = Origine(id_origine, recette["origine_recette"])
