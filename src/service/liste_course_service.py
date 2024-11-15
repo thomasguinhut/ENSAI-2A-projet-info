@@ -43,7 +43,7 @@ class ListeCourseService:
         return ListeCourseDao().ajouter_ingredients_courses(utilisateur, recette)
 
     @log
-    def supprimer(self, id_utilisateur, nom_ingredient: str) -> bool:
+    def retirer_ingredient_course(self, id_utilisateur, nom_ingredient: str) -> bool:
         """
         .
         """
