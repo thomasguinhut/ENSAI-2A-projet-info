@@ -21,6 +21,11 @@ class ListeCoursesVue(VueAbstraite):
 
     def choisir_menu(self):
         """Permet à l'utilisateur de choisir un ingrédient à retirer ou une option."""
+        if self.liste_courses is None:
+            from view.utilisateur.gestion_listes_vue import GestionListesVue
+
+            return GestionListesVue("Aucun ingrédient dans la liste de courses")
+
         choix = inquirer.select(
             message="Choisissez un ingrédient à retirer de la liste ou une option :",
             choices=self.creer_options_menu(),
@@ -30,6 +35,10 @@ class ListeCoursesVue(VueAbstraite):
             from view.utilisateur.utilisateur_vue import UtilisateurVue
 
             return UtilisateurVue("Retour au menu principal")
+        elif choix == "Retour au menu précédent":
+            from view.utilisateur.gestion_listes_vue import GestionListesVue
+
+            return GestionListesVue()
         else:
             ListeCourseService().retirer_ingredient_course(
                 Session().utilisateur.id_utilisateur, choix
@@ -40,5 +49,6 @@ class ListeCoursesVue(VueAbstraite):
     def creer_options_menu(self):
         """Crée les options de menu à partir des ingrédients de la liste de courses."""
         options = [ingredient.nom_ingredient for ingredient in self.liste_courses]
+        options.append("Retour au menu précédent")
         options.append("Retourner au menu principal")
         return options

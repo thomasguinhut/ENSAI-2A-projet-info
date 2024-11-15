@@ -21,6 +21,11 @@ class RecettesFavoritesVue(VueAbstraite):
 
     def choisir_menu(self):
         """Affiche le menu de sélection des recettes favorites."""
+        if self.recettes_favorites is None:
+            from view.utilisateur.gestion_listes_vue import GestionListesVue
+
+            return GestionListesVue("Aucune recette favorite")
+
         choix = inquirer.select(
             message="Choisissez une recette ou une option :", choices=self.creer_options_menu()
         ).execute()
