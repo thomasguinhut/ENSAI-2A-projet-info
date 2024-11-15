@@ -17,7 +17,6 @@ from service.ingredient_recette_service import IngredientRecetteService
 
 
 class ResetDatabase(metaclass=Singleton):
-
     """
 
     Initialisation de la vraie base de données.
@@ -42,8 +41,7 @@ class ResetDatabase(metaclass=Singleton):
         if verif:
             dotenv.load_dotenv()
             schema = os.environ["POSTGRES_SCHEMA"]
-            create_schema = (f"DROP SCHEMA IF EXISTS {schema} CASCADE;"
-                             f"CREATE SCHEMA {schema};")
+            create_schema = f"DROP SCHEMA IF EXISTS {schema} CASCADE;" f"CREATE SCHEMA {schema};"
             with open("data/init_db.sql", encoding="utf-8") as init_db:
                 init_db_as_string = init_db.read()
             try:
@@ -108,8 +106,7 @@ class ResetDatabase(metaclass=Singleton):
             i = 1
             for dict_recette in liste_recettes:
                 IngredientRecetteService().creer(dict_recette)
-                print(f"Avancée de la table 'ingredient_recette' : "
-                      f"{i*100//2856} %")
+                print(f"Avancée de la table 'ingredient_recette' : " f"{i*100//2856} %")
                 i += 1
             print("La table 'ingredient_recette' a bien été créée.")
 
@@ -136,5 +133,5 @@ class ResetDatabase(metaclass=Singleton):
 
 if __name__ == "__main__":
     ResetDatabase().lancer(True)
-    ResetDatabase().remplir(True, True, True, True, False)
+    ResetDatabase().remplir(True, True, True, True, True)
     print(ResetDatabase().verif())
