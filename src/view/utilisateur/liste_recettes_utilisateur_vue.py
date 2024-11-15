@@ -28,7 +28,7 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
         while True:
             choix = inquirer.select(
                 message="Choisissez une recette ou une option :",
-                choices=(self.creer_options_menu(pages), "Retour"),
+                choices=self.creer_options_menu(pages) + ["Retour"],
             ).execute()
 
             if choix == "Retourner au menu principal":
