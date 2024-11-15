@@ -1,5 +1,6 @@
 from InquirerPy import inquirer
 from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
+from view.session import Session
 
 
 class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
@@ -31,6 +32,7 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
             ).execute()
 
             if choix == "Retourner au menu principal":
+                Session().reset_filtres()
                 from view.utilisateur.utilisateur_vue import UtilisateurVue
 
                 return UtilisateurVue("Retour au menu principal")
