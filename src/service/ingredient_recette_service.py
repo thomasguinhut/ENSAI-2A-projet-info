@@ -122,3 +122,23 @@ class IngredientRecetteService:
                 ingredient = Ingredient(row["id_ingredient"], row["nom_ingredient"])
                 liste_ingredient.append(ingredient)
         return liste_ingredient
+
+    @log
+    def liste_str_ingredient_pour_une_recette(self, recette) -> str:
+        """renvoie une chaîne de caractère contenant la liste des ingrédients d'une recette
+
+        Parameters
+        ----------
+        recette : Recette
+
+        Returns
+        -------
+        res : str
+            chaîne de caractères énumérant les différents ingrédients
+        """
+        liste = IngredientRecetteService().lister_ingredients_by_recette(recette.id_recette)
+        res = " a"
+        print(liste)
+        for ingredient in liste:
+            res = res + ingredient.nom_ingredient
+        return res

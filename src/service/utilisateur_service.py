@@ -60,7 +60,7 @@ class UtilisateurService:
         entetes = ["id_utilisateur"]
 
         utilisateurs = UtilisateurDao().lister_tous()
-
+        print(utilisateurs)
         for j in utilisateurs:
             if j.id_utilisateur == "admin":
                 utilisateurs.remove(j)

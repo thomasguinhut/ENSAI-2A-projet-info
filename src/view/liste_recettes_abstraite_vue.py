@@ -1,6 +1,7 @@
 from view.vue_abstraite import VueAbstraite
 from service.recette_service import RecetteService
 from view.session import Session
+from business_object.recette import Recette
 
 
 class ListeRecettesAbstraiteVue(VueAbstraite):
@@ -23,23 +24,20 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
         if [
             Session().choix_filtres_ingredient,
             Session().choix_filtres_origine,
-            Session().choix_filtres_categorie
+            Session().choix_filtres_categorie,
         ] == [[], [], []]:
             return self.liste_recettes
         else:
             return RecetteService().filtrer_recettes(
                 Session().choix_filtres_ingredient,
                 Session().choix_filtres_origine,
-                Session().choix_filtres_categorie
+                Session().choix_filtres_categorie,
             )
 
     def diviser_en_pages(self):
         """Divise la liste des recettes filtrées en pages."""
         recettes_filtrees = self.filtrer_recettes()
-        return [
-            recettes_filtrees[i:(i + 5)]
-            for i in range(0, len(recettes_filtrees), 5)
-        ]
+        return [recettes_filtrees[i : (i + 5)] for i in range(0, len(recettes_filtrees), 5)]
 
     def creer_options_menu(self, pages):
         """Crée les options de menu incluant la pagination."""
@@ -57,18 +55,18 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
     def afficher_recette(self, nom_recette):
         """Affiche les détails de la recette sélectionnée."""
         recette = next(
-            (item for item in self.liste_recettes if item.nom_recette == nom_recette), None)
+            (item for item in self.liste_recettes if item.nom_recette == nom_recette), None
+        )
 
         if recette is None:
-            print(
-                f"Erreur: La recette '{nom_recette}' n'a pas été trouvée.")
+            print(f"Erreur: La recette '{nom_recette}' n'a pas été trouvée.")
             return
 
         print(f"\nDétails de la recette '{recette.nom_recette}':")
-        print("\nIngrédients:", recette.ingredients_recette)
+        print("\nIngrédients:", recette.liste_ingredient_forme_explicite())
         print("\nInstructions:", recette.instructions_recette)
         print("\nCatégorie:", recette.categorie_recette.nom_categorie or "Non spécifiée")
         print("\nOrigine:", recette.origine_recette.nom_origine or "Non spécifiée")
         print("\nAvis:", recette.avis_recette or "Aucun avis")
 
-        input("\nAppuyez sur 'Entrée' pour retourner à la liste des recettes.\n")
+        input("\nAppuyez sur 'Entrée' pour revenir en arrière.\n")
