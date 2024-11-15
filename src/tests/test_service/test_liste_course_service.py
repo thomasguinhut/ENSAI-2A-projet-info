@@ -26,8 +26,8 @@ def test_lister_ingredient_liste_course():
     assert len(res) == 1
 
 
-def test_ajouter_ingredients_courses():
-    """Ajouter des ingrédients à la liste de courses"""
+def test_ajouter_ingredients_courses_ok():
+    """Ajout des ingrédients à la liste de courses réussi"""
 
     # GIVEN
     id_utilisateur = "benjamin"
@@ -41,8 +41,23 @@ def test_ajouter_ingredients_courses():
     assert res
 
 
-def test_supprimer():
-    """Supprime un ingrédient d'une liste de courses"""
+def test_ajouter_ingredients_courses_echec():
+    """Ajout des ingrédients à la liste de courses non abouti"""
+
+    # GIVEN
+    id_utilisateur = "benjamin"
+    nom_recette = "Apple Frangipan Tart"
+    ListeCourseDao().ajouter_ingredients_courses = MagicMock(return_value=False)
+
+    # WHEN
+    res = ListeCourseService().ajouter_ingredients_courses(id_utilisateur, nom_recette)
+
+    # THEN
+    assert not res
+
+
+def test_supprimer_ok():
+    """Suppression d'un ingrédient d'une liste de courses réussie"""
 
     # GIVEN
     id_utilisateur = "akmal"
@@ -50,10 +65,25 @@ def test_supprimer():
     ListeCourseDao().supprimer = MagicMock(return_value=True)
 
     # WHEN
-    res = ListeCourseService().supprimer(id_utilisateur, nom_ingredient)
+    res = ListeCourseService().retirer_ingredient_course(id_utilisateur, nom_ingredient)
 
     # THEN
     assert res
+
+
+def test_supprimer_echec():
+    """Suppression d'un ingrédient d'une liste de courses non aboutie"""
+
+    # GIVEN
+    id_utilisateur = "akmal"
+    nom_ingredient = "Chicken Thighs"
+    ListeCourseDao().supprimer = MagicMock(return_value=False)
+
+    # WHEN
+    res = ListeCourseService().retirer_ingredient_course(id_utilisateur, nom_ingredient)
+
+    # THEN
+    assert not res
 
 
 if __name__ == "__main__":
