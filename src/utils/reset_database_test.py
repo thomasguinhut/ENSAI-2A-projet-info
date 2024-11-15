@@ -8,7 +8,6 @@ from dao.db_connection import DBConnection
 
 
 class ResetDatabaseTest(metaclass=Singleton):
-
     """
 
     Initialisation de la base de données test.
@@ -32,8 +31,7 @@ class ResetDatabaseTest(metaclass=Singleton):
 
         schema = os.environ["POSTGRES_SCHEMA"]
 
-        create_schema = (f"DROP SCHEMA IF EXISTS {schema} CASCADE;"
-                         f"CREATE SCHEMA {schema};")
+        create_schema = f"DROP SCHEMA IF EXISTS {schema} CASCADE;" f"CREATE SCHEMA {schema};"
 
         try:
             with open("data/init_db.sql", encoding="utf-8") as init_db:
@@ -60,8 +58,7 @@ class ResetDatabaseTest(metaclass=Singleton):
             logging.error(f"Fichier manquant : {fnf_error}")
             raise
         except Exception as e:
-            logging.error(
-                f"Erreur lors de l'exécution des requêtes SQL : {e}")
+            logging.error(f"Erreur lors de l'exécution des requêtes SQL : {e}")
             raise
 
 

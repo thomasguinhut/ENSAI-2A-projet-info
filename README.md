@@ -26,18 +26,6 @@ Application réalisé
 - [ ] Cliquez une seule fois sur *ENSAI-2A-projet-info-groupe-20* et cliquez sur `Sélectionner un dossier`
   - :warning: Si le dossier parent dans l'explorer VSCode (à gauche) n'est pas *ENSAI-2A-projet-info-groupe-20*, l'application ne fonctionnera pas
 
-### Paramètres VScode
-
-Ce dépôt contient un fichier `.vscode/settings.xml` qui définit des paramètres pour ce projet. Par exemple :
-
-- **Black formatter** permet de mettre en forme automatiquement un fichier python
-  - `editor.formatOnSave` : à chaque savegarde de fichier, le code est automatiquement mis en forme
-- **Flake** est un Linter
-  - il vérifie que le code est propre et affiche un message si ce n'est pas le cas
-- **Path** : indique les dossiers dans lesquels sont les modules python 
-  - `"PYTHONPATH": "${workspaceFolder}/src"` : src est le dossier racine des imports
-
-
 ### Fichiers de configuration
 
 Ce dépôt contient de nombreux fichiers de configuration pour paramètrer les différents outils utilisés.
