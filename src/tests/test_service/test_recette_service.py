@@ -59,6 +59,7 @@ def test_trouver_liste_recettes():
 
     # WHEN
     res = RecetteService().trouver_liste_recettes()
+    print(RecetteDao().trouver_liste_recettes())
 
     # THEN
     assert len(res) == 2
