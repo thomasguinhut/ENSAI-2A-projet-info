@@ -25,7 +25,7 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
         while True:
             choix = inquirer.select(
                 message="Choisissez une recette ou une option :",
-                choices=self.creer_options_menu(pages),
+                choices=(self.creer_options_menu(pages), "Retour"),
             ).execute()
 
             if choix == "Retourner au menu principal":
@@ -33,6 +33,11 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
                 from view.accueil.accueil_vue import AccueilVue
 
                 return AccueilVue("Retour au menu principal")
+
+            elif choix == "Retour":
+                from view.menu_liste_recettes_vue import MenuListerecettesVue
+
+                return MenuListerecettesVue()
 
             if choix == "Page suivante" and self.page_actuelle < len(pages) - 1:
                 self.page_actuelle += 1
