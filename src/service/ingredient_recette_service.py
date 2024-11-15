@@ -69,34 +69,6 @@ class IngredientRecetteService:
             else:
                 return None
 
-    # @log
-    # def lister_recettes_par_ingredient(self, ingredient) -> list[Recette]:
-    #     res = IngredientRecetteDao().lister_recettes_par_ingredient(ingredient)
-    #     print(res)
-    #     liste_recettes = []
-    #     if res:
-    #         for row in res:
-    #             id_origine = row["id_origine"]
-    #             origine = Origine(id_origine, OrigineDao().get_nom_origine_by_id(id_origine))
-    #             id_categorie = row["id_categorie"]
-    #             categorie = Categorie(
-    #                 id_categorie, CategorieDao().get_nom_categorie_by_id(id_categorie)
-    #             )
-    #             res_ingredients = IngredientRecetteDao().lister_ingredients_by_recette(row["id_recette"])
-    #             liste_ingredients_recette = []
-    #             for ingredient in res_ingredients.keys():
-    #                 ingredient = Ingredient(ingredient, res_ingredients[ingredient])
-    #             recette = Recette(
-    #                 id_recette=row["id_recette"],
-    #                 nom_recette=row["nom_recette"],
-    #                 instructions_recette=row["instructions_recette"],
-    #                 origine_recette=origine,
-    #                 categorie_recette=categorie,
-    #                 ingredients_recette=
-    #             )
-    #             liste_recettes.append(recette)
-    #     return liste_recettes
-
     @log
     def lister_ingredients_by_recette(self, id_recette) -> list[dict]:
         """lister toutes les recettes par ingrédient
