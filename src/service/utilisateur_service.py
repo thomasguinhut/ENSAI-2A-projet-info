@@ -8,7 +8,6 @@ from dao.utilisateur_dao import UtilisateurDao
 
 
 class UtilisateurService:
-
     """
 
 
@@ -34,52 +33,10 @@ class UtilisateurService:
         if res is not None:
             utilisateur = Utilisateur(
                 id_utilisateur=id_utilisateur,
-                mdp=res['mdp'],
+                mdp=res["mdp"],
             )
             return utilisateur
         return None
-
-    @log
-    def modifier(self, utilisateur) -> Utilisateur:
-        """Modification d'un utilisateur"""
-
-        utilisateur.mdp = hash_password(
-            utilisateur.mdp, utilisateur.id_utilisateur)
-        return utilisateur if UtilisateurDao().modifier(Utilisateur) else None
-
-    @log
-    def supprimer(self, utilisateur) -> bool:
-        """Supprimer le compte d'un utilisateur"""
-        return UtilisateurDao().supprimer(utilisateur)
-
-    @log
-    def lister_tous(self) -> str:
-        """Afficher tous les utilisateurs
-        Sortie : Une chaine de caractères mise sous forme de tableau
-        """
-        entetes = ["id_utilisateur"]
-
-        utilisateurs = UtilisateurDao().lister_tous()
-        print(utilisateurs)
-        for j in utilisateurs:
-            if j.id_utilisateur == "admin":
-                utilisateurs.remove(j)
-
-        utilisateurs_as_list = [j.as_list() for j in utilisateurs]
-
-        str_utilisateurs = "-" * 100
-        str_utilisateurs += "\nListe des joueurs \n"
-        str_utilisateurs += "-" * 100
-        str_utilisateurs += "\n"
-        str_utilisateurs += tabulate(
-            tabular_data=utilisateurs_as_list,
-            headers=entetes,
-            tablefmt="psql",
-            floatfmt=".2f",
-        )
-        str_utilisateurs += "\n"
-
-        return str_utilisateurs
 
     @log
     def existence_id(self, id_utilisateur) -> bool:
