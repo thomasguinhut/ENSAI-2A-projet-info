@@ -4,11 +4,11 @@ from utils.singleton import Singleton
 from utils.log_decorator import log
 
 from dao.db_connection import DBConnection
+
 # from business_object.utilisateur import Utilisateur
 
 
 class RecetteFavoriteDao(metaclass=Singleton):
-
     """
 
     Création de la classe RecetteFavoriteDao.
@@ -19,7 +19,7 @@ class RecetteFavoriteDao(metaclass=Singleton):
     """
 
     @log
-    def supprimer(self, utilisateur, recette) -> bool:
+    def retirer_favori(self, utilisateur, recette) -> bool:
         """Suppression d'une recette de la liste des recettes favorites
 
         Parameters
@@ -42,7 +42,7 @@ class RecetteFavoriteDao(metaclass=Singleton):
                         " AND id_recette=%(id_recette)s      ",
                         {
                             "id_utilisateur": utilisateur.id_utilisateur,
-                            "id_recette": recette.id_recette
+                            "id_recette": recette.id_recette,
                         },
                     )
                     res = cursor.rowcount
@@ -74,8 +74,10 @@ class RecetteFavoriteDao(metaclass=Singleton):
                         "INSERT INTO recette_favorite(id_utilisateur, id_recette) VALUES        "
                         "(%(id_utilisateur)s, %(id_recette)s)             "
                         "  RETURNING id_utilisateur;                                ",
-                        {"id_utilisateur": utilisateur.id_utilisateur,
-                         "id_recette": recette.id_recette},
+                        {
+                            "id_utilisateur": utilisateur.id_utilisateur,
+                            "id_recette": recette.id_recette,
+                        },
                     )
                     res = cursor.fetchone()
         except Exception as e:
@@ -111,9 +113,7 @@ class RecetteFavoriteDao(metaclass=Singleton):
                         "  SELECT *                              "
                         "  FROM recette_favorite  "
                         "  WHERE id_utilisateur = %(id_utilisateur)s;           ",
-                        {
-                            "id_utilisateur": id_utilisateur
-                        },
+                        {"id_utilisateur": id_utilisateur},
                     )
                     res = cursor.fetchall()
         except Exception as e:

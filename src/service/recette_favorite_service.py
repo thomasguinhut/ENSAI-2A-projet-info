@@ -9,7 +9,6 @@ from service.recette_service import RecetteService
 
 
 class RecetteFavoriteService:
-
     """
 
     Création de classe RecetteFavoriteService.
@@ -19,25 +18,26 @@ class RecetteFavoriteService:
     ensuite la manipulation des informations.
 
     """
+
     @log
-    def supprimer(self, id_utilisateur, nom_recette: str) -> bool:
+    def retirer_favori(self, id_utilisateur, nom_recette: str) -> bool:
         """
 
-        Suppression d'une recette de la liste des recettes favorites.
+                Suppression d'une recette de la liste des recettes favorites.
 
-        Parameters
-        ----------
-        nom_recette : str
-            recette à supprimer de la liste des recettes favorites
+                Parameters
+                ----------
+                nom_recette : str
+                    recette à supprimer de la liste des recettes favorites
 
-        Returns
-        -------
-            True si la recette a bien été supprimée
-.
+                Returns
+                -------
+                    True si la recette a bien été supprimée
+        .
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         recette = RecetteService().trouver_recette(nom_recette)
-        RecetteFavoriteDao().supprimer(utilisateur, recette)
+        RecetteFavoriteDao().retirer_favori(utilisateur, recette)
 
     @log
     def lister_recette_favorite(self, id_utilisateur) -> list[Recette]:
@@ -46,8 +46,7 @@ class RecetteFavoriteService:
         liste_recette = []
         if res:
             for row in res:
-                nom_recette = RecetteService().get_nom_recette_by_id(
-                    row["id_recette"])
+                nom_recette = RecetteService().get_nom_recette_by_id(row["id_recette"])
                 recette = RecetteService().trouver_recette(nom_recette)
                 liste_recette.append(recette)
             return liste_recette
@@ -57,19 +56,19 @@ class RecetteFavoriteService:
     @log
     def ajouter_favori(self, id_utilisateur, nom_recette) -> bool:
         """
-        Ajout d'une recette à la liste des recettes favorites de l'utilisateur.
+                Ajout d'une recette à la liste des recettes favorites de l'utilisateur.
 
-        Parameters
-        ----------
-        recette : Recette
-            recette à ajouter de la liste des recettes favorites
-        utilisateur : Utilisateur
-            utilisateur dont on modifie la liste des recetttes favorites
+                Parameters
+                ----------
+                recette : Recette
+                    recette à ajouter de la liste des recettes favorites
+                utilisateur : Utilisateur
+                    utilisateur dont on modifie la liste des recetttes favorites
 
-        Returns
-        -------
-            True si la recette a bien été ajoutée
-.
+                Returns
+                -------
+                    True si la recette a bien été ajoutée
+        .
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         recette = RecetteService().trouver_recette(nom_recette)
