@@ -162,4 +162,4 @@ cython_debug/
 logs/*
 
 test.py
-test_ben
+test_ben.py
