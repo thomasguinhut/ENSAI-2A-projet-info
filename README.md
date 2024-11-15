@@ -1,15 +1,4 @@
-# ENSAI-2A-projet-info-template
-
-Template du projet informatique de 2e année de l'ENSAI.
-
-Cette application très simple comporte quelques éléments qui peuvent aider pour le projet info 2A :
-
-- Programmation en couche (DAO, service, view, business_object)
-- Connexion à une base de données
-- Interface dans le terminal (couche view) avec inquirerPy
-- Appel d'un Webservice
-- Création d'un Webservice
-
+# ENSAI-2A-projet-info
 
 ## :arrow_forward: Logiciels requis
 
@@ -23,10 +12,8 @@ Cette application très simple comporte quelques éléments qui peuvent aider po
 ## :arrow_forward: Clonez le dépôt
 
 - [ ] Ouvrez **Git Bash**
-- [ ] Créez un dossier `P:/Cours2A/UE3-Projet-info` et positionnez-vous dedans
-  - `mkdir -p /p/Cours2A/UE3-Projet-info && cd $_`
-- [ ] Clonez ce dépôt
-  - `git clone https://github.com/ludo2ne/ENSAI-2A-projet-info-template.git`
+- [ ] Après vous être positioné dans le dossier de votre choix, clonez ce dépôt
+  - `git clone git@github.com:thomasguinhut/ENSAI-2A-projet-info.git`
 
 ---
 
