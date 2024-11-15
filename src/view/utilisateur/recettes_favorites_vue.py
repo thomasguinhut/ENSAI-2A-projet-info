@@ -37,6 +37,6 @@ class RecettesFavoritesVue(VueAbstraite):
 
     def creer_options_menu(self):
         """Génère la liste des options de menu à partir des recettes favorites."""
-        options = [recette.nom for recette in self.recettes_favorites]
+        options = [recette.nom_recette for recette in self.recettes_favorites]
         options.append("Retourner au menu principal")
         return options
