@@ -31,8 +31,8 @@ class ListeCoursesVue(VueAbstraite):
 
             return UtilisateurVue("Retour au menu principal")
         else:
-            ListeCourseService().retirer_ingredient_course(Session().utilisateur, choix)
-            print(f"L'ingrédient {choix} a été retiré de votre liste de courses!")
+            ListeCourseService().retirer_ingredient_course(Session().utilisateur.id_utilisateur, choix)
+            print(f"L'ingrédient {choix} a été retiré de votre liste de courses!\n")
             self.choisir_menu()
 
     def creer_options_menu(self):

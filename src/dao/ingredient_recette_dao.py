@@ -7,7 +7,6 @@ from dao.db_connection import DBConnection
 
 
 class IngredientRecetteDao(metaclass=Singleton):
-
     """
 
     Création de la classe IngredientRecetteDao.
@@ -31,7 +30,7 @@ class IngredientRecetteDao(metaclass=Singleton):
              True si la création est un succès
              False sinon
         """
-
+        created = None
         for ingredient in recette.ingredients_recette:
 
             res = None
@@ -75,7 +74,7 @@ class IngredientRecetteDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "SELECT *                              "
-                        "  FROM recette; "
+                        "  FROM recette "
                         "  JOIN ingredient_recette USING(id_recette)"
                         "  JOIN ingredient USING(id_ingredient)"
                         "  WHERE id_ingredient=%(id_ingredient)s;                     ",
@@ -110,7 +109,7 @@ class IngredientRecetteDao(metaclass=Singleton):
                         "FROM ingredient "
                         "JOIN ingredient_recette USING(id_ingredient) "
                         "WHERE id_recette = %(id_recette)s;",
-                        {'id_recette': id_recette}
+                        {"id_recette": id_recette},
                     )
                     res = cursor.fetchall()
         except Exception as e:

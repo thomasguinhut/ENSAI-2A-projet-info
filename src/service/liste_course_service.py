@@ -10,7 +10,6 @@ from dao.liste_course_dao import ListeCourseDao
 
 
 class ListeCourseService:
-
     """
 
     Création de classe ListeCourseservice.
@@ -37,17 +36,17 @@ class ListeCourseService:
     @log
     def ajouter_ingredients_courses(self, id_utilisateur, nom_recette) -> bool:
         """
-.
+        .
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         recette = RecetteService().trouver_recette(nom_recette)
-        ListeCourseDao().ajouter_ingredients_courses(utilisateur, recette)
+        return ListeCourseDao().ajouter_ingredients_courses(utilisateur, recette)
 
     @log
-    def supprimer(self, id_utilisateur, nom_ingredient: str) -> bool:
+    def retirer_ingredient_course(self, id_utilisateur, nom_ingredient: str) -> bool:
         """
-.
+        .
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         ingredient = IngredientService().trouver_ingredient(nom_ingredient)
-        ListeCourseDao().supprimer(utilisateur, ingredient)
+        return ListeCourseDao().retirer_ingredient_course(utilisateur, ingredient)

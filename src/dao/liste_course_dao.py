@@ -10,7 +10,6 @@ from business_object.recette import Recette
 
 
 class ListeCourseDao(metaclass=Singleton):
-
     """
 
     Création de la classe ListeCourseDao.
@@ -21,7 +20,7 @@ class ListeCourseDao(metaclass=Singleton):
     """
 
     @log
-    def supprimer(self, utilisateur: Utilisateur, ingredient: Ingredient) -> bool:
+    def retirer_ingredient_course(self, utilisateur: Utilisateur, ingredient: Ingredient) -> bool:
         """
 
         Suppression un ingrédient donné de la liste de courses
@@ -48,7 +47,8 @@ class ListeCourseDao(metaclass=Singleton):
                         " AND id_ingredient=%(id_ingredient)s",
                         {
                             "id_utilisateur": utilisateur.id_utilisateur,
-                            "id_ingredient": ingredient.id_ingredient}
+                            "id_ingredient": ingredient.id_ingredient,
+                        },
                     )
                     res = cursor.rowcount
         except Exception as e:
@@ -58,8 +58,7 @@ class ListeCourseDao(metaclass=Singleton):
         return res > 0
 
     @log
-    def trouver_par_id(self, utilisateur: Utilisateur,
-                       ingredient: Ingredient) -> bool:
+    def trouver_par_id(self, utilisateur: Utilisateur, ingredient: Ingredient) -> bool:
         """
 
         Determiner si un couplage (utilisateur, ingrédient) donné existe dans
@@ -92,8 +91,7 @@ class ListeCourseDao(metaclass=Singleton):
         return res is not None
 
     @log
-    def ajouter_ingredients_courses(self, utilisateur: Utilisateur,
-                                    recette: Recette) -> bool:
+    def ajouter_ingredients_courses(self, utilisateur: Utilisateur, recette: Recette) -> bool:
         """
 
         Ajout de tous les ingrédients d'une recette à la liste de courses
@@ -121,13 +119,11 @@ class ListeCourseDao(metaclass=Singleton):
                         "   WHERE ir.id_recette = %(id_recette)s",
                         {
                             "id_recette": recette.id_recette,
-                        }
+                        },
                     )
                     ingredients = cursor.fetchall()
-                    print(ingredients)
                     # Ajout des ingrédients à la liste de courses
                     for ingredient in ingredients:
-                        print(ingredient)
                         id_ingredient = ingredient["id_ingredient"]
                         # Vérification si l'ingrédient est déjà dans la liste
                         # de courses
@@ -138,21 +134,19 @@ class ListeCourseDao(metaclass=Singleton):
                             "   AND id_ingredient = %(id_ingredient)s ",
                             {
                                 "id_utilisateur": utilisateur.id_utilisateur,
-                                "id_ingredient": id_ingredient
-                            }
+                                "id_ingredient": id_ingredient,
+                            },
                         )
                         res = cursor.fetchone()
-                        if (not isinstance(res, dict)):
-                            print(id_ingredient)
+                        if not isinstance(res, dict):
                             cursor.execute(
                                 "INSERT INTO liste_course(id_utilisateur, "
                                 "id_ingredient) VALUES "
                                 "(%(id_utilisateur)s, %(id_ingredient)s)",
                                 {
-                                    "id_utilisateur": (
-                                        utilisateur.id_utilisateur),
-                                    "id_ingredient": id_ingredient
-                                }
+                                    "id_utilisateur": (utilisateur.id_utilisateur),
+                                    "id_ingredient": id_ingredient,
+                                },
                             )
             return True  # Tous les ingrédients ont été ajoutés avec succès
         except Exception as e:
@@ -160,10 +154,7 @@ class ListeCourseDao(metaclass=Singleton):
             return False  # En cas d'erreur
 
     @log
-    def lister_ingredients_liste_course(
-        self,
-        utilisateur: Utilisateur
-    ) -> list[Ingredient]:
+    def lister_ingredients_liste_course(self, utilisateur: Utilisateur) -> list[Ingredient]:
         """
 
         Liste tous les ingrédients de la liste de course de l'utilisateur.
@@ -178,7 +169,6 @@ class ListeCourseDao(metaclass=Singleton):
             renvoie la liste de tous les ingrédients de la liste de course
             de l'utilisateur
         """
-        print(utilisateur)
         id_utilisateur = utilisateur.id_utilisateur
         try:
             with DBConnection().connection as connection:

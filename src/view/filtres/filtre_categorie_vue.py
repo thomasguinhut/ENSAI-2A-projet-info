@@ -20,7 +20,7 @@ class FiltreCategorieVue(FiltreAbstraitVue):
             message="Choisissez vos filtres:", choices=self.creer_options_menu(self.liste_criteres)
         ).execute()
 
-       if choix == "Retourner au menu des filtres":
+        if choix == "Retourner au menu des filtres":
             if Session().utilisateur:
                 from view.utilisateur.ajouter_filtres_utilisateur_vue import (
                     AjouterFiltresUtilisateurVue,

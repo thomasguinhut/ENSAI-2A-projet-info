@@ -37,7 +37,7 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
     def diviser_en_pages(self):
         """Divise la liste des recettes filtrées en pages."""
         recettes_filtrees = self.filtrer_recettes()
-        return [recettes_filtrees[i : (i + 5)] for i in range(0, len(recettes_filtrees), 5)]
+        return [recettes_filtrees[i : (i + 30)] for i in range(0, len(recettes_filtrees), 30)]
 
     def creer_options_menu(self, pages):
         """Crée les options de menu incluant la pagination."""
