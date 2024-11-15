@@ -2,8 +2,8 @@ import dotenv
 import logging
 import os
 
-from log_decorator import log
-from singleton import Singleton
+from utils.log_decorator import log
+from utils.singleton import Singleton
 from dao.db_connection import DBConnection
 
 

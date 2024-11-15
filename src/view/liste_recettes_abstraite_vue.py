@@ -1,7 +1,6 @@
 from view.vue_abstraite import VueAbstraite
 from service.recette_service import RecetteService
 from view.session import Session
-from business_object.recette import Recette
 
 
 class ListeRecettesAbstraiteVue(VueAbstraite):

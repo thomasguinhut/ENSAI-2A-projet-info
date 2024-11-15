@@ -9,7 +9,6 @@ from business_object.utilisateur import Utilisateur
 
 
 class UtilisateurDao(metaclass=Singleton):
-
     """
 
     Création de la classe UtilisateurDao.
@@ -133,7 +132,7 @@ class UtilisateurDao(metaclass=Singleton):
         utilisateur : Utilisateur
             renvoie l'utilisateur que l'on cherche
         """
-        
+
         res = None
         try:
             with DBConnection().connection as connection:
@@ -158,35 +157,3 @@ class UtilisateurDao(metaclass=Singleton):
             )
 
         return utilisateur
-
-    @log
-    def lister_tous(self) -> list[dict[str, str]]:
-        """
-
-        Liste tous les utilisateurs de la base de donénes.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        liste_utilisateur : list[dict[
-            "id_utilisateur": str, "mdp": str]]
-            Renvoie la liste de tous les utilisateurs sous forme de
-            dictionnaires
-
-        """
-
-        try:
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
-                    cursor.execute(
-                        "SELECT *"
-                        "   FROM utilisateur;"
-                    )
-                    res = cursor.fetchall()
-        except Exception as e:
-            logging.info(e)
-            raise
-        return res
