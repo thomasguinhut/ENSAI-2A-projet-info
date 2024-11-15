@@ -32,7 +32,7 @@ class FiltreCategorieVue(FiltreAbstraitVue):
                 from view.invite.ajouter_filtres_invite_vue import AjouterFiltresInviteVue
 
                 return AjouterFiltresInviteVue()
-        else:
+       else:
             Session().choix_filtres_categorie.append(choix)
             return self.choisir_menu()
 
