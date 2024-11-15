@@ -122,10 +122,8 @@ class ListeCourseDao(metaclass=Singleton):
                         },
                     )
                     ingredients = cursor.fetchall()
-                    print(ingredients)
                     # Ajout des ingrédients à la liste de courses
                     for ingredient in ingredients:
-                        print(ingredient)
                         id_ingredient = ingredient["id_ingredient"]
                         # Vérification si l'ingrédient est déjà dans la liste
                         # de courses
@@ -141,7 +139,6 @@ class ListeCourseDao(metaclass=Singleton):
                         )
                         res = cursor.fetchone()
                         if not isinstance(res, dict):
-                            print(id_ingredient)
                             cursor.execute(
                                 "INSERT INTO liste_course(id_utilisateur, "
                                 "id_ingredient) VALUES "
@@ -172,7 +169,6 @@ class ListeCourseDao(metaclass=Singleton):
             renvoie la liste de tous les ingrédients de la liste de course
             de l'utilisateur
         """
-        print(utilisateur)
         id_utilisateur = utilisateur.id_utilisateur
         try:
             with DBConnection().connection as connection:

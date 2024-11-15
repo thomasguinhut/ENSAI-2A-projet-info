@@ -49,4 +49,4 @@ class ListeCourseService:
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         ingredient = IngredientService().trouver_ingredient(nom_ingredient)
-        return ListeCourseDao().supprimer(utilisateur, ingredient)
+        return ListeCourseDao().retirer_ingredient_course(utilisateur, ingredient)
