@@ -61,10 +61,10 @@ liste_utilisateurs = [
 
 #     # GIVEN
 #     id_utilisateur = "thomas"
-   
+
 #     # WHEN
 #     utilisateur_trouve = UtilisateurService().existence_id(id_utilisateur)
-   
+
 #     # THEN
 #     assert utilisateur_trouve
 

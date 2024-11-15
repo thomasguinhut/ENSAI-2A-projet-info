@@ -37,7 +37,7 @@ class RecetteFavoriteService:
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         recette = RecetteService().trouver_recette(nom_recette)
-        RecetteFavoriteDao().retirer_favori(utilisateur, recette)
+        return RecetteFavoriteDao().retirer_favori(utilisateur, recette)
 
     @log
     def lister_recette_favorite(self, id_utilisateur) -> list[Recette]:
@@ -72,4 +72,4 @@ class RecetteFavoriteService:
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         recette = RecetteService().trouver_recette(nom_recette)
-        RecetteFavoriteDao().ajouter_favori(utilisateur, recette)
+        return RecetteFavoriteDao().ajouter_favori(utilisateur, recette)
