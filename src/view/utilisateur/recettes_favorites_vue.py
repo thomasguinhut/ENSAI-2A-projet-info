@@ -30,6 +30,10 @@ class RecettesFavoritesVue(VueAbstraite):
 
             return UtilisateurVue("Retour au menu principal")
 
+        if choix == "Retour au menu précédent":
+            from view.utilisateur.gestion_listes_vue import GestionListesVue
+
+            return GestionListesVue()
         else:
             from view.utilisateur.recette_utilisateur_vue import RecetteUtilisateurVue
 
@@ -38,5 +42,6 @@ class RecettesFavoritesVue(VueAbstraite):
     def creer_options_menu(self):
         """Génère la liste des options de menu à partir des recettes favorites."""
         options = [recette.nom_recette for recette in self.recettes_favorites]
+        options.append("Retour au menu précédent")
         options.append("Retourner au menu principal")
         return options

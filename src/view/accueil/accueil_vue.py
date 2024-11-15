@@ -4,6 +4,7 @@ from view.vue_abstraite import VueAbstraite
 
 class AccueilVue(VueAbstraite):
     """Vue d'accueil de l'application"""
+
     def __init__(self, message=""):
         super().__init__(message)
 
@@ -43,6 +44,6 @@ class AccueilVue(VueAbstraite):
                 return InscriptionVue("Création du compte utilisateur")
 
             case "Mode invité":
-                from view.menu_liste_recettes_vue import MenuListeRecettes
+                from view.menu_liste_recettes_vue import MenuListeRecettesVue
 
-                return MenuListeRecettes("Mode invité")
+                return MenuListeRecettesVue("Mode invité")

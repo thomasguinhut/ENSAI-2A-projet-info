@@ -48,6 +48,7 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
         if self.page_actuelle < len(pages) - 1:
             options.append("Page suivante")
 
+        options.append("Retour au menu précédent")
         options.append("Retourner au menu principal")
 
         return options
