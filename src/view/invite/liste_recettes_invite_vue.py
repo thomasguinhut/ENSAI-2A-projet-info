@@ -1,6 +1,7 @@
 from InquirerPy import inquirer
 from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
 from view.session import Session
+from view.historique_vues import HistoriqueVues
 
 
 class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
@@ -17,6 +18,7 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
 
     def choisir_menu(self):
         """Affiche le menu de sélection des recettes et gère les choix de l'utilisateur."""
+        HistoriqueVues().ajouter_vue(self)
         pages = self.diviser_en_pages()
         if not pages:
             print("Aucune recette disponible.")

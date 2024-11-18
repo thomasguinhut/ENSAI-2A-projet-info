@@ -3,6 +3,7 @@ from view.vue_abstraite import VueAbstraite
 from service.utilisateur_service import UtilisateurService
 from view.session import Session
 from utils.securite import hash_password
+from view.historique_vues import HistoriqueVues
 
 
 class ConnexionVue(VueAbstraite):
@@ -12,6 +13,8 @@ class ConnexionVue(VueAbstraite):
         super().__init__(message)
 
     def choisir_menu(self):
+        HistoriqueVues().ajouter_vue(self)
+
         # Demande à l'utilisateur de saisir pseudo et mot de passe
         id_utilisateur = inquirer.text(message="Entrez votre pseudo : ").execute()
         mdp = inquirer.secret(message="Entrez votre mot de passe :").execute()

@@ -1,6 +1,7 @@
 from InquirerPy import inquirer
 from view.vue_abstraite import VueAbstraite
 from view.session import Session
+from view.historique_vues import HistoriqueVues
 
 
 class MenuListeRecettesUtilisateurVue(VueAbstraite):
@@ -17,6 +18,8 @@ class MenuListeRecettesUtilisateurVue(VueAbstraite):
 
     def choisir_menu(self):
         """Affiche le menu de sélection des options pour les recettes."""
+        HistoriqueVues().ajouter_vue(self)
+
         choix = inquirer.select(
             message="Que souhaitez-vous faire ?",
             choices=[
@@ -43,6 +46,7 @@ class MenuListeRecettesUtilisateurVue(VueAbstraite):
                 return AjouterFiltresUtilisateurVue()
 
             case "Retour au menu principal":
+
                 from view.utilisateur.utilisateur_vue import UtilisateurVue
 
                 return UtilisateurVue()

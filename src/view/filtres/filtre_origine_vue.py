@@ -2,6 +2,7 @@ from view.filtres.filtre_abstrait_vue import FiltreAbstraitVue
 from service.origine_service import OrigineService
 from view.session import Session
 from InquirerPy import inquirer
+from view.historique_vues import HistoriqueVues
 
 
 class FiltreOrigineVue(FiltreAbstraitVue):
@@ -16,6 +17,7 @@ class FiltreOrigineVue(FiltreAbstraitVue):
 
     def choisir_menu(self):
         """Affiche le menu de sélection des filtres par origine."""
+        HistoriqueVues().ajouter_vue(self)
         choix = inquirer.select(
             message="Choisissez vos filtres:", choices=self.creer_options_menu(self.liste_criteres)
         ).execute()

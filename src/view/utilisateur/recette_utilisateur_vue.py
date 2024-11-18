@@ -1,10 +1,14 @@
 from view.vue_abstraite import VueAbstraite
 from view.session import Session
+from view.historique_vues import HistoriqueVues
 
 from service.recette_service import RecetteService
 from service.recette_favorite_service import RecetteFavoriteService
 from service.avis_service import AvisService
 from service.liste_course_service import ListeCourseService
+
+from view.utilisateur.liste_recettes_utilisateur_vue import ListeRecettesUtilisateurVue
+from view.utilisateur.recettes_favorites_vue import RecettesFavoritesVue
 
 from InquirerPy import inquirer
 
@@ -27,6 +31,7 @@ class RecetteUtilisateurVue(VueAbstraite):
     def choisir_menu(self):
         """Affiche le menu des options disponibles pour l'utilisateur connecté."""
         id_utilisateur = Session().utilisateur.id_utilisateur
+        HistoriqueVues().ajouter_vue(self)
 
         while True:
             choix = inquirer.select(
@@ -38,17 +43,17 @@ class RecetteUtilisateurVue(VueAbstraite):
                     "Ajouter un avis",
                     "Retirer un avis",
                     "Ajouter les ingrédients à la liste de courses",
-                    "Retourner à la liste des recettes",
+                    "Retourner au menu précédent",
+                    "Retourner au menu principal",
                 ],
             ).execute()
 
             if choix == "Afficher la recette":
-                from view.utilisateur.liste_recettes_utilisateur_vue import (
-                    ListeRecettesUtilisateurVue,
-                )
-
                 ListeRecettesUtilisateurVue().afficher_recette(self.nom_recette)
-                self.choisir_menu()
+
+                HistoriqueVues().retirer_vue()
+
+                return self
 
             elif choix == "Ajouter aux favoris":
                 RecetteFavoriteService().ajouter_favori(id_utilisateur, self.nom_recette)
@@ -75,9 +80,10 @@ class RecetteUtilisateurVue(VueAbstraite):
                     "ont été ajoutés à la liste de courses.\n"
                 )
 
-            elif choix == "Retourner à la liste des recettes":
-                from view.utilisateur.liste_recettes_utilisateur_vue import (
-                    ListeRecettesUtilisateurVue,
-                )
+            elif choix == "Retourner au menu précédent":
+                return HistoriqueVues().historique[-2]
 
-                return ListeRecettesUtilisateurVue("Retour à la liste des recettes")
+            else:
+                from view.utilisateur.utilisateur_vue import UtilisateurVue
+
+                return UtilisateurVue("Retour au menu principal")

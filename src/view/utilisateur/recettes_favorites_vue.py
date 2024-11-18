@@ -1,7 +1,10 @@
 from InquirerPy import inquirer
+
+
 from view.vue_abstraite import VueAbstraite
 from service.recette_favorite_service import RecetteFavoriteService
 from view.session import Session
+from view.historique_vues import HistoriqueVues
 
 
 class RecettesFavoritesVue(VueAbstraite):
@@ -21,6 +24,9 @@ class RecettesFavoritesVue(VueAbstraite):
 
     def choisir_menu(self):
         """Affiche le menu de sélection des recettes favorites."""
+
+        HistoriqueVues().ajouter_vue(self)
+
         if self.recettes_favorites is None:
             from view.utilisateur.gestion_listes_vue import GestionListesVue
 

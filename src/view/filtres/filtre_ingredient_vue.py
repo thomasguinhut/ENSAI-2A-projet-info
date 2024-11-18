@@ -2,6 +2,7 @@ from view.filtres.filtre_abstrait_vue import FiltreAbstraitVue
 from service.ingredient_service import IngredientService
 from view.session import Session
 from InquirerPy import inquirer
+from view.historique_vues import HistoriqueVues
 
 
 class FiltreIngredientVue(FiltreAbstraitVue):
@@ -14,6 +15,7 @@ class FiltreIngredientVue(FiltreAbstraitVue):
 
     def choisir_menu(self):
         """Affiche le menu de sélection des filtres par ingrédient."""
+        HistoriqueVues().ajouter_vue(self)
         choix = inquirer.select(
             message="Choisissez vos filtres:", choices=self.creer_options_menu(self.liste_criteres)
         ).execute()

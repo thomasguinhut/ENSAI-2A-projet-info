@@ -1,6 +1,7 @@
 from InquirerPy import inquirer
 from view.vue_abstraite import VueAbstraite
 from view.session import Session
+from view.historique_vues import HistoriqueVues
 
 
 class AjouterFiltresInviteVue(VueAbstraite):
@@ -17,6 +18,7 @@ class AjouterFiltresInviteVue(VueAbstraite):
 
     def choisir_menu(self):
         """Affiche le menu de sélection pour l'utilisateur invité et gère le choix effectué."""
+        HistoriqueVues().ajouter_vue(self)
         choix = inquirer.select(
             message="Faites votre choix :",
             choices=[

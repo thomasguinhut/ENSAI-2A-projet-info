@@ -1,5 +1,7 @@
 from InquirerPy import inquirer
+
 from view.vue_abstraite import VueAbstraite
+from view.historique_vues import HistoriqueVues
 
 
 class GestionListesVue(VueAbstraite):
@@ -16,6 +18,9 @@ class GestionListesVue(VueAbstraite):
 
     def choisir_menu(self):
         """Affiche le menu de choix pour la gestion des listes."""
+
+        HistoriqueVues().ajouter_vue(self)
+
         choix = inquirer.select(
             message="Faites votre choix :",
             choices=["Recettes favorites", "Liste de courses", "Retour au menu principal"],
@@ -30,7 +35,7 @@ class GestionListesVue(VueAbstraite):
             case "Liste de courses":
                 from view.utilisateur.liste_courses_vue import ListeCoursesVue
 
-                return ListeCoursesVue("Liste des courses")
+                return ListeCoursesVue("Liste de courses")
 
             case "Retour au menu principal":
                 from view.utilisateur.utilisateur_vue import UtilisateurVue

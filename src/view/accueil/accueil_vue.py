@@ -1,5 +1,6 @@
 from InquirerPy import inquirer
 from view.vue_abstraite import VueAbstraite
+from view.historique_vues import HistoriqueVues
 
 
 class AccueilVue(VueAbstraite):
@@ -18,6 +19,8 @@ class AccueilVue(VueAbstraite):
         """
 
         print("\n" + "-" * 50 + "\nAccueil\n" + "-" * 50 + "\n")
+
+        HistoriqueVues().ajouter_vue(self)
 
         choix = inquirer.select(
             message="Faites votre choix : ",

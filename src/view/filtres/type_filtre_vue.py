@@ -1,5 +1,6 @@
 from InquirerPy import inquirer
 from view.vue_abstraite import VueAbstraite
+from view.historique_vues import HistoriqueVues
 
 
 class TypeFiltreVue(VueAbstraite):
@@ -13,24 +14,24 @@ class TypeFiltreVue(VueAbstraite):
 
     def choisir_menu(self):
         """Affiche le menu pour choisir le type de filtre."""
+        HistoriqueVues().ajouter_vue(self)
         choix = inquirer.select(
             message="Choisissez votre type de filtre:",
-            choices=[
-                "Ingrédient",
-                "Catégorie",
-                "Origine"
-            ]
+            choices=["Ingrédient", "Catégorie", "Origine"],
         ).execute()
 
         match choix:
             case "Ingrédient":
                 from view.filtres.filtre_ingredient_vue import FiltreIngredientVue
+
                 return FiltreIngredientVue()
 
             case "Catégorie":
                 from view.filtres.filtre_categorie_vue import FiltreCategorieVue
+
                 return FiltreCategorieVue()
 
             case "Origine":
                 from view.filtres.filtre_origine_vue import FiltreOrigineVue
+
                 return FiltreOrigineVue()

@@ -2,6 +2,7 @@ from InquirerPy import inquirer
 from InquirerPy.validator import PasswordValidator
 from view.vue_abstraite import VueAbstraite
 from service.utilisateur_service import UtilisateurService
+from view.historique_vues import HistoriqueVues
 
 
 class InscriptionVue(VueAbstraite):
@@ -9,10 +10,13 @@ class InscriptionVue(VueAbstraite):
         super().__init__(message)
 
     def choisir_menu(self):
+        HistoriqueVues().ajouter_vue(self)
+
         # Demande à l'utilisateur de saisir pseudo, mot de passe...
         id_utilisateur = inquirer.text(message="Entrez votre pseudo : ").execute()
         if UtilisateurService().id_utilisateur_deja_utilise(id_utilisateur):
             from view.accueil.accueil_vue import AccueilVue
+
             return AccueilVue(f"Le pseudo {id_utilisateur} est déjà utilisé.")
 
         mdp = inquirer.secret(

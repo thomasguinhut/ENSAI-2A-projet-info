@@ -2,6 +2,7 @@ from InquirerPy import inquirer
 from view.vue_abstraite import VueAbstraite
 from service.liste_course_service import ListeCourseService
 from view.session import Session
+from view.historique_vues import HistoriqueVues
 
 
 class ListeCoursesVue(VueAbstraite):
@@ -21,6 +22,8 @@ class ListeCoursesVue(VueAbstraite):
 
     def choisir_menu(self):
         """Permet à l'utilisateur de choisir un ingrédient à retirer ou une option."""
+        HistoriqueVues().ajouter_vue(self)
+
         if self.liste_courses is None:
             from view.utilisateur.gestion_listes_vue import GestionListesVue
 

@@ -1,6 +1,7 @@
 from InquirerPy import inquirer
 from view.liste_recettes_abstraite_vue import ListeRecettesAbstraiteVue
 from view.session import Session
+from view.historique_vues import HistoriqueVues
 
 
 class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
@@ -17,6 +18,8 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
 
     def choisir_menu(self):
         """Affiche le menu de sélection des recettes et gère les choix de l'utilisateur."""
+        HistoriqueVues().ajouter_vue(self)
+
         pages = self.diviser_en_pages()
 
         if not pages:
@@ -32,12 +35,15 @@ class ListeRecettesUtilisateurVue(ListeRecettesAbstraiteVue):
             ).execute()
 
             if choix == "Retourner au menu principal":
+
                 Session().reset_filtres()
+
                 from view.utilisateur.utilisateur_vue import UtilisateurVue
 
                 return UtilisateurVue("Retour au menu principal")
 
             elif choix == "Retour au menu précédent":
+
                 from view.utilisateur.menu_liste_recettes_utilisateur_vue import (
                     MenuListeRecettesUtilisateurVue,
                 )
