@@ -58,3 +58,10 @@ class AvisService:
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         recette = RecetteService().trouver_recette(nom_recette)
         return AvisDao().ajouter_avis(note, commentaire, utilisateur, recette)
+
+    def get_id_avis_by_id_utilisateur_id_recette(self, id_utilisateur: str, id_recette: str) -> str:
+        if not isinstance(id_utilisateur, str):
+            raise TypeError("id_utilisateur doit être un str")
+        if not isinstance(id_recette, str):
+            raise TypeError("id_recette doit être un str")
+        return AvisDao().get_id_origine_by_name(id_utilisateur, id_recette)
