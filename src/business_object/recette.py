@@ -5,7 +5,6 @@ from business_object.avis import Avis
 
 
 class Recette:
-
     """
 
     Création de classe Recette.
@@ -48,7 +47,7 @@ class Recette:
         categorie_recette: Categorie,
         origine_recette: Origine,
         ingredients_recette: list[Ingredient],
-        avis_recette: Avis = None
+        avis_recette: list[Avis] = None,
     ):
         """
 
@@ -83,5 +82,13 @@ class Recette:
     def liste_ingredient_forme_explicite(self):
         affichage = ""
         for ingredient in self.ingredients_recette:
-            affichage += ingredient.nom_ingredient.capitalize() + ", "
+            affichage += ingredient.nom_ingredient.capitalize() + " | "
+        return affichage[:-2]
+
+    def liste_avis_forme_explicite(self):
+        affichage = ""
+        for avis in self.avis_recette:
+            affichage += (
+                avis.commentaire + f" ({(avis.note)}/5, publié par {(avis.id_utilisateur)})" + " | "
+            )
         return affichage[:-2]

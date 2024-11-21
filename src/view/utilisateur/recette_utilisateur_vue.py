@@ -57,7 +57,12 @@ class RecetteUtilisateurVue(VueAbstraite):
                 return self
 
             elif choix == "Ajouter aux favoris":
-                if self.recette in id_utilisateur.favoris:
+                if RecetteFavoriteService().lister_recette_favorite(id_utilisateur) is None:
+                    RecetteFavoriteService().ajouter_favori(id_utilisateur, self.nom_recette)
+                    print(f"La recette '{self.nom_recette}' a été ajoutée aux favoris.\n")
+                elif self.recette not in (
+                    RecetteFavoriteService().lister_recette_favorite(id_utilisateur)
+                ):
                     RecetteFavoriteService().ajouter_favori(id_utilisateur, self.nom_recette)
                     print(f"La recette '{self.nom_recette}' a été ajoutée aux favoris.\n")
                 else:
@@ -78,8 +83,13 @@ class RecetteUtilisateurVue(VueAbstraite):
                 id_avis = AvisService().get_id_avis_by_id_utilisateur_id_recette(
                     id_utilisateur, self.recette.id_recette
                 )
-                self.recette.avis_recette = Avis(id_avis, commentaire, note)
-                AvisService().ajouter_avis(note, commentaire, id_utilisateur, self.nom_recette)
+                if self.recette.avis_recette is not None:
+                    ancienne_liste = self.recette.avis_recette
+                    self.recette.avis_recette = ancienne_liste + Avis(id_avis, commentaire, note)
+                    AvisService().ajouter_avis(note, commentaire, id_utilisateur, self.nom_recette)
+                else:
+                    self.recette.avis_recette = Avis(id_avis, commentaire, note)
+                    AvisService().ajouter_avis(note, commentaire, id_utilisateur, self.nom_recette)
 
                 print(f"Votre avis a été ajouté à la recette '{self.nom_recette}'\n.")
 

@@ -140,3 +140,23 @@ class AvisDao(metaclass=Singleton):
             return res["id_avis"]
         else:
             return None
+
+    def get_avis_by_id_recette(self, id_recette: str) -> str:
+
+        if not isinstance(id_recette, str):
+            raise TypeError("id_recette doit être un str")
+
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT * " "FROM avis " "WHERE id_recette = %(id_recette)s;",
+                        {"id_recette": id_recette},
+                    )
+                    res = cursor.fetchall()
+        except Exception as e:
+            logging.info(e)
+            raise
+        if res:
+            return res

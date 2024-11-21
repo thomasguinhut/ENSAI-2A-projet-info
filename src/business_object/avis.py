@@ -25,7 +25,7 @@ class Avis:
 
     """
 
-    def __init__(self, id_avis: str, commentaire: str, note: int):
+    def __init__(self, id_avis: str, commentaire: str, note: int, id_utilisateur=None):
         """
 
         Constructeur de la classe.
@@ -44,3 +44,4 @@ class Avis:
         self.id_avis = str(id_avis)
         self.commentaire = str(commentaire)
         self.note = int(note)
+        self.id_utilisateur = str(id_utilisateur)

@@ -2,6 +2,10 @@ from view.vue_abstraite import VueAbstraite
 from service.recette_service import RecetteService
 from view.session import Session
 
+from service.avis_service import AvisService
+
+from business_object.avis import Avis
+
 
 class ListeRecettesAbstraiteVue(VueAbstraite):
     """Classe abstraite pour les listes de recettes avec des fonctionnalités communes."""
@@ -61,12 +65,33 @@ class ListeRecettesAbstraiteVue(VueAbstraite):
         if recette is None:
             print(f"Erreur: La recette '{nom_recette}' n'a pas été trouvée.")
             return
+        if AvisService().get_avis_by_id_recette(recette.id_recette):
+            liste_avis = []
+            for avis in AvisService().get_avis_by_id_recette(recette.id_recette):
+                objet_avis = Avis(
+                    str(avis["id_avis"]),
+                    str(avis["commentaire"]),
+                    int(avis["note"]),
+                    str(avis["id_utilisateur"]),
+                )
+                liste_avis.append(objet_avis)
+                recette.avis_recette = liste_avis
 
-        print(f"\nDétails de la recette '{recette.nom_recette}':")
-        print("\nIngrédients:", recette.liste_ingredient_forme_explicite())
-        print("\nInstructions:", recette.instructions_recette)
-        print("\nCatégorie:", recette.categorie_recette.nom_categorie or "Non spécifiée")
-        print("\nOrigine:", recette.origine_recette.nom_origine or "Non spécifiée")
-        print("\nAvis:", recette.avis_recette or "Aucun avis")
+            print(f"\nDétails de la recette '{recette.nom_recette}':")
+            print("\nIngrédients:", recette.liste_ingredient_forme_explicite())
+            print("\nInstructions:", recette.instructions_recette)
+            print("\nCatégorie:", recette.categorie_recette.nom_categorie or "Non spécifiée")
+            print("\nOrigine:", recette.origine_recette.nom_origine or "Non spécifiée")
+            print("\nAvis:", recette.liste_avis_forme_explicite())
 
-        input("\nAppuyez sur 'Entrée' pour revenir en arrière.\n")
+            input("\nAppuyez sur 'Entrée' pour revenir en arrière.\n")
+        else:
+
+            print(f"\nDétails de la recette '{recette.nom_recette}':")
+            print("\nIngrédients:", recette.liste_ingredient_forme_explicite())
+            print("\nInstructions:", recette.instructions_recette)
+            print("\nCatégorie:", recette.categorie_recette.nom_categorie or "Non spécifiée")
+            print("\nOrigine:", recette.origine_recette.nom_origine or "Non spécifiée")
+            print("\nAvis:", "Aucun avis")
+
+            input("\nAppuyez sur 'Entrée' pour revenir en arrière.\n")
