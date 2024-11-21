@@ -73,8 +73,9 @@ class RecetteUtilisateurVue(VueAbstraite):
                 print(f"La recette '{self.nom_recette}' a été retirée des favoris.\n")
 
             elif choix == "Ajouter un avis":
-                note = input("Entrez une note entre 1 et 5 : ")
-                commentaire = input("Entrez un commentaire : ")
+                note = int(input("Entrez une note entre 1 et 5 : "))
+                commentaire = str(input("Entrez un commentaire : "))
+                #### AJOUTER MESSAGE D'ERREUR SI CE N'EST PAS LE CAS
                 id_avis = AvisService().get_id_avis_by_id_utilisateur_id_recette(
                     id_utilisateur, self.recette.id_recette
                 )
