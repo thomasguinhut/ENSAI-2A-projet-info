@@ -41,6 +41,6 @@ class Avis:
         if note > 5 or note < 0:
             raise ValueError("La note doit être comprise entre 0 et 5.")
 
-        self.id_avis = id_avis
-        self.commentaire = commentaire
-        self.note = note
+        self.id_avis = str(id_avis)
+        self.commentaire = str(commentaire)
+        self.note = int(note)
