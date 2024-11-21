@@ -64,4 +64,4 @@ class AvisService:
             raise TypeError("id_utilisateur doit être un str")
         if not isinstance(id_recette, str):
             raise TypeError("id_recette doit être un str")
-        return AvisDao().get_id_avis_by_id_utilisateur_id_recette(id_utilisateur, id_recette)
+        return str(AvisDao().get_id_avis_by_id_utilisateur_id_recette(id_utilisateur, id_recette))

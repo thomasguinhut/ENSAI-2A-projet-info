@@ -12,7 +12,7 @@ class Avis:
     id_avis : str
     commentaire : str
     note : int
-        Note sur 5, ou sur 10 (à définir)
+        Note sur 5
 
     Raises
     ------
@@ -38,6 +38,8 @@ class Avis:
             raise TypeError("commentaire doit être un str")
         if not isinstance(note, int):
             raise TypeError("note doit être un int")
+        if note > 5 or note < 0:
+            raise ValueError("La note doit être comprise entre 0 et 5.")
 
         self.id_avis = id_avis
         self.commentaire = commentaire
