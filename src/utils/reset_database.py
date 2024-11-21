@@ -100,14 +100,13 @@ class ResetDatabase(metaclass=Singleton):
                 print(f"Avancée de la table 'recette' : {i*100//301} %")
                 i += 1
             print("La table 'recette' a bien été créée.")
-        print(RecetteClient().get_recette())
 
         if ingredients_recettes:
             liste_recettes = RecetteClient().get_recette()
             i = 1
             for dict_recette in liste_recettes:
                 IngredientRecetteService().creer(dict_recette)
-                print(f"Avancée de la table 'ingredient_recette' : " f"{i*100//2856} %")
+                print(f"Avancée de la table 'ingredient_recette' : " f"{i*100//301} %")
                 i += 1
             print("La table 'ingredient_recette' a bien été créée.")
 
@@ -135,4 +134,3 @@ class ResetDatabase(metaclass=Singleton):
 if __name__ == "__main__":
     ResetDatabase().lancer(True)
     ResetDatabase().remplir(True, True, True, True, True)
-    print(ResetDatabase().verif())

@@ -51,23 +51,23 @@ class IngredientRecetteService:
             if id_ingredient:
                 ingredient = Ingredient(id_ingredient, nom_ingredient)
                 liste_ingredients.append(ingredient)
-            id_categorie = CategorieService().get_id_categorie_by_name(recette["categorie_recette"])
-            id_origine = OrigineService().get_id_origine_by_name(recette["origine_recette"])
-            if id_categorie and id_origine:
-                categorie = Categorie(id_categorie, recette["categorie_recette"])
-                origine = Origine(id_origine, recette["origine_recette"])
-            nouvelle_recette = Recette(
-                id_recette=recette["id_recette"],
-                nom_recette=recette["nom_recette"],
-                ingredients_recette=liste_ingredients,
-                instructions_recette=recette["instructions_recette"],
-                categorie_recette=categorie,
-                origine_recette=origine,
-            )
-            if IngredientRecetteDao().creer(nouvelle_recette):
-                return nouvelle_recette
-            else:
-                return None
+        id_categorie = CategorieService().get_id_categorie_by_name(recette["categorie_recette"])
+        id_origine = OrigineService().get_id_origine_by_name(recette["origine_recette"])
+        if id_categorie and id_origine:
+            categorie = Categorie(id_categorie, recette["categorie_recette"])
+            origine = Origine(id_origine, recette["origine_recette"])
+        nouvelle_recette = Recette(
+            id_recette=recette["id_recette"],
+            nom_recette=recette["nom_recette"],
+            ingredients_recette=liste_ingredients,
+            instructions_recette=recette["instructions_recette"],
+            categorie_recette=categorie,
+            origine_recette=origine,
+        )
+        if IngredientRecetteDao().creer(nouvelle_recette):
+            return nouvelle_recette
+        else:
+            return None
 
     @log
     def lister_ingredients_by_recette(self, id_recette) -> list[dict]:

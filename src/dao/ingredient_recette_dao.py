@@ -32,7 +32,6 @@ class IngredientRecetteDao(metaclass=Singleton):
         """
         created = None
         for ingredient in recette.ingredients_recette:
-
             res = None
             try:
                 with DBConnection().connection as connection:
