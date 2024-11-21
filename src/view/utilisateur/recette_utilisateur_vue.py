@@ -10,6 +10,8 @@ from service.liste_course_service import ListeCourseService
 from view.utilisateur.liste_recettes_utilisateur_vue import ListeRecettesUtilisateurVue
 from view.utilisateur.recettes_favorites_vue import RecettesFavoritesVue
 
+from business_object.avis import Avis
+
 from InquirerPy import inquirer
 
 
@@ -56,8 +58,15 @@ class RecetteUtilisateurVue(VueAbstraite):
                 return self
 
             elif choix == "Ajouter aux favoris":
-                RecetteFavoriteService().ajouter_favori(id_utilisateur, self.nom_recette)
-                print(f"La recette '{self.nom_recette}' a été ajoutée aux favoris.\n")
+                if self.recette in id_utilisateur.favoris:
+                    RecetteFavoriteService().ajouter_favori(id_utilisateur, self.nom_recette)
+                    print(f"La recette '{self.nom_recette}' a été ajoutée aux favoris.\n")
+                else:
+                    print(f"La recette '{self.nom_recette}' est déjà dans les favoris.")
+
+                    HistoriqueVues().retirer_vue()
+
+                    return self
 
             elif choix == "Retirer des favoris":
                 RecetteFavoriteService().retirer_favori(id_utilisateur, self.nom_recette)
@@ -66,11 +75,17 @@ class RecetteUtilisateurVue(VueAbstraite):
             elif choix == "Ajouter un avis":
                 note = input("Entrez une note entre 1 et 5 : ")
                 commentaire = input("Entrez un commentaire : ")
+                id_avis = AvisService().get_id_avis_by_id_utilisateur_id_recette(
+                    id_utilisateur, self.recette.id_recette
+                )
+                self.recette.avis_recette = Avis(id_avis, commentaire, note)
                 AvisService().ajouter_avis(note, commentaire, id_utilisateur, self.nom_recette)
+
                 print(f"Votre avis a été ajouté à la recette '{self.nom_recette}'\n.")
 
             elif choix == "Retirer un avis":
                 AvisService().retirer_avis(id_utilisateur, self.nom_recette)
+                self.recette.avis_recette = None
                 print(f"Votre avis a été retiré de la recette '{self.nom_recette}'\n.")
 
             elif choix == "Ajouter les ingrédients à la liste de courses":
