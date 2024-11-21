@@ -8,7 +8,6 @@ from service.avis_service import AvisService
 from service.liste_course_service import ListeCourseService
 
 from view.utilisateur.liste_recettes_utilisateur_vue import ListeRecettesUtilisateurVue
-from view.utilisateur.recettes_favorites_vue import RecettesFavoritesVue
 
 from business_object.avis import Avis
 
@@ -75,7 +74,7 @@ class RecetteUtilisateurVue(VueAbstraite):
             elif choix == "Ajouter un avis":
                 note = int(input("Entrez une note entre 1 et 5 : "))
                 commentaire = str(input("Entrez un commentaire : "))
-                #### AJOUTER MESSAGE D'ERREUR SI CE N'EST PAS LE CAS
+                # AJOUTER MESSAGE D'ERREUR SI PAS BONNE INSTANCE + SI PAS COMPRIS ENTRE S0 ET 5
                 id_avis = AvisService().get_id_avis_by_id_utilisateur_id_recette(
                     id_utilisateur, self.recette.id_recette
                 )
