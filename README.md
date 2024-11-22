@@ -58,14 +58,12 @@ pip install -r requirements.txt
 
 Il est nécessaire de définir les variables pour déclarer la base de données et le webservice auxquels vous allez connecter l'application.
 
-À la racine du projet le fichier :
+À la racine du projet :
 
 - [ ] Créez un fichier nommé `.env` 
 - [ ] Collez-y et complétez les éléments ci-dessous
 
 ```default
-WEBSERVICE_HOST=https://pokeapi.co/api/v2
-
 POSTGRES_HOST=sgbd-eleves.domensai.ecole
 POSTGRES_PORT=5432
 POSTGRES_DATABASE=idxxxx
