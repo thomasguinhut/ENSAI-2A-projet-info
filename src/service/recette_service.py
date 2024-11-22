@@ -155,8 +155,7 @@ class RecetteService:
         )
         liste_recettes = []
         if res:
-            for row in res:
-                row = row[0]
+            for row in res[0]:
                 origine = Origine(
                     id_origine=row["id_origine"],
                     nom_origine=OrigineDao().get_nom_origine_by_id(row["id_origine"]),
