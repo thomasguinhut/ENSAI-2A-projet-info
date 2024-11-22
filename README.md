@@ -1,6 +1,6 @@
 # Groupe 20 - Projet info 2A Ensai
 
-Application réalisé
+Application MyKitchen réalisée par Akmal Ayari,  Toussaint Boco, Thomas Guinhut, Benjamin Lizé et Fanilosoa Rajaona.
 
 ## :arrow_forward: Logiciels requis
 
