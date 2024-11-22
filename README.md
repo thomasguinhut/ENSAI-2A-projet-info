@@ -81,7 +81,10 @@ POSTGRES_SCHEMA=projet
 
 Cette application propose une interface graphique très basique pour naviguer entre différents menus.
 
-- [ ] Dans Git Bash : `python src/__main__.py`
+- [ ] Dans Git Bash :
+```bash
+python src/__main__.py
+```
 - [ ] Si cela n'a jamais été fait, initialiser les données
   - dans Git Bash : `python src/utils/reset_database.py`
   - vous pouvez faire de même lorsque vous souhaitez réinitialiser les données après avoir modifié la base (ajout d'utilisateurs, de favoris,...)
@@ -103,4 +106,4 @@ Il est également possible de générer la couverture de tests avec [Coverage](h
 
 :bulb: Le fichier `.coveragerc` permet de modifier le paramétrage
 
-- [ ] dans le terminal python : `coverage run -m pytest`
+- [ ] dans le terminal python : `python -m pytest --cov`
