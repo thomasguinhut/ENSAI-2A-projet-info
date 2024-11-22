@@ -102,9 +102,13 @@ class RecetteDao(metaclass=Singleton):
         filtres_origines: list[Origine] = None,
         filtres_categories: list[Categorie] = None,
     ):
+        recettes_ingredients = []
+        id_recettes_ingredients = []
+        recettes_origines = []
+        id_recettes_origines = []
+        recettes_categories = []
+        id_recettes_categories = []
         if filtres_ingredients:
-            recettes_ingredients = []
-            id_recettes_ingredients = []
             for ingredient in filtres_ingredients:
                 id_ingredient = ingredient.id_ingredient
                 try:
@@ -127,10 +131,11 @@ class RecetteDao(metaclass=Singleton):
                     logging.info(e)
                     raise
                 recettes_ingredients.append(res)
-                id_recettes_ingredients.append(res[0]["id_recette"])
+                if res:
+                    id_recettes_ingredients.append(res[0]["id_recette"])
+                else:
+                    id_recettes_ingredients.append(None)
         if filtres_origines:
-            recettes_origines = []
-            id_recettes_origines = []
             for origine in filtres_origines:
                 id_origine = origine.id_origine
                 try:
@@ -151,10 +156,11 @@ class RecetteDao(metaclass=Singleton):
                     logging.info(e)
                     raise
                 recettes_origines.append(res)
-                id_recettes_origines.append(res[0]["id_recette"])
+                if res:
+                    id_recettes_origines.append(res[0]["id_recette"])
+                else:
+                    id_recettes_origines.append(None)
         if filtres_categories:
-            recettes_categories = []
-            id_recettes_categories = []
             for categorie in filtres_categories:
                 id_categorie = categorie.id_categorie
                 try:
@@ -175,7 +181,10 @@ class RecetteDao(metaclass=Singleton):
                     logging.info(e)
                     raise
                 recettes_categories.append(res)
-                id_recettes_categories.append(res[0]["id_recette"])
+                if res:
+                    id_recettes_categories.append(res[0]["id_recette"])
+                else:
+                    id_recettes_categories.append(None)
         id_liste_recettes = []
         if filtres_ingredients and filtres_origines and filtres_categories:
             recettes = recettes_ingredients + recettes_origines + recettes_categories
@@ -206,11 +215,14 @@ class RecetteDao(metaclass=Singleton):
             id_liste_recettes = []
         ids_vus = set()
         recettes_filtrees = []
-        for recette in recettes:
-            id_recette = recette[0]["id_recette"]
-            if id_recette in id_liste_recettes and id_recette not in ids_vus:
-                recettes_filtrees.append(recette)
-                ids_vus.add(id_recette)
+        if recettes[0]:
+            for recette in recettes:
+                id_recette = recette[0]["id_recette"]
+                if id_recette in id_liste_recettes and id_recette not in ids_vus:
+                    recettes_filtrees.append(recette)
+                    ids_vus.add(id_recette)
+        else:
+            recettes_filtrees = []
 
         return recettes_filtrees
 
