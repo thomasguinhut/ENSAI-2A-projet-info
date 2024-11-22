@@ -43,6 +43,15 @@ class ListeCourseService:
         return ListeCourseDao().ajouter_ingredients_courses(utilisateur, recette)
 
     @log
+    def ajouter_ingredient_courses(self, id_utilisateur, nom_ingredient) -> bool:
+        """
+        .
+        """
+        utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
+        ingredient = IngredientService().trouver_ingredient(nom_ingredient)
+        return ListeCourseDao().ajouter_ingredient_courses(utilisateur, ingredient)
+
+    @log
     def retirer_ingredient_course(self, id_utilisateur, nom_ingredient: str) -> bool:
         """
         .

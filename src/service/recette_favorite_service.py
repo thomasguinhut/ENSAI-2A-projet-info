@@ -54,6 +54,20 @@ class RecetteFavoriteService:
             return None
 
     @log
+    def get_id_recette_favorite(self, id_utilisateur) -> list[str]:
+        utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
+        res = RecetteFavoriteDao().lister_recette_favorite(utilisateur)
+        liste_recette = []
+        if res:
+            for row in res:
+                nom_recette = RecetteService().get_nom_recette_by_id(row["id_recette"])
+                recette = RecetteService().trouver_recette(nom_recette)
+                liste_recette.append(str(recette.id_recette))
+            return liste_recette
+        else:
+            return None
+
+    @log
     def ajouter_favori(self, id_utilisateur, nom_recette) -> bool:
         """
                 Ajout d'une recette à la liste des recettes favorites de l'utilisateur.

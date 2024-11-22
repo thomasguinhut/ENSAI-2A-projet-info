@@ -58,11 +58,26 @@ pip list
 
 ## :arrow_forward: Variables d'environnement
 
-Vous allez maintenant définir des variables d'environnement pour déclarer la base de données et le webservice auquels vous allez connecter l'application python.
+Vous allez maintenant définir des variables d'environnement pour déclarer la base de données et le webservice auxquels vous allez connecter votre application python.
 
-Ouvrez le fichier .env_groupe20 :
+À la racine du projet le fichier :
+
+- [ ] Créez un fichier nommé `.env` 
+- [ ] Collez-y et complétez les éléments ci-dessous
+
+```default
+WEBSERVICE_HOST=https://pokeapi.co/api/v2
+
+POSTGRES_HOST=sgbd-eleves.domensai.ecole
+POSTGRES_PORT=5432
+POSTGRES_DATABASE=idxxxx
+POSTGRES_USER=idxxxx
+POSTGRES_PASSWORD=idxxxx
+POSTGRES_SCHEMA=projet
+```
 
 - [ ] Remplaçer les 'xxxx' par votre id Ensai
+- [ ] Après avoir utilisé la base de données projet_test, revenez bien à 'projet' dans POSTGRES_SCHEMA
 
 ---
 
@@ -83,6 +98,7 @@ Cette application propose une interface graphique très basique pour naviguer en
 
 - [ ] Il est nécessaire d'initialiser les données test (les tests de cette application ne sont pas appliqués sur la base de données originelle)
   - dans Git Bash : `python src/utils/reset_database_test.py`
+  - Ouvrez le fichier .env : pour POSTGRES_SCHEMA, remplaçer 'projet' par 'projet_test'
 - [ ] Toujours dans Git Bash : `pytest -v` (ou `python -m pytest -v` si *pytest* n'a pas été ajouté au *PATH*)
 
 ### Couverture de tests
@@ -91,6 +107,4 @@ Il est également possible de générer la couverture de tests avec [Coverage](h
 
 :bulb: Le fichier `.coveragerc` permet de modifier le paramétrage
 
-- [ ] `coverage run -m pytest`
-- [ ] `coverage html`
-- [ ] Ouvrir le fichier coverage_report/index.html
+- [ ] dans le terminal python : `coverage run -m pytest`

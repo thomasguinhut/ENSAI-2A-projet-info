@@ -1,5 +1,4 @@
 from unittest.mock import MagicMock
-from tabulate import tabulate
 
 from service.utilisateur_service import UtilisateurService
 

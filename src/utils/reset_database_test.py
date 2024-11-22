@@ -25,7 +25,7 @@ class ResetDatabaseTest(metaclass=Singleton):
 
         """
 
-        os.environ["POSTGRES_SCHEMA"] = "projet_test_dao"
+        os.environ["POSTGRES_SCHEMA"] = "projet_test"
         data_test_path = "data/data_test.sql"
         dotenv.load_dotenv()
 

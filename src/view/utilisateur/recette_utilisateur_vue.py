@@ -57,11 +57,11 @@ class RecetteUtilisateurVue(VueAbstraite):
                 return self
 
             elif choix == "Ajouter aux favoris":
-                if RecetteFavoriteService().lister_recette_favorite(id_utilisateur) is None:
+                if RecetteFavoriteService().get_id_recette_favorite(id_utilisateur) is None:
                     RecetteFavoriteService().ajouter_favori(id_utilisateur, self.nom_recette)
                     print(f"La recette '{self.nom_recette}' a été ajoutée aux favoris.\n")
-                elif self.recette not in (
-                    RecetteFavoriteService().lister_recette_favorite(id_utilisateur)
+                elif self.recette.id_recette not in (
+                    RecetteFavoriteService().get_id_recette_favorite(id_utilisateur)
                 ):
                     RecetteFavoriteService().ajouter_favori(id_utilisateur, self.nom_recette)
                     print(f"La recette '{self.nom_recette}' a été ajoutée aux favoris.\n")

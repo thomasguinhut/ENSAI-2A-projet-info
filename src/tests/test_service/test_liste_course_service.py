@@ -1,16 +1,8 @@
 from unittest.mock import MagicMock
 
-from service.recette_service import RecetteService
 from service.liste_course_service import ListeCourseService
 
-from dao.recette_dao import RecetteDao
 from dao.liste_course_dao import ListeCourseDao
-
-# from business_object.recette import Recette
-from business_object.categorie import Categorie
-from business_object.origine import Origine
-from business_object.ingredient import Ingredient
-from business_object.recette import Recette
 
 
 def test_lister_ingredient_liste_course():
@@ -62,7 +54,7 @@ def test_supprimer_ok():
     # GIVEN
     id_utilisateur = "akmal"
     nom_ingredient = "Chicken Thighs"
-    ListeCourseDao().supprimer = MagicMock(return_value=True)
+    ListeCourseService().ajouter_ingredient_courses(id_utilisateur, nom_ingredient)
 
     # WHEN
     res = ListeCourseService().retirer_ingredient_course(id_utilisateur, nom_ingredient)

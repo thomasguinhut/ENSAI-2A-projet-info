@@ -154,6 +154,40 @@ class ListeCourseDao(metaclass=Singleton):
             return False  # En cas d'erreur
 
     @log
+    def ajouter_ingredient_courses(self, utilisateur: Utilisateur, ingredient: Ingredient) -> bool:
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    id_ingredient = ingredient.id_ingredient
+                    # Vérification si l'ingrédient est déjà dans la liste
+                    # de courses
+                    cursor.execute(
+                        "SELECT 1 "
+                        "   FROM liste_course "
+                        "   WHERE id_utilisateur=%(id_utilisateur)s "
+                        "   AND id_ingredient = %(id_ingredient)s ",
+                        {
+                            "id_utilisateur": utilisateur.id_utilisateur,
+                            "id_ingredient": id_ingredient,
+                        },
+                    )
+                    res = cursor.fetchone()
+                    if not isinstance(res, dict):
+                        cursor.execute(
+                            "INSERT INTO liste_course(id_utilisateur, "
+                            "id_ingredient) VALUES "
+                            "(%(id_utilisateur)s, %(id_ingredient)s)",
+                            {
+                                "id_utilisateur": (utilisateur.id_utilisateur),
+                                "id_ingredient": id_ingredient,
+                            },
+                        )
+            return True  # Tous les ingrédients ont été ajoutés avec succès
+        except Exception as e:
+            logging.info(e)
+            return False  # En cas d'erreur
+
+    @log
     def lister_ingredients_liste_course(self, utilisateur: Utilisateur) -> list[Ingredient]:
         """
 
