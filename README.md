@@ -56,7 +56,7 @@ pip install -r requirements.txt
 
 ## :arrow_forward: Variables d'environnement
 
-Vous allez maintenant définir des variables d'environnement pour déclarer la base de données et le webservice auxquels vous allez connecter votre application python.
+Il est nécessaire de définir les variables pour déclarer la base de données et le webservice auxquels vous allez connecter l'application.
 
 À la racine du projet le fichier :
 
