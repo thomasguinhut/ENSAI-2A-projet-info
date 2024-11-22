@@ -19,27 +19,33 @@ class AjouterFiltresInviteVue(VueAbstraite):
     def choisir_menu(self):
         """Affiche le menu de sélection pour l'utilisateur invité et gère le choix effectué."""
         HistoriqueVues().ajouter_vue(self)
-        choix = inquirer.select(
-            message="Faites votre choix :",
-            choices=[
-                "Sélectionner des filtres",
-                "Afficher les recettes filtrées",
-                "Retour au menu d'accueil",
-            ],
-        ).execute()
 
-        match choix:
-            case "Sélectionner des filtres":
+        while True:
+            choix = inquirer.select(
+                message="Faites votre choix :",
+                choices=[
+                    "Sélectionner des filtres",
+                    "Afficher les recettes filtrées",
+                    "Réinitialiser les filtres",
+                    "Retour au menu d'accueil",
+                ],
+            ).execute()
+
+            if choix == "Sélectionner des filtres":
                 from view.filtres.type_filtre_vue import TypeFiltreVue
 
                 return TypeFiltreVue()
 
-            case "Afficher les recettes filtrées":
+            elif choix == "Afficher les recettes filtrées":
                 from view.invite.liste_recettes_invite_vue import ListeRecettesInviteVue
 
                 return ListeRecettesInviteVue()
 
-            case "Retour au menu d'accueil":
+            elif choix == "Réinitialiser les filtres":
+                Session().reset_filtres()
+                print("\nLes filtres ont été réinitialisés\n")
+
+            else:
                 Session().reset_filtres()
                 from view.accueil.accueil_vue import AccueilVue
 

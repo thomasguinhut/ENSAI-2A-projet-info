@@ -21,7 +21,7 @@ class TypeFiltreVue(VueAbstraite):
             "les filtres Challots et Butter affichent les recettes contenant du beurre ou des "
             "échallotes tandis que les filtres Butter et Mexican affichent les recettes qui "
             "contiennent du beurre et qui sont mexicaines.\n",
-            choices=["Ingrédient", "Catégorie", "Origine"],
+            choices=["Ingrédient", "Catégorie", "Origine", "Retour"],
         ).execute()
 
         match choix:

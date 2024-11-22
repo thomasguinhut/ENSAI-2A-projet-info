@@ -20,29 +20,34 @@ class AjouterFiltresUtilisateurVue(VueAbstraite):
         """Affiche le menu de sélection pour l'utilisateur et gère le choix effectué."""
         HistoriqueVues().ajouter_vue(self)
 
-        choix = inquirer.select(
-            message="Faites votre choix :",
-            choices=[
-                "Sélectionner des filtres",
-                "Afficher les recettes filtrées",
-                "Retourner au menu principal",
-            ],
-        ).execute()
+        while True:
+            choix = inquirer.select(
+                message="Faites votre choix :",
+                choices=[
+                    "Sélectionner des filtres",
+                    "Afficher les recettes filtrées",
+                    "Réinitialiser les filtres",
+                    "Retourner au menu principal",
+                ],
+            ).execute()
 
-        match choix:
-            case "Sélectionner des filtres":
+            if choix == "Sélectionner des filtres":
                 from view.filtres.type_filtre_vue import TypeFiltreVue
 
                 return TypeFiltreVue("Type du filtre")
 
-            case "Afficher les recettes filtrées":
+            elif choix == "Afficher les recettes filtrées":
                 from view.utilisateur.liste_recettes_utilisateur_vue import (
                     ListeRecettesUtilisateurVue,
                 )
 
                 return ListeRecettesUtilisateurVue("Affichage de la liste des recettes filtrées")
 
-            case "Retourner au menu principal":
+            elif choix == "Réinitialiser les filtres":
+                Session().reset_filtres()
+                print("\nLes filtres ont été réinitialisés\n")
+
+            else:
                 Session().reset_filtres()
                 from view.utilisateur.utilisateur_vue import UtilisateurVue
 
