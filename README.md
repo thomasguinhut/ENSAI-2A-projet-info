@@ -61,7 +61,7 @@ Il est nécessaire de définir les variables pour déclarer la base de données 
 À la racine du projet :
 
 - [ ] Créez un fichier nommé `.env` 
-- [ ] Collez-y et complétez les éléments ci-dessous
+- [ ] Collez-y le texte ci-dessous
 
 ```default
 POSTGRES_HOST=sgbd-eleves.domensai.ecole
