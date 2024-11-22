@@ -1,5 +1,4 @@
 class Categorie:
-
     """
 
     Création de la classe Catégorie.

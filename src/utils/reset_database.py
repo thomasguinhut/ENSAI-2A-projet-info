@@ -97,7 +97,7 @@ class ResetDatabase(metaclass=Singleton):
             i = 1
             for dict_recette in liste_recettes:
                 RecetteService().creer(dict_recette)
-                print(f"Avancée de la table 'recette' : {i*100//301} %")
+                print(f"Remplissage de la table 'recette' : {i*100//301} %")
                 i += 1
             print("La table 'recette' a bien été créée.")
 
@@ -106,7 +106,7 @@ class ResetDatabase(metaclass=Singleton):
             i = 1
             for dict_recette in liste_recettes:
                 IngredientRecetteService().creer(dict_recette)
-                print(f"Avancée de la table 'ingredient_recette' : " f"{i*100//301} %")
+                print(f"Remplissage de la table 'ingredient_recette' : " f"{i*100//301} %")
                 i += 1
             print("La table 'ingredient_recette' a bien été créée.")
 
@@ -134,3 +134,7 @@ class ResetDatabase(metaclass=Singleton):
 if __name__ == "__main__":
     ResetDatabase().lancer(True)
     ResetDatabase().remplir(True, True, True, True, True)
+    if ResetDatabase().verif() is None:
+        print("La base de données a bien été créée, remplie et vérifiée.")
+    else:
+        print("Les données ne sont pas bien structurées.")

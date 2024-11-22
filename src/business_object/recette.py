@@ -20,6 +20,7 @@ class Recette:
     categorie_recette : Categorie
     origine_recette : Origine
     ingredients_recette : list[Ingredient]
+    avis_recette: list[Avis], by default None
 
     Raises
     ------
@@ -37,6 +38,10 @@ class Recette:
         ingredients_recette doit être une liste
     TypeError
         tout élément de la liste d'ingrédients doit être un Ingrédient
+    TypeError
+        avis_recette doit être une liste
+    TypeError
+        tout élément de la liste avis_recette doit être un Avis
     """
 
     def __init__(
@@ -70,6 +75,12 @@ class Recette:
         for i in ingredients_recette:
             if not isinstance(i, Ingredient):
                 raise TypeError(f"{i} doit être un Ingrédient")
+        if avis_recette:
+            if not isinstance(avis_recette, list):
+                raise TypeError("avis_recette doit être une liste")
+            for i in ingredients_recette:
+                if not isinstance(i, Avis):
+                    raise TypeError(f"{i} doit être un Avis")
 
         self.id_recette = id_recette
         self.nom_recette = nom_recette
@@ -80,12 +91,28 @@ class Recette:
         self.avis_recette = avis_recette
 
     def liste_ingredient_forme_explicite(self):
+        """
+
+        Affiche les ingrédients d'une recette à la suite, séparés d'une barre horizontale.
+
+        Returns:
+            str: liste des ingrédients
+
+        """
         affichage = ""
         for ingredient in self.ingredients_recette:
             affichage += ingredient.nom_ingredient.capitalize() + " | "
         return affichage[:-2]
 
     def liste_avis_forme_explicite(self):
+        """
+
+        Affiche les avis d'une recette à la suite, séparés d'une barre horizontale.
+
+        Returns:
+            str: liste des avis
+
+        """
         affichage = ""
         for avis in self.avis_recette:
             affichage += (

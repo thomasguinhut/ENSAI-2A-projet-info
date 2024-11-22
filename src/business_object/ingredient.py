@@ -1,11 +1,10 @@
 class Ingredient:
-
     """
 
     Création de la classe Ingrédient.
 
     Les ingrédients constituent une des trois infos caractéristiques d'une
-    recette, avec l'origine et la catégorie, qui méritent une classe à part.
+    recette, avec l'origine et la catégorie, qui mérite une classe à part.
 
     Parameters
     ----------

@@ -1,7 +1,0 @@
-SERVICE
-
-IngredientService.trouver_liste_ingredients() missing 1 required positional argument: 'self'
-
-CategorieService.trouver_liste_categories() missing 1 required positional argument: 'self'
-
-OrigineService.trouver_liste_origines() missing 1 required positional argument: 'self'

@@ -1,10 +1,8 @@
-from view.vue_abstraite import VueAbstraite
+from business_object.avis import Avis
+from service.avis_service import AvisService
 from service.recette_service import RecetteService
 from view.session import Session
-
-from service.avis_service import AvisService
-
-from business_object.avis import Avis
+from view.vue_abstraite import VueAbstraite
 
 
 class ListeRecettesAbstraiteVue(VueAbstraite):
