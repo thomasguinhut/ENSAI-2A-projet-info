@@ -82,9 +82,9 @@ POSTGRES_SCHEMA=projet
 Cette application propose une interface graphique très basique pour naviguer entre différents menus.
 
 - [ ] Dans Git Bash :
-      ```bash
-      python src/__main__.py
-      ```
+```bash
+python src/__main__.py
+```
 - [ ] Si cela n'a jamais été fait, initialiser les données
   - dans Git Bash : `python src/utils/reset_database.py`
   - vous pouvez faire de même lorsque vous souhaitez réinitialiser les données après avoir modifié la base (ajout d'utilisateurs, de favoris,...)
