@@ -103,4 +103,4 @@ Il est également possible de générer la couverture de tests avec [Coverage](h
 
 :bulb: Le fichier `.coveragerc` permet de modifier le paramétrage
 
-- [ ] dans le terminal python : `coverage run -m pytest`
+- [ ] dans le terminal python : `python -m pytest --cov`
