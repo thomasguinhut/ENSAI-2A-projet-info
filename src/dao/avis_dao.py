@@ -91,7 +91,6 @@ class AvisDao(metaclass=Singleton):
                             "id_utilisateur": utilisateur.id_utilisateur,
                         },
                     )
-
                     if not cursor.fetchone():
                         # Insérer l'avis sans spécifier id_avis
                         cursor.execute(
@@ -107,7 +106,6 @@ class AvisDao(metaclass=Singleton):
                         )
                     else:
                         raise Exception("Vous avez déjà mis un avis sur cette recette.")
-
         except Exception as e:
             logging.info(e)
             raise
