@@ -95,7 +95,7 @@ Cette application propose une interface graphique très basique pour naviguer en
 - [ ] Il est nécessaire d'initialiser les données test (les tests de cette application ne sont pas appliqués sur la base de données originelle)
   - dans Git Bash : `python src/utils/reset_database_test.py`
   - Ouvrez le fichier .env : pour POSTGRES_SCHEMA, remplaçer 'projet' par 'projet_test'
-- [ ] Toujours dans Git Bash : `pytest -v` (ou `python -m pytest -v` si *pytest* n'a pas été ajouté au *PATH*)
+- [ ] Toujours dans Git Bash : `python -m pytest -v`
 
 ### Couverture de tests
 
