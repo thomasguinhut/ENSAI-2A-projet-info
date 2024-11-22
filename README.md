@@ -1,6 +1,6 @@
 # Groupe 20 - Projet info 2A Ensai
 
-Application réalisé
+Application MyKitchen réalisée par Akmal Ayari,  Toussaint Boco, Thomas Guinhut, Benjamin Lizé et Fanilosoa Rajaona.
 
 ## :arrow_forward: Logiciels requis
 
@@ -32,7 +32,6 @@ Ce dépôt contient de nombreux fichiers de configuration pour paramètrer les d
 
 | Fichier                      | Description                                                         |
 |------------------------------|---------------------------------------------------------------------|
-| `.env`                       | Définir les variables d'environnement                               |
 | `.vscode/settings.json`      | Configuration spécifique à Visual Studio Code                       |
 | `.github/workflows/ci.yml`   | Définition des workflows GitHub Actions                             |
 | `logging_config.yml`         | Configuration du système de journalisation (logging)                |
@@ -47,27 +46,24 @@ Ce dépôt contient de nombreux fichiers de configuration pour paramètrer les d
 Dans VSCode :
 
 - [ ] Ouvrez un terminal *Git Bash*
-- [ ] Exécutez les commandes suivantes
+- [ ] Exécutez la commande ci-dessous
 
 ```bash
 pip install -r requirements.txt
-pip list
 ```
 
 ---
 
 ## :arrow_forward: Variables d'environnement
 
-Vous allez maintenant définir des variables d'environnement pour déclarer la base de données et le webservice auxquels vous allez connecter votre application python.
+Il est nécessaire de définir les variables pour déclarer la base de données et le webservice auxquels vous allez connecter l'application.
 
-À la racine du projet le fichier :
+À la racine du projet :
 
 - [ ] Créez un fichier nommé `.env` 
-- [ ] Collez-y et complétez les éléments ci-dessous
+- [ ] Collez-y le texte ci-dessous
 
 ```default
-WEBSERVICE_HOST=https://pokeapi.co/api/v2
-
 POSTGRES_HOST=sgbd-eleves.domensai.ecole
 POSTGRES_PORT=5432
 POSTGRES_DATABASE=idxxxx
@@ -77,7 +73,7 @@ POSTGRES_SCHEMA=projet
 ```
 
 - [ ] Remplaçer les 'xxxx' par votre id Ensai
-- [ ] Après avoir utilisé la base de données projet_test, revenez bien à 'projet' dans POSTGRES_SCHEMA
+- [ ] Si vous prévoyez de faire des tests (et donc d'utiliser la base de données projet_test), il est indispensable de revenir à la base de données complètes (donc, de remensionner 'projet' pour la variable POSTGRES_SCHEMA)
 
 ---
 
@@ -88,7 +84,7 @@ Cette application propose une interface graphique très basique pour naviguer en
 - [ ] Dans Git Bash : `python src/__main__.py`
 - [ ] Si cela n'a jamais été fait, initialiser les données
   - dans Git Bash : `python src/utils/reset_database.py`
-  - vous pouvez faire de même lorsque vous souhaitez réinitialiser les données après avoir modifier la base (ajout d'utilisateurs, de favoris,...)
+  - vous pouvez faire de même lorsque vous souhaitez réinitialiser les données après avoir modifié la base (ajout d'utilisateurs, de favoris,...)
 
 ---
 
