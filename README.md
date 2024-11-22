@@ -46,7 +46,7 @@ Ce dépôt contient de nombreux fichiers de configuration pour paramètrer les d
 Dans VSCode :
 
 - [ ] Ouvrez un terminal *Git Bash*
-- [ ] Exécutez les commandes suivantes
+- [ ] Exécutez la commande ci-dessous
 
 ```bash
 pip install -r requirements.txt
