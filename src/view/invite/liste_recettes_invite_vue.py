@@ -22,7 +22,9 @@ class ListeRecettesInviteVue(ListeRecettesAbstraiteVue):
         pages = self.diviser_en_pages()
         if not pages:
             print("Aucune recette disponible.")
-            return
+            from view.invite.menu_liste_recettes_invite_vue import MenuListeRecettesInviteVue
+
+            return MenuListeRecettesInviteVue()
 
         while True:
             choix = inquirer.select(

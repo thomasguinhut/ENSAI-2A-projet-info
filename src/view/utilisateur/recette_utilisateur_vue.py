@@ -73,35 +73,41 @@ class RecetteUtilisateurVue(VueAbstraite):
                 print(f"\nLa recette '{self.nom_recette}' a été retirée des favoris.\n")
 
             elif choix == "Ajouter un avis":
-                if AvisService().get_id_avis_by_id_utilisateur_id_recette(
-                            id_utilisateur, self.recette.id_recette
-                        ) != "None":
-                    print("\nVous avez déjà mis un avis sur la recette\n")
+                if (
+                    AvisService().get_id_avis_by_id_utilisateur_id_recette(
+                        id_utilisateur, self.recette.id_recette
+                    )
+                    != "None"
+                ):
+                    print(f"\nVous avez déjà un avis sur la recette '{self.nom_recette}'\n")
                 else:
                     commentaire = input("Entrez un commentaire : ")
                     note = input("Entrez une note entre 1 et 5 : ")
                     try:
                         note = int(note)
                         if note > 5 or note < 0:
-                            print(
-                                "\nLa note doit être un entier compris entre 1 et 5\n")
+                            print("\nLa note doit être un entier compris entre 1 et 5\n")
                         else:
                             id_avis = AvisService().get_id_avis_by_id_utilisateur_id_recette(
                                 id_utilisateur, self.recette.id_recette
                             )
                             if self.recette.avis_recette is not None:
                                 ancienne_liste = self.recette.avis_recette
-                                self.recette.avis_recette = ancienne_liste + Avis(id_avis, commentaire, note)
-                                AvisService().ajouter_avis(note, commentaire, id_utilisateur, self.nom_recette)
+                                self.recette.avis_recette = ancienne_liste + Avis(
+                                    id_avis, commentaire, note
+                                )
+                                AvisService().ajouter_avis(
+                                    note, commentaire, id_utilisateur, self.nom_recette
+                                )
                             else:
                                 self.recette.avis_recette = Avis(id_avis, commentaire, note)
-                                AvisService().ajouter_avis(note, commentaire, id_utilisateur, self.nom_recette)
+                                AvisService().ajouter_avis(
+                                    note, commentaire, id_utilisateur, self.nom_recette
+                                )
 
                             print(f"\nVotre avis a été ajouté à la recette '{self.nom_recette}'\n")
-                    except:
-                        print(
-                            "\nLa note doit être un entier compris entre 1 et 5, et le "
-                            "commentaire doit être une chaîne de caractères.\n")
+                    except ValueError:
+                        print("\nLa note doit être un entier compris entre 1 et 5\n")
 
             elif choix == "Retirer un avis":
                 AvisService().retirer_avis(id_utilisateur, self.nom_recette)
