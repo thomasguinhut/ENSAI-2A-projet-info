@@ -32,7 +32,6 @@ Ce dépôt contient de nombreux fichiers de configuration pour paramètrer les d
 
 | Fichier                      | Description                                                         |
 |------------------------------|---------------------------------------------------------------------|
-| `.env`                       | Définir les variables d'environnement                               |
 | `.vscode/settings.json`      | Configuration spécifique à Visual Studio Code                       |
 | `.github/workflows/ci.yml`   | Définition des workflows GitHub Actions                             |
 | `logging_config.yml`         | Configuration du système de journalisation (logging)                |
