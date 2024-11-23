@@ -23,7 +23,7 @@ Application MyKitchen réalisée par Akmal Ayari,  Toussaint Boco, Thomas Guinhu
 
 - [ ] Ouvrez **Visual Studio Code**
 - [ ] File > Open Folder
-- [ ] Cliquez une seule fois sur *ENSAI-2A-projet-info-groupe-20* et cliquez sur `Sélectionner un dossier`
+- [ ] Ouvrez le dossier cloné en cliquant une seule fois sur *ENSAI-2A-projet-info-groupe-20* et cliquez sur `Sélectionner un dossier`
   - :warning: Si le dossier parent dans l'explorer VSCode (à gauche) n'est pas *ENSAI-2A-projet-info-groupe-20*, l'application ne fonctionnera pas
 
 ### Fichiers de configuration
