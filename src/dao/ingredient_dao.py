@@ -3,7 +3,7 @@ import logging
 from utils.singleton import Singleton
 from utils.log_decorator import log
 
-from business_objet.ingredient import Ingredient
+from business_object.ingredient import Ingredient
 
 from dao.db_connection import DBConnection
 
