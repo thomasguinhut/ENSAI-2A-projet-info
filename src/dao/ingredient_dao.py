@@ -3,13 +3,14 @@ import logging
 from utils.singleton import Singleton
 from utils.log_decorator import log
 
+from business_objet.ingredient import Ingredient
+
 from dao.db_connection import DBConnection
 
 # from business_object.ingredient import Ingredient
 
 
 class IngredientDao(metaclass=Singleton):
-
     """
 
     Création de la classe IngredientDao.
@@ -21,7 +22,7 @@ class IngredientDao(metaclass=Singleton):
     """
 
     @log
-    def creer(self, ingredient) -> bool:
+    def creer(self, ingredient: Ingredient) -> bool:
         """
 
         Creation d'un ingrédient dans la base de données
@@ -35,6 +36,7 @@ class IngredientDao(metaclass=Singleton):
         created : bool
             True si la création est un succès
             False sinon
+
         """
         res = None
         try:
@@ -81,10 +83,7 @@ class IngredientDao(metaclass=Singleton):
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    cursor.execute(
-                        "SELECT *"
-                        "   FROM ingredient;"
-                    )
+                    cursor.execute("SELECT *" "   FROM ingredient;")
                     res = cursor.fetchall()
         except Exception as e:
             logging.info(e)
@@ -92,8 +91,16 @@ class IngredientDao(metaclass=Singleton):
         return res
 
     @log
-    def trouver_ingredient(self, nom_ingredient) -> dict[str, str]:
+    def trouver_ingredient(self, nom_ingredient: str) -> dict[str, str]:
         """
+
+        Donne toutes les infos d'un ingrédient à partir du nom de l'ingrédient.
+
+        Args:
+            nom_ingredient (str)
+
+        Returns:
+            dict[str, str]
 
         """
 
@@ -144,14 +151,14 @@ class IngredientDao(metaclass=Singleton):
                         "SELECT nom_ingredient "
                         "FROM ingredient "
                         "WHERE id_ingredient = %(id_ingredient)s;",
-                        {'id_ingredient': id_ingredient}
+                        {"id_ingredient": id_ingredient},
                     )
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
             raise
         if res:
-            return res['nom_ingredient']
+            return res["nom_ingredient"]
         else:
             return None
 
@@ -188,13 +195,13 @@ class IngredientDao(metaclass=Singleton):
                         "SELECT id_ingredient "
                         "FROM ingredient "
                         "WHERE lower(nom_ingredient) = %(nom_ingredient)s;",
-                        {'nom_ingredient': nom_ingredient}
+                        {"nom_ingredient": nom_ingredient},
                     )
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
             raise
         if res:
-            return res['id_ingredient']
+            return res["id_ingredient"]
         else:
             return None

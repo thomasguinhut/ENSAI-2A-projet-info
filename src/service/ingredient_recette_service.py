@@ -71,7 +71,9 @@ class IngredientRecetteService:
 
     @log
     def lister_ingredients_by_recette(self, id_recette) -> list[dict]:
-        """lister toutes les recettes par ingrédient
+        """
+
+        lister toutes les recettes par ingrédient
 
         Parameters
         ----------
@@ -81,6 +83,7 @@ class IngredientRecetteService:
         -------
         res : list[dict]
             renvoie une liste de dictionnaire d'ingrédients
+
         """
         res = IngredientRecetteDao().lister_ingredients_by_recette(id_recette)
         liste_ingredient = []

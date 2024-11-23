@@ -54,7 +54,6 @@ class AvisDao(metaclass=Singleton):
         except Exception as e:
             logging.info(e)
             raise
-
         return res > 0
 
     @log
@@ -109,11 +108,26 @@ class AvisDao(metaclass=Singleton):
         except Exception as e:
             logging.info(e)
             raise
-
         return True  # L'avis a bien été ajouté
 
     def get_id_avis_by_id_utilisateur_id_recette(self, id_utilisateur: str, id_recette: str) -> str:
+        """
 
+        Donne l'id de l'avis à partir de l'id de l'utilisateur qui l'a rédigé, et de l'id de la
+        recette concernée.
+
+        Args:
+            id_utilisateur (str)
+            id_recette (str)
+
+        Raises:
+            TypeError: id_utilisateur doit être un str
+            TypeError: id_recette doit être un str
+
+        Returns:
+            str: id de l'avis recherché
+
+        """
         if not isinstance(id_utilisateur, str):
             raise TypeError("id_utilisateur doit être un str")
         if not isinstance(id_recette, str):
@@ -139,8 +153,21 @@ class AvisDao(metaclass=Singleton):
         else:
             return None
 
-    def get_avis_by_id_recette(self, id_recette: str) -> str:
+    def get_avis_by_id_recette(self, id_recette: str) -> list[dict]:
+        """
 
+        Renvoie tous les avis d'une recette donnée.
+
+        Args:
+            id_recette (str): id de la recette dont on veut les avis
+
+        Raises:
+            TypeError: id_recette doit être un str
+
+        Returns:
+            list[dict]: les éléments de chaque avis dans un dictionnaire
+
+        """
         if not isinstance(id_recette, str):
             raise TypeError("id_recette doit être un str")
 

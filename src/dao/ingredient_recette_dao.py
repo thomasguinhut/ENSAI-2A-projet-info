@@ -18,17 +18,20 @@ class IngredientRecetteDao(metaclass=Singleton):
 
     @log
     def creer(self, recette) -> bool:
-        """Creation d'une table qui associe chaque ingredient à sa recette dans la base de données
+        """
 
-         Parameters
-         ----------
+        Creation d'une table qui associe chaque ingredient à sa recette dans la base de données
+
+        Parameters
+        ----------
         recette : Recette
 
-         Returns
-         -------
-         created : bool
-             True si la création est un succès
-             False sinon
+        Returns
+        -------
+        created : bool
+            True si la création est un succès
+            False sinon
+
         """
         created = None
         for ingredient in recette.ingredients_recette:
@@ -56,7 +59,9 @@ class IngredientRecetteDao(metaclass=Singleton):
 
     @log
     def lister_recettes_par_ingredient(self, ingredient) -> list[dict]:
-        """lister toutes les recettes par ingrédient
+        """
+
+        Lister toutes les recettes par ingrédient
 
         Parameters
         ----------
@@ -66,6 +71,7 @@ class IngredientRecetteDao(metaclass=Singleton):
         -------
         res : list[dict]
             renvoie une liste de dictionnaire des recettes
+
         """
 
         try:
@@ -88,7 +94,9 @@ class IngredientRecetteDao(metaclass=Singleton):
 
     @log
     def lister_ingredients_by_recette(self, id_recette) -> list[dict]:
-        """lister toutes les recettes par ingrédient
+        """
+
+        lister toutes les ingrédients d'une recette
 
         Parameters
         ----------
@@ -98,6 +106,7 @@ class IngredientRecetteDao(metaclass=Singleton):
         -------
         res : list[dict]
             renvoie une liste de dictionnaire d'ingrédients
+
         """
 
         try:

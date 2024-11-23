@@ -101,7 +101,29 @@ class RecetteDao(metaclass=Singleton):
         filtres_ingredients: list[Ingredient] = None,
         filtres_origines: list[Origine] = None,
         filtres_categories: list[Categorie] = None,
-    ):
+    ) -> list[dict["id":str, str, str, str, str, str]]:
+        """
+
+        Filtre les recettes selon des ingrédients, des origines et des catégories.
+
+        Attention : il y a une intersection entre ces trois types de filtre, mais il y a
+        une union au sein de chacun de es types. Par exemple, chercher mettre dessert en
+        catégorie et French en origine donne tous les desserts français. Si on ajoute
+        Spanish en paramètre, cela affiche tous les désserts français et tous les desserts
+        espagnols.
+
+        Args:
+            filtres_ingredients (list[Ingredient], optional). Defaults to None.
+            filtres_origines (list[Origine], optional). Defaults to None.
+            filtres_categories (list[Categorie], optional). Defaults to None.
+
+        Returns:
+            recettes_filtrees: list[dict[
+            str, str, str, Origine, Categorie, list[Ingredient]]
+            Renvoie la liste de toutes les recettes concernées par les filtres
+            sous forme de dictionnaires
+
+        """
         recettes_ingredients = []
         id_recettes_ingredients = []
         recettes_origines = []

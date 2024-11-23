@@ -23,17 +23,17 @@ class RecetteFavoriteService:
     def retirer_favori(self, id_utilisateur, nom_recette: str) -> bool:
         """
 
-                Suppression d'une recette de la liste des recettes favorites.
+        Suppression d'une recette de la liste des recettes favorites.
 
-                Parameters
-                ----------
-                nom_recette : str
-                    recette à supprimer de la liste des recettes favorites
+        Parameters
+        ----------
+        nom_recette : str
+            recette à supprimer de la liste des recettes favorites
 
-                Returns
-                -------
-                    True si la recette a bien été supprimée
-        .
+        Returns
+        -------
+            True si la recette a bien été supprimée
+
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         recette = RecetteService().trouver_recette(nom_recette)
@@ -70,19 +70,20 @@ class RecetteFavoriteService:
     @log
     def ajouter_favori(self, id_utilisateur, nom_recette) -> bool:
         """
-                Ajout d'une recette à la liste des recettes favorites de l'utilisateur.
 
-                Parameters
-                ----------
-                recette : Recette
-                    recette à ajouter de la liste des recettes favorites
-                utilisateur : Utilisateur
-                    utilisateur dont on modifie la liste des recetttes favorites
+        Ajout d'une recette à la liste des recettes favorites de l'utilisateur.
 
-                Returns
-                -------
-                    True si la recette a bien été ajoutée
-        .
+        Parameters
+        ----------
+        recette : Recette
+            recette à ajouter de la liste des recettes favorites
+        utilisateur : Utilisateur
+            utilisateur dont on modifie la liste des recetttes favorites
+
+        Returns
+        -------
+            True si la recette a bien été ajoutée
+
         """
         utilisateur = UtilisateurService().trouver_par_id(id_utilisateur)
         recette = RecetteService().trouver_recette(nom_recette)

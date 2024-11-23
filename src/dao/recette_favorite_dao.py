@@ -20,7 +20,9 @@ class RecetteFavoriteDao(metaclass=Singleton):
 
     @log
     def retirer_favori(self, utilisateur, recette) -> bool:
-        """Suppression d'une recette de la liste des recettes favorites
+        """
+
+        Suppression d'une recette de la liste des recettes favorites
 
         Parameters
         ----------
@@ -30,6 +32,7 @@ class RecetteFavoriteDao(metaclass=Singleton):
         Returns
         -------
             True si la recette a bien été supprimée
+
         """
 
         try:
@@ -54,7 +57,9 @@ class RecetteFavoriteDao(metaclass=Singleton):
 
     @log
     def ajouter_favori(self, utilisateur, recette) -> bool:
-        """Ajout d'une recette à la liste des recettes favorites d'un utilisateur donné
+        """
+
+        Ajout d'une recette à la liste des recettes favorites d'un utilisateur donné
 
         Parameters
         ----------
@@ -65,6 +70,7 @@ class RecetteFavoriteDao(metaclass=Singleton):
         -------
         created : bool
             True si l'ajout est un succès, False sinon
+
         """
         res = None
         try:
@@ -92,16 +98,19 @@ class RecetteFavoriteDao(metaclass=Singleton):
 
     @log
     def lister_recette_favorite(self, utilisateur) -> list[dict]:
-        """lister toutes les recettes favorites pour un utilisateur donné
+        """
+
+        lister toutes les recettes favorites pour un utilisateur donné
 
         Parameters
         ----------
-        id_utilisateur : str
+        id_utilisateur : Utilisateur
 
         Returns
         -------
         liste_recette : list[Recettes]
             renvoie la liste de toutes les recettes favorites de l'utilisateur
+
         """
 
         id_utilisateur = utilisateur.id_utilisateur

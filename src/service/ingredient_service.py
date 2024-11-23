@@ -5,7 +5,6 @@ from dao.ingredient_dao import IngredientDao
 
 
 class IngredientService:
-
     """
 
     Création de classe IngredientService.
@@ -36,8 +35,7 @@ class IngredientService:
         """
 
         nouvel_ingredient = Ingredient(
-            id_ingredient=ingredient["id_ingredient"],
-            nom_ingredient=ingredient["nom_ingredient"]
+            id_ingredient=ingredient["id_ingredient"], nom_ingredient=ingredient["nom_ingredient"]
         )
         if IngredientDao().creer(ingredient=nouvel_ingredient):
             return nouvel_ingredient
@@ -67,10 +65,7 @@ class IngredientService:
         return liste_ingredients
 
     @log
-    def trouver_ingredient(self, nom_ingredient) -> Ingredient:
-        """
-        """
-
+    def trouver_ingredient(self, nom_ingredient: str) -> Ingredient:
         res = IngredientDao().trouver_ingredient(nom_ingredient)
         if res:
             ingredient = Ingredient(
