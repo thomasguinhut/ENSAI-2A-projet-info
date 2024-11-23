@@ -102,7 +102,7 @@ python src/__main__.py
 - [ ] Il est nécessaire d'initialiser les données test (les tests de cette application ne sont pas appliqués sur la base de données originelle)
   - dans Git Bash :
 ```bash
-python src/utils/reset_database_test.py`
+python src/utils/reset_database_test.py
 ```
   - Ouvrez le fichier .env : pour POSTGRES_SCHEMA, remplaçer 'projet' par 'projet_test'
 - [ ] Toujours dans Git Bash :
