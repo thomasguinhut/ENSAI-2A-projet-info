@@ -74,7 +74,7 @@ POSTGRES_SCHEMA=projet
 ```
 
 - [ ] Remplaçer les 'xxxx' par votre id Ensai
-- [ ] Si vous prévoyez de faire des tests (et donc d'utiliser la base de données projet_test), il est indispensable de revenir par la suite à la base de données complètes (donc, de remensionner 'projet' pour la variable POSTGRES_SCHEMA)
+- [ ] Si vous prévoyez de faire des tests (et donc d'utiliser la base de données projet_test), il est indispensable de revenir par la suite à la base de données complètes (donc, de rementionner 'projet' pour la variable POSTGRES_SCHEMA)
 
 ---
 
