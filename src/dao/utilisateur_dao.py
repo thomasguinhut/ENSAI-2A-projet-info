@@ -20,7 +20,9 @@ class UtilisateurDao(metaclass=Singleton):
 
     @log
     def creer(self, utilisateur) -> bool:
-        """Creation d'un joueur dans la base de données
+        """
+
+        Creation d'un joueur dans la base de données
 
         Parameters
         ----------
@@ -60,7 +62,9 @@ class UtilisateurDao(metaclass=Singleton):
 
     @log
     def trouver_par_id(self, id_utilisateur) -> Utilisateur:
-        """trouver un Utilisateur grace à son id
+        """
+
+        trouver un Utilisateur grace à son id
 
         Parameters
         ----------
@@ -89,7 +93,9 @@ class UtilisateurDao(metaclass=Singleton):
 
     @log
     def existence_id(self, id_utilisateur) -> bool:
-        """Renvoie vrai si l'id existe déjà
+        """
+
+        Renvoie vrai si l'id existe déjà
 
         Parameters
         ----------
@@ -99,6 +105,7 @@ class UtilisateurDao(metaclass=Singleton):
         Returns
         -------
         exist : booléen
+
         """
         try:
             with DBConnection().connection as connection:
@@ -118,7 +125,9 @@ class UtilisateurDao(metaclass=Singleton):
 
     @log
     def se_connecter(self, id_utilisateur, mdp) -> Utilisateur:
-        """se connecter grâce à son id et son mot de passe
+        """
+
+        se connecter grâce à son id et son mot de passe
 
         Parameters
         ----------
@@ -131,6 +140,7 @@ class UtilisateurDao(metaclass=Singleton):
         -------
         utilisateur : Utilisateur
             renvoie l'utilisateur que l'on cherche
+
         """
 
         res = None

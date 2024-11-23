@@ -9,7 +9,6 @@ from dao.db_connection import DBConnection
 
 
 class CategorieDao(metaclass=Singleton):
-
     """
 
     Création de la classe CategorieDao.
@@ -22,7 +21,9 @@ class CategorieDao(metaclass=Singleton):
 
     @log
     def creer(self, categorie) -> bool:
-        """Creation d'une categorie dans la base de données
+        """
+
+        Creation d'une categorie dans la base de données
 
         Parameters
         ----------
@@ -33,6 +34,7 @@ class CategorieDao(metaclass=Singleton):
         created : bool
             True si la création est un succès
             False sinon
+
         """
         res = None
         try:
@@ -79,10 +81,7 @@ class CategorieDao(metaclass=Singleton):
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    cursor.execute(
-                        "SELECT *"
-                        "   FROM categorie;"
-                    )
+                    cursor.execute("SELECT *" "   FROM categorie;")
                     res = cursor.fetchall()
         except Exception as e:
             logging.info(e)
@@ -121,14 +120,14 @@ class CategorieDao(metaclass=Singleton):
                         "SELECT nom_categorie "
                         "FROM categorie "
                         "WHERE id_categorie = %(id_categorie)s;",
-                        {'id_categorie': id_categorie}
+                        {"id_categorie": id_categorie},
                     )
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
             raise
         if res:
-            return res['nom_categorie']
+            return res["nom_categorie"]
         else:
             return None
 
@@ -165,13 +164,13 @@ class CategorieDao(metaclass=Singleton):
                         "SELECT id_categorie "
                         "FROM categorie "
                         "WHERE lower(nom_categorie) = %(nom_categorie)s;",
-                        {'nom_categorie': nom_categorie}
+                        {"nom_categorie": nom_categorie},
                     )
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
             raise
         if res:
-            return res['id_categorie']
+            return res["id_categorie"]
         else:
             return None

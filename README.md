@@ -23,8 +23,9 @@ Application MyKitchen réalisée par Akmal Ayari,  Toussaint Boco, Thomas Guinhu
 
 - [ ] Ouvrez **Visual Studio Code**
 - [ ] File > Open Folder
-- [ ] Cliquez une seule fois sur *ENSAI-2A-projet-info-groupe-20* et cliquez sur `Sélectionner un dossier`
+- [ ] Ouvrez le dossier cloné en cliquant une seule fois sur *ENSAI-2A-projet-info* puis sur `Sélectionner un dossier`
   - :warning: Si le dossier parent dans l'explorer VSCode (à gauche) n'est pas *ENSAI-2A-projet-info-groupe-20*, l'application ne fonctionnera pas
+- [ ] Accordez les droits d'ouverture, si demandés
 
 ### Fichiers de configuration
 
@@ -73,7 +74,7 @@ POSTGRES_SCHEMA=projet
 ```
 
 - [ ] Remplaçer les 'xxxx' par votre id Ensai
-- [ ] Si vous prévoyez de faire des tests (et donc d'utiliser la base de données projet_test), il est indispensable de revenir à la base de données complètes (donc, de rementionner 'projet' pour la variable POSTGRES_SCHEMA)
+- [ ] Si vous prévoyez de faire des tests (et donc d'utiliser la base de données projet_test), il est indispensable de revenir par la suite à la base de données complètes (donc, de remensionner 'projet' pour la variable POSTGRES_SCHEMA)
 
 ---
 
@@ -81,13 +82,16 @@ POSTGRES_SCHEMA=projet
 
 Cette application propose une interface graphique très basique pour naviguer entre différents menus.
 
-- [ ] Dans Git Bash :
+- [ ] Si cela n'a jamais été fait, initialiser les données
+  - dans Git Bash :
+```bash
+python src/utils/reset_database.py
+```
+  - vous pouvez faire de même lorsque vous souhaitez réinitialiser les données après avoir modifié la base (ajout d'utilisateurs, de favoris,...)
+- [ ] Puis pour lancer l'application, toujours dans Git Bash :
 ```bash
 python src/__main__.py
 ```
-- [ ] Si cela n'a jamais été fait, initialiser les données
-  - dans Git Bash : `python src/utils/reset_database.py`
-  - vous pouvez faire de même lorsque vous souhaitez réinitialiser les données après avoir modifié la base (ajout d'utilisateurs, de favoris,...)
 
 ---
 
@@ -96,9 +100,15 @@ python src/__main__.py
 ### Initialisation des données tests
 
 - [ ] Il est nécessaire d'initialiser les données test (les tests de cette application ne sont pas appliqués sur la base de données originelle)
-  - dans Git Bash : `python src/utils/reset_database_test.py`
+  - dans Git Bash :
+```bash
+python src/utils/reset_database_test.py
+```
   - Ouvrez le fichier .env : pour POSTGRES_SCHEMA, remplaçer 'projet' par 'projet_test'
-- [ ] Toujours dans Git Bash : `python -m pytest -v`
+- [ ] Toujours dans Git Bash :
+```bash
+python -m pytest -v
+```
 
 ### Couverture de tests
 
@@ -106,4 +116,7 @@ Il est également possible de générer la couverture de tests avec [Coverage](h
 
 :bulb: Le fichier `.coveragerc` permet de modifier le paramétrage
 
-- [ ] dans le terminal python : `python -m pytest --cov`
+- [ ] dans le terminal python :
+```bash
+python -m pytest --cov
+```

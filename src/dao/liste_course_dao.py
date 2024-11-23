@@ -34,6 +34,7 @@ class ListeCourseDao(metaclass=Singleton):
         Returns
         -------
             True si l'ingredient a bien été supprimé
+
         """
 
         try:
@@ -106,6 +107,7 @@ class ListeCourseDao(metaclass=Singleton):
         -------
         created : bool
             True si l'ajout est un succès, False sinon
+
         """
         try:
             with DBConnection().connection as connection:
@@ -155,6 +157,18 @@ class ListeCourseDao(metaclass=Singleton):
 
     @log
     def ajouter_ingredient_courses(self, utilisateur: Utilisateur, ingredient: Ingredient) -> bool:
+        """
+
+        Ajoute un ingrédient à la liste de course d'un utilisateur.
+
+        Args:
+            utilisateur (Utilisateur)
+            ingredient (Ingredient)
+
+        Returns:
+            bool: True si cela a bien été ajouté, False sinon
+
+        """
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -202,6 +216,7 @@ class ListeCourseDao(metaclass=Singleton):
         liste_ingredients : list[Ingredient]
             renvoie la liste de tous les ingrédients de la liste de course
             de l'utilisateur
+
         """
         id_utilisateur = utilisateur.id_utilisateur
         try:
