@@ -12,7 +12,22 @@ from business_object.categorie import Categorie
 
 class RecetteDao(metaclass=Singleton):
     @log
-    def creer(self, recette) -> bool:
+    def creer(self, recette):
+        """
+
+        Creation d'une recette dans la base de données.
+
+        Parameters
+        ----------
+        recette : Recette
+
+        Returns
+        -------
+        created : bool
+            True si la création est un succès, False sinon.
+
+        """
+        res = None
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -42,7 +57,23 @@ class RecetteDao(metaclass=Singleton):
         return False
 
     @log
-    def trouver_liste_recettes(self) -> list[dict[str, Any]]:
+    def trouver_liste_recettes(self):
+        """
+
+        Liste toutes les recettes de la base de donénes.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        liste_recettes : list[dict[
+            str, str, str, Origine, Categorie, list[Ingredient]]
+            Renvoie la liste de toutes les recettes sous forme de dictionnaires
+
+        """
+
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -57,7 +88,29 @@ class RecetteDao(metaclass=Singleton):
         filtres_ingredients: list[Ingredient] = None,
         filtres_origines: list[Origine] = None,
         filtres_categories: list[Categorie] = None,
-    ) -> list[dict[str, Any]]:
+    ):
+        """
+
+        Filtre les recettes selon des ingrédients, des origines et des catégories.
+
+        Attention : il y a une intersection entre ces trois types de filtre, mais il y a
+        une union au sein de chacun de es types. Par exemple, chercher mettre dessert en
+        catégorie et French en origine donne tous les desserts français. Si on ajoute
+        Spanish en paramètre, cela affiche tous les désserts français et tous les desserts
+        espagnols.
+
+        Args:
+            filtres_ingredients (list[Ingredient], optional). Defaults to None.
+            filtres_origines (list[Origine], optional). Defaults to None.
+            filtres_categories (list[Categorie], optional). Defaults to None.
+
+        Returns:
+            recettes_filtrees: list[dict[
+            str, str, str, Origine, Categorie, list[Ingredient]]
+            Renvoie la liste de toutes les recettes concernées par les filtres
+            sous forme de dictionnaires
+
+        """
         recettes_ingredients = []
         id_recettes_ingredients = []
 
