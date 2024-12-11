@@ -11,148 +11,76 @@ from business_object.categorie import Categorie
 
 
 class RecetteDao(metaclass=Singleton):
-    """
-
-    Création de la classe RecetteDao.
-
-    Cette classe fait le lien entre les objets de la classe Recette,
-    disponibles avec la classe Recette Service, et la table recette de la
-    base de données.
-
-    """
-
     @log
     def creer(self, recette) -> bool:
-        """
-
-        Creation d'une recette dans la base de données.
-
-        Parameters
-        ----------
-        recette : Recette
-
-        Returns
-        -------
-        created : bool
-            True si la création est un succès, False sinon.
-
-        """
-        res = None
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO recette(id_recette, nom_recette,"
-                        "                    instructions_recette, id_origine,"
-                        "                    id_categorie) VALUES"
-                        "(%(id_recette)s, %(nom_recette)s,"
-                        "%(instructions_recette)s, %(id_origine)s,"
-                        "%(id_categorie)s)"
-                        "RETURNING id_recette;",
+                        """
+                        INSERT INTO recette(
+                            id_recette, nom_recette, instructions_recette, id_origine, id_categorie
+                        ) VALUES (%(id_recette)s, %(nom_recette)s, %(instructions_recette)s, 
+                                  %(id_origine)s, %(id_categorie)s)
+                        RETURNING id_recette;
+                        """,
                         {
                             "id_recette": recette.id_recette,
                             "nom_recette": recette.nom_recette,
-                            "instructions_recette": (recette.instructions_recette),
+                            "instructions_recette": recette.instructions_recette,
                             "id_origine": recette.origine_recette.id_origine,
-                            "id_categorie": (recette.categorie_recette.id_categorie),
+                            "id_categorie": recette.categorie_recette.id_categorie,
                         },
                     )
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
             raise
-        created = False
         if res:
             recette.id_recette = res["id_recette"]
-            created = True
-        return created
+            return True
+        return False
 
     @log
-    def trouver_liste_recettes(self) -> list[dict["id":str, str, str, str, str, str]]:
-        """
-
-        Liste toutes les recettes de la base de donénes.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        liste_recettes : list[dict[
-            str, str, str, Origine, Categorie, list[Ingredient]]
-            Renvoie la liste de toutes les recettes sous forme de dictionnaires
-
-        """
-
+    def trouver_liste_recettes(self) -> list[dict[str, Any]]:
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    cursor.execute("SELECT *" "   FROM recette;")
-                    res = cursor.fetchall()
+                    cursor.execute("SELECT * FROM recette;")
+                    return cursor.fetchall()
         except Exception as e:
             logging.info(e)
             raise
-
-        return res
 
     def filtrer_recettes(
         self,
         filtres_ingredients: list[Ingredient] = None,
         filtres_origines: list[Origine] = None,
         filtres_categories: list[Categorie] = None,
-    ) -> list[dict["id":str, str, str, str, str, str]]:
-        """
-
-        Filtre les recettes selon des ingrédients, des origines et des catégories.
-
-        Attention : il y a une intersection entre ces trois types de filtre, mais il y a
-        une union au sein de chacun de es types. Par exemple, chercher mettre dessert en
-        catégorie et French en origine donne tous les desserts français. Si on ajoute
-        Spanish en paramètre, cela affiche tous les désserts français et tous les desserts
-        espagnols.
-
-        Args:
-            filtres_ingredients (list[Ingredient], optional). Defaults to None.
-            filtres_origines (list[Origine], optional). Defaults to None.
-            filtres_categories (list[Categorie], optional). Defaults to None.
-
-        Returns:
-            recettes_filtrees: list[dict[
-            str, str, str, Origine, Categorie, list[Ingredient]]
-            Renvoie la liste de toutes les recettes concernées par les filtres
-            sous forme de dictionnaires
-
-        """
+    ) -> list[dict[str, Any]]:
         recettes_ingredients = []
         id_recettes_ingredients = []
-        recettes_origines = []
-        id_recettes_origines = []
-        recettes_categories = []
-        id_recettes_categories = []
+
         if filtres_ingredients:
             for ingredient in filtres_ingredients:
                 id_ingredient = ingredient.id_ingredient
                 try:
                     with DBConnection().connection as connection:
                         with connection.cursor() as cursor:
-                            req = (
-                                "SELECT * FROM recette r "
-                                "JOIN ingredient_recette ir "
-                                "ON r.id_recette = ir.id_recette "
-                                "JOIN ingredient i "
-                                "ON ir.id_ingredient = i.id_ingredient "
-                                "WHERE "
-                            )
-                            req += "ir.id_ingredient = CAST({id_ingredient} " "AS VARCHAR)".format(
-                                id_ingredient=id_ingredient
-                            )
-                            cursor.execute(req)
+                            req = """
+                                SELECT * 
+                                FROM recette r
+                                JOIN ingredient_recette ir ON r.id_recette = ir.id_recette
+                                JOIN ingredient i ON ir.id_ingredient = i.id_ingredient
+                                WHERE ir.id_ingredient = %s
+                            """
+                            cursor.execute(req, (id_ingredient,))
                             res = cursor.fetchall()
                 except Exception as e:
                     logging.info(e)
                     raise
-                recettes_ingredients.append(res)
+
+                recettes_ingredients.extend(res)
                 if res:
                     for i in range(len(res)):
                         id_recettes_ingredients.append(res[i]["id_recette"])
