@@ -11,6 +11,16 @@ from business_object.categorie import Categorie
 
 
 class RecetteDao(metaclass=Singleton):
+    """
+
+    Création de la classe RecetteDao.
+
+    Cette classe fait le lien entre les objets de la classe Recette,
+    disponibles avec la classe Recette Service, et la table recette de la
+    base de données.
+
+    """
+
     @log
     def creer(self, recette):
         """
@@ -32,29 +42,30 @@ class RecetteDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        """
-                        INSERT INTO recette(
-                            id_recette, nom_recette, instructions_recette, id_origine, id_categorie
-                        ) VALUES (%(id_recette)s, %(nom_recette)s, %(instructions_recette)s, 
-                                  %(id_origine)s, %(id_categorie)s)
-                        RETURNING id_recette;
-                        """,
+                        "INSERT INTO recette(id_recette, nom_recette,"
+                        "                    instructions_recette, id_origine,"
+                        "                    id_categorie) VALUES"
+                        "(%(id_recette)s, %(nom_recette)s,"
+                        "%(instructions_recette)s, %(id_origine)s,"
+                        "%(id_categorie)s)"
+                        "RETURNING id_recette;",
                         {
                             "id_recette": recette.id_recette,
                             "nom_recette": recette.nom_recette,
-                            "instructions_recette": recette.instructions_recette,
+                            "instructions_recette": (recette.instructions_recette),
                             "id_origine": recette.origine_recette.id_origine,
-                            "id_categorie": recette.categorie_recette.id_categorie,
+                            "id_categorie": (recette.categorie_recette.id_categorie),
                         },
                     )
                     res = cursor.fetchone()
         except Exception as e:
             logging.info(e)
             raise
+        created = False
         if res:
             recette.id_recette = res["id_recette"]
-            return True
-        return False
+            created = True
+        return created
 
     @log
     def trouver_liste_recettes(self):
@@ -77,11 +88,13 @@ class RecetteDao(metaclass=Singleton):
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    cursor.execute("SELECT * FROM recette;")
-                    return cursor.fetchall()
+                    cursor.execute("SELECT *" "   FROM recette;")
+                    res = cursor.fetchall()
         except Exception as e:
             logging.info(e)
             raise
+
+        return res
 
     def filtrer_recettes(
         self,
@@ -113,84 +126,96 @@ class RecetteDao(metaclass=Singleton):
         """
         recettes_ingredients = []
         id_recettes_ingredients = []
-
+        recettes_origines = []
+        id_recettes_origines = []
+        recettes_categories = []
+        id_recettes_categories = []
         if filtres_ingredients:
+            liste_id = []
             for ingredient in filtres_ingredients:
-                id_ingredient = ingredient.id_ingredient
-                try:
-                    with DBConnection().connection as connection:
-                        with connection.cursor() as cursor:
-                            req = """
-                                SELECT * 
-                                FROM recette r
-                                JOIN ingredient_recette ir ON r.id_recette = ir.id_recette
-                                JOIN ingredient i ON ir.id_ingredient = i.id_ingredient
-                                WHERE ir.id_ingredient = %s
-                            """
-                            cursor.execute(req, (id_ingredient,))
-                            res = cursor.fetchall()
-                except Exception as e:
-                    logging.info(e)
-                    raise
+                liste_id.append(ingredient.id_ingredient)
+            liste_formatee = ', '.join(f"'{id}'" for id in liste_id)
+            try:
+                with DBConnection().connection as connection:
+                    with connection.cursor() as cursor:
+                        # Construire la requête SQL
+                        req = (
+                            "SELECT * FROM recette r "
+                            "JOIN ingredient_recette ir "
+                            "ON r.id_recette = ir.id_recette "
+                            "JOIN ingredient i "
+                            "ON ir.id_ingredient = i.id_ingredient "
+                            f"WHERE i.id_ingredient IN ({liste_formatee})"
+                        )
 
-                recettes_ingredients.extend(res)
-                if res:
-                    for i in range(len(res)):
-                        id_recettes_ingredients.append(res[i]["id_recette"])
-                else:
-                    id_recettes_ingredients.append(None)
+                        # Exécuter la requête
+                        cursor.execute(req)
+                        res = cursor.fetchall()
+            except Exception as e:
+                logging.info(e)
+                raise
+            recettes_ingredients.append(res)
+            if res:
+                for i in range(len(res)):
+                    id_recettes_ingredients.append(res[i]["id_recette"])
+            else:
+                id_recettes_ingredients.append(None)
         if filtres_origines:
+            liste_id = []
             for origine in filtres_origines:
-                id_origine = origine.id_origine
-                try:
-                    with DBConnection().connection as connection:
-                        with connection.cursor() as cursor:
-                            req = (
-                                "SELECT * FROM recette r "
-                                "JOIN origine o "
-                                "ON r.id_origine = o.id_origine "
-                                "WHERE "
-                            )
-                            req += "o.id_origine = CAST({id_origine} " "AS VARCHAR)".format(
-                                id_origine=id_origine
-                            )
-                            cursor.execute(req)
-                            res = cursor.fetchall()
-                except Exception as e:
-                    logging.info(e)
-                    raise
-                recettes_origines.append(res)
-                if res:
-                    for i in range(len(res)):
-                        id_recettes_origines.append(res[i]["id_recette"])
-                else:
-                    id_recettes_origines.append(None)
+                liste_id.append(origine.id_origine)
+            liste_formatee = ', '.join(f"'{id}'" for id in liste_id)
+            try:
+                with DBConnection().connection as connection:
+                    with connection.cursor() as cursor:
+                        # Construire la requête SQL
+                        req = (
+                            "SELECT * FROM recette r "
+                            "JOIN origine o "
+                            "ON r.id_origine = o.id_origine "
+                            f"WHERE o.id_origine IN ({liste_formatee})"
+                        )
+
+                        # Exécuter la requête
+                        cursor.execute(req)
+                        res = cursor.fetchall()
+            except Exception as e:
+                logging.info(e)
+                raise
+            recettes_origines.append(res)
+            if res:
+                for i in range(len(res)):
+                    id_recettes_origines.append(res[i]["id_recette"])
+            else:
+                id_recettes_origines.append(None)
         if filtres_categories:
+            liste_id = []
             for categorie in filtres_categories:
-                id_categorie = categorie.id_categorie
-                try:
-                    with DBConnection().connection as connection:
-                        with connection.cursor() as cursor:
-                            req = (
-                                "SELECT * FROM recette r "
-                                "JOIN categorie c "
-                                "ON r.id_categorie = c.id_categorie "
-                                "WHERE "
-                            )
-                            req += "c.id_categorie = CAST({id_categorie} " "AS VARCHAR)".format(
-                                id_categorie=id_categorie
-                            )
-                            cursor.execute(req)
-                            res = cursor.fetchall()
-                except Exception as e:
-                    logging.info(e)
-                    raise
-                recettes_categories.append(res)
-                if res:
-                    for i in range(len(res)):
-                        id_recettes_categories.append(res[i]["id_recette"])
-                else:
-                    id_recettes_categories.append(None)
+                liste_id.append(categorie.id_categorie)
+            liste_formatee = ', '.join(f"'{id}'" for id in liste_id)
+            try:
+                with DBConnection().connection as connection:
+                    with connection.cursor() as cursor:
+                        # Construire la requête SQL
+                        req = (
+                            "SELECT * FROM recette r "
+                            "JOIN categorie c "
+                            "ON r.id_categorie = c.id_categorie "
+                            f"WHERE c.id_categorie IN ({liste_formatee})"
+                        )
+
+                        # Exécuter la requête
+                        cursor.execute(req)
+                        res = cursor.fetchall()
+            except Exception as e:
+                logging.info(e)
+                raise
+            recettes_categories.append(res)
+            if res:
+                for i in range(len(res)):
+                    id_recettes_categories.append(res[i]["id_recette"])
+            else:
+                id_recettes_categories.append(None)
         id_liste_recettes = []
         if filtres_ingredients and filtres_origines and filtres_categories:
             recettes = recettes_ingredients + recettes_origines + recettes_categories
@@ -219,21 +244,19 @@ class RecetteDao(metaclass=Singleton):
             id_liste_recettes = id_recettes_categories
         else:
             id_liste_recettes = []
-        ids_vus = set()
         recettes_filtrees = []
         if recettes[0]:
-            for recette in recettes:
-                id_recette = recette[0]["id_recette"]
-                if id_recette in id_liste_recettes and id_recette not in ids_vus:
+            for recette in recettes[0]:
+                id_recette = recette["id_recette"]
+                if id_recette in id_liste_recettes:
                     recettes_filtrees.append(recette)
-                    ids_vus.add(id_recette)
         else:
             recettes_filtrees = []
 
         return recettes_filtrees
 
     @log
-    def trouver_recette(self, nom_recette) -> dict["id":str, str, str, str, str, str]:
+    def trouver_recette(self, nom_recette):
         """
 
         Trouver une recette dans la base de données
