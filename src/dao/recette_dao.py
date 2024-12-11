@@ -154,7 +154,8 @@ class RecetteDao(metaclass=Singleton):
                     raise
                 recettes_ingredients.append(res)
                 if res:
-                    id_recettes_ingredients.append(res[0]["id_recette"])
+                    for i in range(len(res)):
+                        id_recettes_ingredients.append(res[i]["id_recette"])
                 else:
                     id_recettes_ingredients.append(None)
         if filtres_origines:
@@ -179,7 +180,8 @@ class RecetteDao(metaclass=Singleton):
                     raise
                 recettes_origines.append(res)
                 if res:
-                    id_recettes_origines.append(res[0]["id_recette"])
+                    for i in range(len(res)):
+                        id_recettes_origines.append(res[i]["id_recette"])
                 else:
                     id_recettes_origines.append(None)
         if filtres_categories:
@@ -204,23 +206,24 @@ class RecetteDao(metaclass=Singleton):
                     raise
                 recettes_categories.append(res)
                 if res:
-                    id_recettes_categories.append(res[0]["id_recette"])
+                    for i in range(len(res)):
+                        id_recettes_categories.append(res[i]["id_recette"])
                 else:
                     id_recettes_categories.append(None)
         id_liste_recettes = []
         if filtres_ingredients and filtres_origines and filtres_categories:
             recettes = recettes_ingredients + recettes_origines + recettes_categories
             id_liste_recettes = list(
-                set(id_recettes_categories)
+                set(id_recettes_ingredients)
                 & set(id_recettes_origines)
                 & set(id_recettes_categories)
             )
         elif filtres_ingredients and filtres_origines:
             recettes = recettes_ingredients + recettes_origines
-            id_liste_recettes = list(set(id_recettes_categories) & set(id_recettes_origines))
+            id_liste_recettes = list(set(id_recettes_ingredients) & set(id_recettes_origines))
         elif filtres_ingredients and filtres_categories:
             recettes = recettes_ingredients + recettes_categories
-            id_liste_recettes = list(set(id_recettes_categories) & set(id_recettes_categories))
+            id_liste_recettes = list(set(id_recettes_ingredients) & set(id_recettes_categories))
         elif filtres_origines and filtres_categories:
             recettes = recettes_origines + recettes_categories
             id_liste_recettes = list(set(id_recettes_origines) & set(id_recettes_categories))
