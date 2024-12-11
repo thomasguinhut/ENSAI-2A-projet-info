@@ -22,7 +22,7 @@ class RecetteDao(metaclass=Singleton):
     """
 
     @log
-    def creer(self, recette) -> bool:
+    def creer(self, recette):
         """
 
         Creation d'une recette dans la base de données.
@@ -68,7 +68,7 @@ class RecetteDao(metaclass=Singleton):
         return created
 
     @log
-    def trouver_liste_recettes(self) -> list[dict["id":str, str, str, str, str, str]]:
+    def trouver_liste_recettes(self):
         """
 
         Liste toutes les recettes de la base de donénes.
@@ -101,7 +101,7 @@ class RecetteDao(metaclass=Singleton):
         filtres_ingredients: list[Ingredient] = None,
         filtres_origines: list[Origine] = None,
         filtres_categories: list[Categorie] = None,
-    ) -> list[dict["id":str, str, str, str, str, str]]:
+    ):
         """
 
         Filtre les recettes selon des ingrédients, des origines et des catégories.
